@@ -1,13 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> 
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" media="" href="main.css">
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="main.css" />
+    <title>Nexus - Login</title>
+
 </head>
 <body>
-    
+
+    <div class="login-container">
+        <h1>Bem-vindo ao Nexus!🪙</h1>
+        <p>Gerencie suas finanças de forma inteligente.</p>
+
+        <form action="dashboard.html" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+            <a href="">Esqueci minha senha</a>
+
+            <button type="submit">Entrar!</button>
+        </form>
+
+        <p class="register-text">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+    </div>
+
 </body>
 </html>
