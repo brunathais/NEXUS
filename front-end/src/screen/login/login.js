@@ -6,10 +6,17 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     const senha = document.getElementById("senha").value;
 
     // DTO que será enviado no corpo da requisição
-    const dto = { usuario, senha };
+    const dto = {
+        usuario: usuario,
+        senha: senha
+       }
+
+        
+
+       
 
     // Configuração da requisição
-    fetch("http://localhost:8080/autenticar/usuario", {
+    fetch("http://localhost:8080/usuarioController/autenticar", {
         method: "POST", // Método HTTP
         headers: {
             "Content-Type": "application/json", // Tipo de conteúdo enviado
@@ -31,3 +38,5 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
             alert("Erro: " + error.message); // Exibe a mensagem de erro
         });
 });
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="login.js">
+    <title>Nexus - Login</title>
+
+</head>
+
+<script>
+    function efetuarLogin (){
+     event.preventDefault(); // Evita o reload da página
+
+    // Obter valores dos campos do formulário
+    const usuario = document.getElementById("nome").value;
+    const senha = document.getElementById("senha").value;
+
+    // DTO que será enviado no corpo da requisição
+    const dto = {
+        usuario: usuario,
+        senha: senha
+       }
+
+
+       const post = {
+        usuario: usuario,
+        senha: senha
+       }
+
+       var get = '?usuario='+usuario+'&senha ='+ senha;
+       
+
+    // Configuração da requisição
+    fetch("http://localhost:8080/usuarioController/autenticar", {
+        method: "POST", // Método HTTP
+        headers: {
+            "Content-Type": "application/json", // Tipo de conteúdo enviado
+        },
+        body: JSON.stringify(dto), // Converte o DTO para JSON
+    })
+        .then((response) => { //opcional
+            if (!response.ok) {
+                throw new Error("Usuário ou senha inválidos");
+            }
+
+            //href = 'home'
+
+            return response.text(); // Receber a mensagem de sucesso
+        })
+        .then((data) => {
+            alert(data); // Exibe a mensagem retornada pelo backend
+            // Redirecionar para o dashboard (caso necessário)
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            alert("Erro: " + error.message); // Exibe a mensagem de erro
+        });
+
+}
+
+// dar uma olhada no button onclick e <button type="submit">Entrar</button>
+// testar GET, POST, PUT, DELETE   
+
+</script>
+
+
+<body>
+
+    <div class="login-container">
+        <h1>Bem-vindo ao Nexus!🪙</h1>
+        <p>Gerencie suas finanças de forma inteligente!</p>
+
+        <form id="loginForm" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="usuario" placeholder="Digite seu nome" required>
+        
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        
+            <button type="submit">Entrar</button>
+        </form>
+
+
+        <button onclick="efetuarLogin()">Entrar2</button>
+
+    
+
+        <p class="register-text">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+    </div>
+
+</body>
+</html>
