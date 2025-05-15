@@ -1,4 +1,4 @@
-document.getElementById("loginForm").addEventListener("submit", function (event) {
+cocument.getElementById("cadastroForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Evita o reload da página
 
     // Obter valores dos campos do formulário
@@ -8,12 +8,13 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     // DTO que será enviado no corpo da requisição
     const dto = {
         usuario: usuario,
-        senha: senha
+        senha: senha,
+        email: email
        }
 
 
     // Configuração da requisição
-    fetch("http://localhost:8080/usuarioController/autenticar", {
+    fetch("http://localhost:8080/usuarioController/cadastro", {
         method: "POST", // Método HTTP
         headers: {
             "Content-Type": "application/json", // Tipo de conteúdo enviado
