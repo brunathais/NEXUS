@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="login.css" />
     <link rel="stylesheet" href="login.js">
     <title>Nexus - Login</title>
 
@@ -22,7 +22,6 @@
         usuario: usuario,
         senha: senha
        }
-
 
        const post = {
         usuario: usuario,
@@ -65,7 +64,6 @@
 
 </script>
 
-
 <body>
 
     <div class="login-container">
@@ -79,15 +77,11 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
         
-            <button type="submit">Entrar</button>
+        <button onclick="efetuarLogin()">Entrar</button>
+
         </form>
-
-
-        <button onclick="efetuarLogin()">Entrar2</button>
-
     
-
-        <p class="register-text">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+        <p class="register-text">Não tem uma conta? <a href="../cadastro/cadastro.html">Cadastre-se</a></p>
     </div>
 
 </body>

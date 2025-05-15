@@ -1,10 +1,4 @@
-<!DOCTYPE html> 
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus - Cadastro</title>
-    <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -19,28 +13,28 @@
             align-items: center;
             height: 100vh;
         }
-
+        
         .register-container {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255,);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 350px;
             color: #333;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 0.5s ease-in-out;
         }
-
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 5; transform: scale(0.1); }
+            to { opacity: 50; transform: scale(1); }
         }
 
         .register-container h1 {
             margin-bottom: 20px;
             font-size: 24px;
             color: #5c6bc0;
-            transition: transform 0.3s;
+            transition: transform 0.5s;
         }
 
         .register-container h1:hover {
@@ -51,7 +45,7 @@
             display: block;
             text-align: left;
             margin-bottom: 5px;
-            font-size: 14px;
+            font-size: 15px;
             color: #5c6bc0;
         }
 
@@ -84,7 +78,7 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.5s ease;
         }
 
         .register-container button:hover {
@@ -127,30 +121,3 @@
                 width: 90%;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="register-container">
-        <h1>Crie sua conta no Nexus 🚀</h1>
-        <p>Gerencie suas finanças com facilidade.</p>
-
-        <form action="dashboard.html" method="POST">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" placeholder="Digite seu nome" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Digite seu email" required>
-
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" placeholder="Crie uma senha" required>
-
-            <label for="confirmar-senha">Confirmar Senha:</label>
-            <input type="password" id="confirmar-senha" placeholder="Confirme sua senha" required>
-
-            <button type="submit">Cadastrar!</button>
-        </form>
-
-        <p class="login-text">Já tem uma conta? <a href="index.html">Faça login</a></p>
-    </div>
-</body>
-</html>

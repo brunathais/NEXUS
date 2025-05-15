@@ -13,8 +13,6 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 
         
 
-       
-
     // Configuração da requisição
     fetch("http://localhost:8080/usuarioController/autenticar", {
         method: "POST", // Método HTTP

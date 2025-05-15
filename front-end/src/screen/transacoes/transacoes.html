@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Gerenciador Financeiro</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div> <!-- Aqui vai o header -->
+
+    <div class="container">
+        <div class="login-box">
+            <h2>Finance Manager</h2>
+            <p>Controle suas finanças com facilidade</p>
+            <form>
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Usuário" required />
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Senha" required />
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+                <a href="#" class="forgot-password">Esqueci minha senha</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div> <!-- Aqui vai o footer -->
+
+    <script>
+      fetch('../../header/header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        });
+
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    </script>
+
+</body>
+</html>
