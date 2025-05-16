@@ -40,7 +40,7 @@
         .form-container form button {
             display: block;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         input, select, button {
@@ -53,6 +53,8 @@
         input[type="radio"] {
             width: auto;
             margin-right: 5px;
+            position: relative;
+            top: 2px; /* Ajuste para centralizar verticalmente */
         }
 
         button {
@@ -95,12 +97,11 @@
         input[type="date"] {
             color: #000;
         }
+
+        #categoria_div {
+            display: none;
+        }
     </style>
-    <script>
-        // Adicione o mesmo script do exemplo original
-        // Certifique-se de que tudo está funcional com o layout atualizado
-        // ...
-    </script>
 </head>
 <body>
 
@@ -109,8 +110,10 @@
         <div class="form-container">
             <form onsubmit="event.preventDefault(); salvarTransacao();">
                 <label>Tipo de Transação:</label>
-                <input type="radio" name="tipo" value="Receita" checked> Receita
-                <input type="radio" name="tipo" value="Despesa"> Despesa
+                <div style="display: flex; gap: 20px;">
+                    <label><input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita</label>
+                    <label><input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa</label>
+                </div>
 
                 <label>Valor:</label>
                 <input type="number" id="valor" placeholder="Valor" required>
@@ -121,7 +124,7 @@
                 <label>Descrição:</label>
                 <input type="text" id="descricao" placeholder="Descrição" required>
 
-                <div id="categoria_div" style="display:none;">
+                <div id="categoria_div">
                     <label>Categoria:</label>
                     <select id="categoria">
                         <option value="Essenciais">Essenciais</option>
@@ -143,7 +146,18 @@
     </div>
 
     <script>
-        // Função para cadastrar ou editar transações
+        // Mostra ou esconde o campo de categoria com base no tipo selecionado
+        function mostrarCategoria() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const categoriaDiv = document.getElementById("categoria_div");
+            if (tipo === "Despesa") {
+                categoriaDiv.style.display = "block";
+            } else {
+                categoriaDiv.style.display = "none";
+            }
+        }
+
+        // Função para salvar transações
         function salvarTransacao() {
             const tipo = document.querySelector('input[name="tipo"]:checked').value;
             const valor = document.getElementById("valor").value;
@@ -154,105 +168,58 @@
                 categoria = document.getElementById("categoria").value;
             }
 
-            // Validação simples
             if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
                 alert("Todos os campos são obrigatórios!");
                 return;
             }
 
-            const transacao = {
-                tipo: tipo,
-                valor: valor,
-                data: data,
-                descricao: descricao,
-                categoria: categoria
-            };
-
-            // Recuperando o histórico de transações do localStorage ou criando um novo array
+            const transacao = { tipo, valor, data, descricao, categoria };
             let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-
-            // Editando ou criando nova transação
             const idEditar = document.getElementById("editar_id").value;
+
             if (idEditar) {
                 transacoes[idEditar] = transacao;
             } else {
                 transacoes.push(transacao);
             }
 
-            // Salvando o histórico atualizado no localStorage
             localStorage.setItem("transacoes", JSON.stringify(transacoes));
-
-            // Atualizando a exibição do histórico
             exibirHistorico();
-
-            // Limpar campos após salvar
             limparCampos();
         }
 
-        // Função para editar uma transação
-        function editarTransacao(index) {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            const transacao = transacoes[index];
-
-            document.getElementById("valor").value = transacao.valor;
-            document.getElementById("data").value = transacao.data;
-            document.getElementById("descricao").value = transacao.descricao;
-
-            if (transacao.tipo === "Despesa") {
-                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
-                document.getElementById("categoria").value = transacao.categoria;
-            } else {
-                document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
-            }
-
-            document.getElementById("editar_id").value = index; // Salva o ID da transação para editar
-        }
-
-        // Função para excluir uma transação
-        function excluirTransacao(index) {
-            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            transacoes.splice(index, 1); // Remove a transação pelo índice
-
-            // Salvando o histórico atualizado no localStorage
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));
-
-            // Atualizando a exibição do histórico
-            exibirHistorico();
-        }
-
-        // Função para exibir o histórico de transações
+        // Exibe o histórico de transações
         function exibirHistorico() {
             const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
             const historicoDiv = document.getElementById("historico");
-            historicoDiv.innerHTML = ""; // Limpar histórico atual
+            historicoDiv.innerHTML = "";
 
             transacoes.forEach((transacao, index) => {
                 const div = document.createElement("div");
-div.innerHTML = `
-    <strong>${transacao.tipo} ${index + 1}:</strong><br>
-    Valor: R$${transacao.valor}<br>
-    Data: ${transacao.data}<br>
-    Descrição: ${transacao.descricao}<br>
-    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
-    <button onclick="editarTransacao(${index})">Editar</button>
-    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-`;
-
+                div.innerHTML = `
+                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
+                    Valor: R$${transacao.valor}<br>
+                    Data: ${transacao.data}<br>
+                    Descrição: ${transacao.descricao}<br>
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                    <button onclick="editarTransacao(${index})">Editar</button>
+                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
+                `;
                 historicoDiv.appendChild(div);
             });
         }
 
-        // Limpar campos do formulário
+        // Limpa os campos do formulário
         function limparCampos() {
             document.getElementById("valor").value = "";
             document.getElementById("data").value = "";
             document.getElementById("descricao").value = "";
             document.getElementById("editar_id").value = "";
             document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
-            document.getElementById("categoria").value = "Essenciais"; // Categoria padrão
+            document.getElementById("categoria").value = "Essenciais";
+            mostrarCategoria();
         }
 
-        // Chama a função para exibir o histórico de transações ao carregar a página
         window.onload = exibirHistorico;
     </script>
 
