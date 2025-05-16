@@ -11,11 +11,6 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
         senha: senha
        }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> 84ee8f8cd50cfc435d87a0d631fbaff4b5ec1931
-
     // Configuração da requisição
     fetch("http://localhost:8080/usuarioController/autenticar", {
         method: "POST", // Método HTTP
@@ -39,5 +34,4 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
             alert("Erro: " + error.message); // Exibe a mensagem de erro
         });
 });
-
 
