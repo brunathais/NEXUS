@@ -1,46 +1,164 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - Gerenciador Financeiro</title>
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Transações</title>
+    <script>
+        // Função para cadastrar ou editar transações
+        function salvarTransacao() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const valor = document.getElementById("valor").value;
+            const data = document.getElementById("data").value;
+            const descricao = document.getElementById("descricao").value;
+            let categoria = "";
+            if (tipo === "Despesa") {
+                categoria = document.getElementById("categoria").value;
+            }
+
+            // Validação simples
+            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
+                alert("Todos os campos são obrigatórios!");
+                return;
+            }
+
+            const transacao = {
+                tipo: tipo,
+                valor: valor,
+                data: data,
+                descricao: descricao,
+                categoria: categoria
+            };
+
+            // Recuperando o histórico de transações do localStorage ou criando um novo array
+            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+
+            // Editando ou criando nova transação
+            const idEditar = document.getElementById("editar_id").value;
+            if (idEditar) {
+                transacoes[idEditar] = transacao;
+            } else {
+                transacoes.push(transacao);
+            }
+
+            // Salvando o histórico atualizado no localStorage
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));
+
+            // Atualizando a exibição do histórico
+            exibirHistorico();
+
+            // Limpar campos após salvar
+            limparCampos();
+        }
+
+        // Função para editar uma transação
+        function editarTransacao(index) {
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const transacao = transacoes[index];
+
+            document.getElementById("valor").value = transacao.valor;
+            document.getElementById("data").value = transacao.data;
+            document.getElementById("descricao").value = transacao.descricao;
+
+            if (transacao.tipo === "Despesa") {
+                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
+                document.getElementById("categoria").value = transacao.categoria;
+            } else {
+                document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
+            }
+
+            document.getElementById("editar_id").value = index; // Salva o ID da transação para editar
+        }
+
+        // Função para excluir uma transação
+        function excluirTransacao(index) {
+            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            transacoes.splice(index, 1); // Remove a transação pelo índice
+
+            // Salvando o histórico atualizado no localStorage
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));
+
+            // Atualizando a exibição do histórico
+            exibirHistorico();
+        }
+
+        // Função para exibir o histórico de transações
+        function exibirHistorico() {
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const historicoDiv = document.getElementById("historico");
+            historicoDiv.innerHTML = ""; // Limpar histórico atual
+
+            transacoes.forEach((transacao, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `<strong>${transacao.tipo} ${index + 1}:</strong><br>
+                                Valor: R$${transacao.valor}<br>
+                                Data: ${transacao.data}<br>
+                                Descrição: ${transacao.descricao}<br>
+                                ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                                <button onclick="editarTransacao(${index})">Editar</button>
+                                <button onclick="excluirTransacao(${index})">Excluir</button><br><br>`;
+                historicoDiv.appendChild(div);
+            });
+        }
+
+        // Limpar campos do formulário
+        function limparCampos() {
+            document.getElementById("valor").value = "";
+            document.getElementById("data").value = "";
+            document.getElementById("descricao").value = "";
+            document.getElementById("editar_id").value = "";
+            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
+            document.getElementById("categoria").value = "Essenciais"; // Categoria padrão
+        }
+
+        // Chama a função para exibir o histórico de transações ao carregar a página
+        window.onload = exibirHistorico;
+    </script>
 </head>
 <body>
 
-    <div id="header-placeholder"></div> <!-- Aqui vai o header -->
+    <h1>Cadastro de Transações</h1>
+    <form onsubmit="event.preventDefault(); salvarTransacao();">
+        <label>Tipo de Transação:</label><br>
+        <input type="radio" name="tipo" value="Receita" checked> Receita
+        <input type="radio" name="tipo" value="Despesa"> Despesa<br><br>
 
-    <div class="container">
-        <div class="login-box">
-            <h2>Finance Manager</h2>
-            <p>Controle suas finanças com facilidade</p>
-            <form>
-                <div class="input-group">
-                    <input type="text" id="username" placeholder="Usuário" required />
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="Senha" required />
-                </div>
-                <button type="submit" class="btn">Entrar</button>
-                <a href="#" class="forgot-password">Esqueci minha senha</a>
-            </form>
+        <label>Valor:</label><br>
+        <input type="number" id="valor" placeholder="Valor" required><br><br>
+
+        <label>Data:</label><br>
+        <input type="date" id="data" required><br><br>
+
+        <label>Descrição:</label><br>
+        <input type="text" id="descricao" placeholder="Descrição" required><br><br>
+
+        <div id="categoria_div" style="display:none;">
+            <label>Categoria:</label><br>
+            <select id="categoria">
+                <option value="Essenciais">Essenciais</option>
+                <option value="Não Essenciais">Não Essenciais</option>
+                <option value="Imprevistos">Imprevistos</option>
+            </select><br><br>
         </div>
-    </div>
 
-    <div id="footer-placeholder"></div> <!-- Aqui vai o footer -->
+        <input type="hidden" id="editar_id">
+
+        <button type="submit">Salvar Transação</button>
+    </form>
+
+    <h2>Histórico de Transações</h2>
+    <div id="historico"></div>
 
     <script>
-      fetch('../../header/header.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
-        });
-
-      fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer-placeholder').innerHTML = data;
+        // Exibir ou ocultar o campo de categoria conforme o tipo de transação
+        document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+            radio.addEventListener("change", function() {
+                if (this.value === "Despesa") {
+                    document.getElementById("categoria_div").style.display = "block";
+                } else {
+                    document.getElementById("categoria_div").style.display = "none";
+                }
+            });
         });
     </script>
 

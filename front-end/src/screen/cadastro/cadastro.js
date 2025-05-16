@@ -1,12 +1,5 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus - Cadastro</title>
-<link rel="stylesheet" href="cadastro.css">
-    <link rel="stylesheet" href="cadastro.js">
 
-</head>
-
-<script>
-    function efetuarLogin(){
+document.getElementById("cadastroForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Evita o reload da página
 
     // Obter valores dos campos do formulário
@@ -16,7 +9,8 @@
     // DTO que será enviado no corpo da requisição
     const dto = {
         usuario: usuario,
-        senha: senha
+        senha: senha,
+        email: email
        }
 
 
@@ -34,7 +28,6 @@
             }
             return response.text(); // Receber a mensagem de sucesso
         })
-
         .then((data) => {
             alert(data); // Exibe a mensagem retornada pelo backend
             // Redirecionar para o dashboard (caso necessário)
@@ -43,32 +36,5 @@
         .catch((error) => {
             alert("Erro: " + error.message); // Exibe a mensagem de erro
         });
-}
+});
 
-
-
-
-</script>
-<body>
-<div class="register-container">
-<h1>Crie sua conta no Nexus 🚀</h1>
-<p>Gerencie suas finanças com facilidade.</p>
-
-        <form action="dashboard.html" method="POST">
-        <form id="cadastroForm" method="POST">
-<label for="nome">Nome:</label>
-<input type="text" id="nome" placeholder="Digite seu nome" required>
-
-@@ -25,7 +71,11 @@ <h1>Crie sua conta no Nexus 🚀</h1>
-<label for="confirmar-senha">Confirmar Senha:</label>
-<input type="password" id="confirmar-senha" placeholder="Confirme sua senha" required>
-
-            <button type="submit">Cadastrar!</button>
-            <button  onclick="efetuarLogin()">Cadastrar!</button>
-
-            <!--sumit não funciona no button, 
-            deve ser algo do metodo post q precisa de algum parametro, 
-            ele parece não encontrar dai ele faz reload na pagina-->
-</form>
-
-<p class="login-text">Já tem uma conta? <a href="index.html">Faça login</a></p>
