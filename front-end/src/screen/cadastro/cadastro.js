@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 document.getElementById("cadastroForm").addEventListener("submit", function (event) {
+=======
+cocument.getElementById("cadastroForm").addEventListener("submit", function (event) {
+>>>>>>> 84ee8f8cd50cfc435d87a0d631fbaff4b5ec1931
     event.preventDefault(); // Evita o reload da página
 
     // Obter valores dos campos do formulário
@@ -38,3 +42,7 @@ document.getElementById("cadastroForm").addEventListener("submit", function (eve
         });
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 84ee8f8cd50cfc435d87a0d631fbaff4b5ec1931
