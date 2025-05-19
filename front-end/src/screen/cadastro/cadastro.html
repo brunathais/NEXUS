@@ -1,0 +1,220 @@
+
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Cadastro</title>
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="cadastro.js">
+    
+</head>
+
+<script>
+    function efetuarLogin(){
+    event.preventDefault(); // Evita o reload da página
+
+    // Obter valores dos campos do formulário
+    const usuario = document.getElementById("nome").value;
+    const senha = document.getElementById("senha").value;
+
+    // DTO que será enviado no corpo da requisição
+    const dto = {
+        usuario: usuario,
+        senha: senha
+       }
+
+
+    // Configuração da requisição
+    fetch("http://localhost:8080/usuarioController/cadastro", {
+        method: "POST", // Método HTTP
+        headers: {
+            "Content-Type": "application/json", // Tipo de conteúdo enviado
+        },
+        body: JSON.stringify(dto), // Converte o DTO para JSON
+    })
+        .then((response) => { //opcional
+            if (!response.ok) {
+                throw new Error("Usuário ou senha inválidos");
+            }
+            return response.text(); // Receber a mensagem de sucesso
+        })
+
+        .then((data) => {
+            alert(data); // Exibe a mensagem retornada pelo backend
+            // Redirecionar para o dashboard (caso necessário)
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            alert("Erro: " + error.message); // Exibe a mensagem de erro
+        });
+}
+
+
+
+
+</script>
+
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Cadastro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+            color: #333;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .register-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #5c6bc0;
+            transition: transform 0.3s;
+        }
+
+        .register-container h1:hover {
+            transform: scale(1.1);
+        }
+
+        .register-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #5c6bc0;
+        }
+
+        .register-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #b0bec5;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #eceff1;
+            color: #333;
+            transition: 0.3s ease;
+        }
+
+        .register-container input:focus {
+            outline: none;
+            border-color: #5c6bc0;
+            box-shadow: 0 0 8px rgba(92, 107, 192, 0.7);
+            transform: scale(1.05);
+        }
+
+        .register-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #5c6bc0;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .register-container button:hover {
+            animation: rainbowEffect 1.5s infinite linear, bounce 0.5s infinite alternate;
+        }
+
+        @keyframes rainbowEffect {
+            0% { background: #ff0000; }
+            14% { background: #ff7f00; }
+            28% { background: #ffff00; }
+            42% { background: #00ff00; }
+            57% { background: #0000ff; }
+            71% { background: #4b0082; }
+            85% { background: #8b00ff; }
+            100% { background: #ff0000; }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        .login-text {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: #5c6bc0;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .login-text a:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 400px) {
+            .register-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Crie sua conta no Nexus 🚀</h1>
+        <p>Gerencie suas finanças com facilidade.</p>
+
+        <form id="cadastroForm" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" placeholder="Crie uma senha" required>
+
+            <label for="confirmar-senha">Confirmar Senha:</label>
+            <input type="password" id="confirmar-senha" placeholder="Confirme sua senha" required>
+
+            <button  onclick="efetuarLogin()">Cadastrar</button>
+            
+            <!--sumit não funciona no button, 
+            deve ser algo do metodo post q precisa de algum parametro, 
+            ele parece não encontrar dai ele faz reload na pagina-->
+        </form>
+        <!--sumit não funciona no button, 
+            deve ser algo do metodo post q precisa de algum parametro, 
+            ele parece não encontrar dai ele faz reload na pagina-->
+
+        <p class="login-text">Já tem uma conta? <a href="../login/login.html">Faça login</a></p>
+    </div>
+</body>
+</html>
