@@ -1,81 +1,114 @@
-/* Fonte do Google */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+*
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            height: 100vh;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
 
-body {
-    background: url('https://source.unsplash.com/1600x900/?finance,money') no-repeat center center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    backdrop-filter: blur(5px);
-}
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            height: 100vh;
+        }
 
-.container {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    color: #fff;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
-    width: 350px;
-}
+        .form-container, .historico-container {
+            width: 48%;
+            background: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px #ddd;
+        }
 
-h2 {
-    margin-bottom: 10px;
-}
+        .form-container form label, 
+        .form-container form input, 
+        .form-container form select, 
+        .form-container form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
-p {
-    font-size: 14px;
-    margin-bottom: 20px;
-    opacity: 0.8;
-}
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
 
-.input-group {
-    margin-bottom: 15px;
-}
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+            position: relative;
+            top: 2px;
+        }
 
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-}
+        button {
+            background: #5d5dd6;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.btn {
-    background: #28a745;
-    color: #fff;
-    padding: 12px;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        button:hover {
+            background: #8c4cfc;
+        }
 
-.btn:hover {
-    background: #218838;
-}
+        .historico-container div {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #ddd;
+        }
 
-.forgot-password {
-    display: block;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #f8f9fa;
-    text-decoration: none;
-    opacity: 0.7;
-    transition: 0.3s;
-}
+        .historico-container button {
+            width: auto;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background: #5d5dd6;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
 
-.forgot-password:hover {
-    opacity: 1;
-}
+        .historico-container button:hover {
+            background: #8c4cfc;
+        }
+
+        ::placeholder {
+            color: #aaa;
+        }
+
+        input[type="date"] {
+            color: #000;
+        }
+
+        #categoria_div {
+            display: none;
+        }
+
+        .filtro-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .filtro-container select,
+        .filtro-container input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            width: 200px;
+        }
+

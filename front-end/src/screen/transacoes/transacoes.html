@@ -4,103 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Transações</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #000, #2a2a72, #5d5dd6, #8c4cfc);
-            color: white;
-            height: 100vh;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #ffffff;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            height: 100vh;
-        }
-
-        .form-container, .historico-container {
-            width: 48%;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px #5d5dd6;
-        }
-
-        .form-container form label, 
-        .form-container form input, 
-        .form-container form select, 
-        .form-container form button {
-            display: block;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        input, select, button {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            font-size: 14px;
-        }
-
-        input[type="radio"] {
-            width: auto;
-            margin-right: 5px;
-        }
-
-        button {
-            background: linear-gradient(to right, #5d5dd6, #8c4cfc);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: linear-gradient(to right, #8c4cfc, #5d5dd6);
-        }
-
-        .historico-container div {
-            margin-bottom: 20px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 5px;
-        }
-
-        .historico-container button {
-            width: auto;
-            margin-right: 10px;
-            padding: 5px 10px;
-            background: linear-gradient(to right, #5d5dd6, #8c4cfc);
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .historico-container button:hover {
-            background: linear-gradient(to right, #8c4cfc, #5d5dd6);
-        }
-
-        ::placeholder {
-            color: #cfcfcf;
-        }
-
-        input[type="date"] {
-            color: #000;
-        }
-    </style>
-    <script>
-        // Adicione o mesmo script do exemplo original
-        // Certifique-se de que tudo está funcional com o layout atualizado
-        // ...
-    </script>
+   
 </head>
 <body>
 
@@ -109,8 +13,10 @@
         <div class="form-container">
             <form onsubmit="event.preventDefault(); salvarTransacao();">
                 <label>Tipo de Transação:</label>
-                <input type="radio" name="tipo" value="Receita" checked> Receita
-                <input type="radio" name="tipo" value="Despesa"> Despesa
+                <div style="display: flex; gap: 20px;">
+                    <label><input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita</label>
+                    <label><input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa</label>
+                </div>
 
                 <label>Valor:</label>
                 <input type="number" id="valor" placeholder="Valor" required>
@@ -121,7 +27,7 @@
                 <label>Descrição:</label>
                 <input type="text" id="descricao" placeholder="Descrição" required>
 
-                <div id="categoria_div" style="display:none;">
+                <div id="categoria_div">
                     <label>Categoria:</label>
                     <select id="categoria">
                         <option value="Essenciais">Essenciais</option>
@@ -138,123 +44,30 @@
 
         <div class="historico-container">
             <h2>Histórico de Transações</h2>
+            <div class="filtro-container">
+                <select id="filtroTipo" onchange="filtrarHistorico()">
+                    <option value="">Filtrar por Tipo</option>
+                    <option value="Receita">Somente Receitas</option>
+                    <option value="Despesa">Somente Despesas</option>
+                </select>
+
+                <select id="filtroCategoria" onchange="filtrarHistorico()">
+                    <option value="">Filtrar por Categoria</option>
+                    <option value="Essenciais">Essenciais</option>
+                    <option value="Não Essenciais">Não Essenciais</option>
+                    <option value="Imprevistos">Imprevistos</option>
+                </select>
+
+                <label for="filtroDataInicio">De:</label>
+                <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
+
+                <label for="filtroDataFim">Até:</label>
+                <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
+            </div>
+
             <div id="historico"></div>
         </div>
     </div>
-
-    <script>
-        // Função para cadastrar ou editar transações
-        function salvarTransacao() {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value;
-            const valor = document.getElementById("valor").value;
-            const data = document.getElementById("data").value;
-            const descricao = document.getElementById("descricao").value;
-            let categoria = "";
-            if (tipo === "Despesa") {
-                categoria = document.getElementById("categoria").value;
-            }
-
-            // Validação simples
-            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
-                alert("Todos os campos são obrigatórios!");
-                return;
-            }
-
-            const transacao = {
-                tipo: tipo,
-                valor: valor,
-                data: data,
-                descricao: descricao,
-                categoria: categoria
-            };
-
-            // Recuperando o histórico de transações do localStorage ou criando um novo array
-            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-
-            // Editando ou criando nova transação
-            const idEditar = document.getElementById("editar_id").value;
-            if (idEditar) {
-                transacoes[idEditar] = transacao;
-            } else {
-                transacoes.push(transacao);
-            }
-
-            // Salvando o histórico atualizado no localStorage
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));
-
-            // Atualizando a exibição do histórico
-            exibirHistorico();
-
-            // Limpar campos após salvar
-            limparCampos();
-        }
-
-        // Função para editar uma transação
-        function editarTransacao(index) {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            const transacao = transacoes[index];
-
-            document.getElementById("valor").value = transacao.valor;
-            document.getElementById("data").value = transacao.data;
-            document.getElementById("descricao").value = transacao.descricao;
-
-            if (transacao.tipo === "Despesa") {
-                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
-                document.getElementById("categoria").value = transacao.categoria;
-            } else {
-                document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
-            }
-
-            document.getElementById("editar_id").value = index; // Salva o ID da transação para editar
-        }
-
-        // Função para excluir uma transação
-        function excluirTransacao(index) {
-            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            transacoes.splice(index, 1); // Remove a transação pelo índice
-
-            // Salvando o histórico atualizado no localStorage
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));
-
-            // Atualizando a exibição do histórico
-            exibirHistorico();
-        }
-
-        // Função para exibir o histórico de transações
-        function exibirHistorico() {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            const historicoDiv = document.getElementById("historico");
-            historicoDiv.innerHTML = ""; // Limpar histórico atual
-
-            transacoes.forEach((transacao, index) => {
-                const div = document.createElement("div");
-div.innerHTML = `
-    <strong>${transacao.tipo} ${index + 1}:</strong><br>
-    Valor: R$${transacao.valor}<br>
-    Data: ${transacao.data}<br>
-    Descrição: ${transacao.descricao}<br>
-    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
-    <button onclick="editarTransacao(${index})">Editar</button>
-    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-`;
-
-                historicoDiv.appendChild(div);
-            });
-        }
-
-        // Limpar campos do formulário
-        function limparCampos() {
-            document.getElementById("valor").value = "";
-            document.getElementById("data").value = "";
-            document.getElementById("descricao").value = "";
-            document.getElementById("editar_id").value = "";
-            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
-            document.getElementById("categoria").value = "Essenciais"; // Categoria padrão
-        }
-
-        // Chama a função para exibir o histórico de transações ao carregar a página
-        window.onload = exibirHistorico;
-    </script>
 
 </body>
 </html>
