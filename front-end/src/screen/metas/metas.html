@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Metas Financeiras</title>
+  <link rel="stylesheet" href="metas.css">
+  <link rel="stylesheet" href="metas.html">
+</head>
+<body>
+  <!-- Título -->
+  <h1>Gerenciador de Metas Financeiras</h1>
+
+  <!-- Formulário de nova meta -->
+  <form id="form-meta">
+    <label for="nomeMeta">Nome da Meta</label>
+    <input type="text" id="nomeMeta" required />
+
+    <label for="valorTotal">Valor Total (R$)</label>
+    <input type="number" id="valorTotal" min="0" step="0.01" required />
+
+    <label for="valorPoupado">Valor Poupado Inicial (R$)</label>
+    <input type="number" id="valorPoupado" min="0" step="0.01" value="0" required />
+
+    <button type="submit">Adicionar Meta</button>
+  </form>
+
+  <!-- Ações para verificar metas -->
+  <div class="actions">
+    <button onclick="filtrarMetas('todas')">Mostrar Todas</button>
+    <button onclick="filtrarMetas('completas')">Metas Completas</button>
+    <button onclick="filtrarMetas('incompletas')">Metas Incompletas</button>
+  </div>
+
+  <!-- Div onde as metas serão exibidas -->
+  <div id="listaMetas"></div>
+</body>
+</html>
