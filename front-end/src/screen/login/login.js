@@ -12,7 +12,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
        }
 
     // Configuração da requisição
-    fetch("http://localhost:8080/usuarioController/autenticar", {
+
+      fetch("http://localhost:8080/aulaLista/dados", {
+  //  fetch("http://localhost:8080/usuarioController/autenticar", {
         method: "POST", // Método HTTP
         headers: {
             "Content-Type": "application/json", // Tipo de conteúdo enviado
@@ -23,7 +25,7 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
             if (!response.ok) {
                 throw new Error("Usuário ou senha inválidos");
             }
-            return response.text(); // Receber a mensagem de sucesso
+            return response.json(); // Receber a mensagem de sucesso
         })
         .then((data) => {
             alert(data); // Exibe a mensagem retornada pelo backend
