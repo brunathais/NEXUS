@@ -1,114 +1,112 @@
-*
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color: #333;
-            height: 100vh;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    height: 100vh;
+}
 
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
 
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            height: 100vh;
-        }
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100vh;
+}
 
-        .form-container, .historico-container {
-            width: 48%;
-            background: #f7f7f7;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px #ddd;
-        }
+.form-container, .historico-container {
+    width: 48%;
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px #ddd;
+}
 
-        .form-container form label, 
-        .form-container form input, 
-        .form-container form select, 
-        .form-container form button {
-            display: block;
-            width: 100%;
-            margin-bottom: 20px;
-        }
+.form-container form label, 
+.form-container form input, 
+.form-container form select, 
+.form-container form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
-        input, select, button {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
+input, select, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
 
-        input[type="radio"] {
-            width: auto;
-            margin-right: 5px;
-            position: relative;
-            top: 2px;
-        }
+input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
 
-        button {
-            background: #5d5dd6;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
+button {
+    background: #5d5dd6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        button:hover {
-            background: #8c4cfc;
-        }
+button:hover {
+    background: #8c4cfc;
+}
 
-        .historico-container div {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #ddd;
-        }
+.historico-container div {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ddd;
+}
 
-        .historico-container button {
-            width: auto;
-            margin-right: 10px;
-            padding: 5px 10px;
-            background: #5d5dd6;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+.historico-container button {
+    width: auto;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background: #5d5dd6;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
 
-        .historico-container button:hover {
-            background: #8c4cfc;
-        }
+.historico-container button:hover {
+    background: #8c4cfc;
+}
 
-        ::placeholder {
-            color: #aaa;
-        }
+::placeholder {
+    color: #aaa;
+}
 
-        input[type="date"] {
-            color: #000;
-        }
+input[type="date"] {
+    color: #000;
+}
 
-        #categoria_div {
-            display: none;
-        }
+#categoria_div {
+    display: none;
+}
 
-        .filtro-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
+.filtro-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
 
-        .filtro-container select,
-        .filtro-container input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            width: 200px;
-        }
-
+.filtro-container select,
+.filtro-container input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 200px;
+}

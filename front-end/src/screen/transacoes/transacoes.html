@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Transações</title>
-   
+    <link rel="stylesheet" href="transacoes.css">
+
 </head>
 <body>
 
@@ -68,6 +69,149 @@
             <div id="historico"></div>
         </div>
     </div>
+
+    <script>
+        // Mostra ou esconde o campo de categoria com base no tipo selecionado
+        function mostrarCategoria() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const categoriaDiv = document.getElementById("categoria_div");
+            if (tipo === "Despesa") {
+                categoriaDiv.style.display = "block";
+            } else {
+                categoriaDiv.style.display = "none";
+            }
+        }
+
+        // Função para salvar transações
+        function salvarTransacao() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const valor = document.getElementById("valor").value;
+            const data = document.getElementById("data").value;
+            const descricao = document.getElementById("descricao").value;
+            let categoria = "";
+            if (tipo === "Despesa") {
+                categoria = document.getElementById("categoria").value;
+            }
+
+            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
+                alert("Todos os campos são obrigatórios!");
+                return;
+            }
+
+            const transacao = { tipo, valor, data, descricao, categoria };
+            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const idEditar = document.getElementById("editar_id").value;
+
+            if (idEditar) {
+                transacoes[idEditar] = transacao;
+            } else {
+                transacoes.push(transacao);
+            }
+
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));
+            exibirHistorico();
+            limparCampos();
+        }
+
+        // Função para editar uma transação
+        function editarTransacao(index) {
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const transacao = transacoes[index];
+
+            document.getElementById("valor").value = transacao.valor;
+            document.getElementById("data").value = transacao.data;
+            document.getElementById("descricao").value = transacao.descricao;
+
+            if (transacao.tipo === "Despesa") {
+                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
+                document.getElementById("categoria").value = transacao.categoria;
+                document.getElementById("categoria_div").style.display = "block";
+            } else {
+                document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
+                document.getElementById("categoria_div").style.display = "none";
+            }
+
+            document.getElementById("editar_id").value = index;
+        }
+
+        // Função para excluir uma transação
+        function excluirTransacao(index) {
+            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            transacoes.splice(index, 1);
+
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));
+            exibirHistorico();
+        }
+
+        // Exibe o histórico de transações
+        function exibirHistorico() {
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const historicoDiv = document.getElementById("historico");
+            historicoDiv.innerHTML = "";
+
+            transacoes.forEach((transacao, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
+                    Valor: R$${transacao.valor}<br>
+                    Data: ${transacao.data}<br>
+                    Descrição: ${transacao.descricao}<br>
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                    <button onclick="editarTransacao(${index})">Editar</button>
+                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
+                `;
+                historicoDiv.appendChild(div);
+            });
+        }
+
+        // Função para filtrar transações
+        function filtrarHistorico() {
+            const tipoFiltro = document.getElementById("filtroTipo").value;
+            const categoriaFiltro = document.getElementById("filtroCategoria").value;
+            const dataInicioFiltro = document.getElementById("filtroDataInicio").value;
+            const dataFimFiltro = document.getElementById("filtroDataFim").value;
+
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const transacoesFiltradas = transacoes.filter(transacao => {
+                const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;
+                const categoriaValida = categoriaFiltro ? transacao.categoria === categoriaFiltro : true;
+                const dataValida = (dataInicioFiltro ? transacao.data >= dataInicioFiltro : true) &&
+                    (dataFimFiltro ? transacao.data <= dataFimFiltro : true);
+
+                return tipoValido && categoriaValida && dataValida;
+            });
+
+            const historicoDiv = document.getElementById("historico");
+            historicoDiv.innerHTML = "";
+
+            transacoesFiltradas.forEach((transacao, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
+                    Valor: R$${transacao.valor}<br>
+                    Data: ${transacao.data}<br>
+                    Descrição: ${transacao.descricao}<br>
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                    <button onclick="editarTransacao(${index})">Editar</button>
+                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
+                `;
+                historicoDiv.appendChild(div);
+            });
+        }
+
+        // Limpa os campos do formulário
+        function limparCampos() {
+            document.getElementById("valor").value = "";
+            document.getElementById("data").value = "";
+            document.getElementById("descricao").value = "";
+            document.getElementById("editar_id").value = "";
+            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
+            document.getElementById("categoria").value = "Essenciais";
+            mostrarCategoria();
+        }
+
+        window.onload = exibirHistorico;
+    </script>
 
 </body>
 </html>
