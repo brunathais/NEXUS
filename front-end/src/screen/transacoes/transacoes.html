@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,27 @@
     <link rel="stylesheet" href="transacoes.css">
 
 </head>
+
 <body>
 
     <h1>Cadastro de Transações</h1>
     <div class="container">
         <div class="form-container">
-            <form onsubmit="event.preventDefault(); salvarTransacao();">
+            <form onsubmit="event.preventDefault(); salvarTransacao();"> <!--
+  onsubmit: Quando o formulário for enviado, impede o comportamento padrão (recarregar a página)
+  e chama a função salvarTransacao() para processar os dados via JavaScript.
+-->
                 <label>Tipo de Transação:</label>
-                <div style="display: flex; gap: 20px;">
-                    <label><input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita</label>
-                    <label><input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa</label>
-                </div>
+
+
+                <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
+                <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+
+
 
                 <label>Valor:</label>
                 <input type="number" id="valor" placeholder="Valor" required>
+                <!--'required' garante que o usuário deve preencher este campo-->
 
                 <label>Data:</label>
                 <input type="date" id="data" required>
@@ -37,7 +45,7 @@
                     </select>
                 </div>
 
-                <input type="hidden" id="editar_id">
+                <input type="hidden" id="editar_id"> <!--necessario?-->
 
                 <button type="submit">Salvar Transação</button>
             </form>
@@ -73,18 +81,18 @@
     <script>
         // Mostra ou esconde o campo de categoria com base no tipo selecionado
         function mostrarCategoria() {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value;
-            const categoriaDiv = document.getElementById("categoria_div");
+            const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o valor do radio button 'tipo' selecionado (Receita ou Despesa)
+            const categoriaDiv = document.getElementById("categoria_div"); // Seleciona o container que tem o select de categoria
             if (tipo === "Despesa") {
-                categoriaDiv.style.display = "block";
+                categoriaDiv.style.display = "block"; // Mostra o campo categoria para Despesa
             } else {
-                categoriaDiv.style.display = "none";
+                categoriaDiv.style.display = "none"; // Esconde para Receita (que não usa categoria)
             }
         }
 
         // Função para salvar transações
         function salvarTransacao() {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o tipo selecionado (Receita ou Despesa)
             const valor = document.getElementById("valor").value;
             const data = document.getElementById("data").value;
             const descricao = document.getElementById("descricao").value;
@@ -93,29 +101,35 @@
                 categoria = document.getElementById("categoria").value;
             }
 
-            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
+            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {  // Valida se os campos obrigatórios estão preenchidos
                 alert("Todos os campos são obrigatórios!");
                 return;
             }
 
             const transacao = { tipo, valor, data, descricao, categoria };
             let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            // Pega o array de transações armazenado no localStorage.
+            // Se não existir, cria um array vazio.
+            // Isso é necessário para salvar as transações entre atualizações da página.
+
             const idEditar = document.getElementById("editar_id").value;
 
             if (idEditar) {
-                transacoes[idEditar] = transacao;
+                transacoes[idEditar] = transacao; // Atualiza transação existente
             } else {
-                transacoes.push(transacao);
+                transacoes.push(transacao); // Adiciona nova transação
             }
 
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));//o que faz? necessario? pode ser mais simples?
             exibirHistorico();
             limparCampos();
         }
+        // Salva o array atualizado no localStorage convertendo para string JSON
+        // Necessário para persistência dos dados.
 
         // Função para editar uma transação
         function editarTransacao(index) {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
             const transacao = transacoes[index];
 
             document.getElementById("valor").value = transacao.valor;
@@ -123,7 +137,7 @@
             document.getElementById("descricao").value = transacao.descricao;
 
             if (transacao.tipo === "Despesa") {
-                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
+                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;//o que faz? necessario? pode ser mais simples?
                 document.getElementById("categoria").value = transacao.categoria;
                 document.getElementById("categoria_div").style.display = "block";
             } else {
@@ -137,7 +151,7 @@
         // Função para excluir uma transação
         function excluirTransacao(index) {
             let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            transacoes.splice(index, 1);
+            transacoes.splice(index, 1);//o que faz? necessario? pode ser mais simples?
 
             localStorage.setItem("transacoes", JSON.stringify(transacoes));
             exibirHistorico();
@@ -145,8 +159,8 @@
 
         // Exibe o histórico de transações
         function exibirHistorico() {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            const historicoDiv = document.getElementById("historico");
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
+            const historicoDiv = document.getElementById("historico");//o que faz? necessario? pode ser mais simples?
             historicoDiv.innerHTML = "";
 
             transacoes.forEach((transacao, index) => {
@@ -156,11 +170,11 @@
                     Valor: R$${transacao.valor}<br>
                     Data: ${transacao.data}<br>
                     Descrição: ${transacao.descricao}<br>
-                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}//o que faz? necessario? pode ser mais simples?
                     <button onclick="editarTransacao(${index})">Editar</button>
                     <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
                 `;
-                historicoDiv.appendChild(div);
+                historicoDiv.appendChild(div);//o que faz? necessario? pode ser mais simples?
             });
         }
 
@@ -171,9 +185,9 @@
             const dataInicioFiltro = document.getElementById("filtroDataInicio").value;
             const dataFimFiltro = document.getElementById("filtroDataFim").value;
 
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
             const transacoesFiltradas = transacoes.filter(transacao => {
-                const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;
+                const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;//o que faz? necessario? pode ser mais simples?
                 const categoriaValida = categoriaFiltro ? transacao.categoria === categoriaFiltro : true;
                 const dataValida = (dataInicioFiltro ? transacao.data >= dataInicioFiltro : true) &&
                     (dataFimFiltro ? transacao.data <= dataFimFiltro : true);
@@ -194,7 +208,7 @@
                     ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
                     <button onclick="editarTransacao(${index})">Editar</button>
                     <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-                `;
+                `;//o que faz? necessario? pode ser mais simples?
                 historicoDiv.appendChild(div);
             });
         }
@@ -205,7 +219,7 @@
             document.getElementById("data").value = "";
             document.getElementById("descricao").value = "";
             document.getElementById("editar_id").value = "";
-            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
+            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;//o que faz? necessario? pode ser mais simples?
             document.getElementById("categoria").value = "Essenciais";
             mostrarCategoria();
         }
@@ -214,4 +228,5 @@
     </script>
 
 </body>
+
 </html>

@@ -19,6 +19,7 @@ h1, h2 {
     height: 100vh;
 }
 
+
 .form-container, .historico-container {
     width: 48%;
     background: #f7f7f7;
@@ -28,7 +29,10 @@ h1, h2 {
 }
 
 .form-container form label, 
-.form-container form input, 
+/*.form-container form input[type="text"], 
+.form-container form input[type="date"], 
+.form-container form input[type="number"], */
+.form-container form :not(input[type="radio"]), 
 .form-container form select, 
 .form-container form button {
     display: block;
@@ -36,18 +40,16 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
+.form-container form input[type="radio"]{
+    margin-right: 10px;
+}
+
+    
 input, select, button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 14px;
-}
-
-input[type="radio"] {
-    width: auto;
-    margin-right: 5px;
-    position: relative;
-    top: 2px;
 }
 
 button {
@@ -78,18 +80,6 @@ button:hover {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-}
-
-.historico-container button:hover {
-    background: #8c4cfc;
-}
-
-::placeholder {
-    color: #aaa;
-}
-
-input[type="date"] {
-    color: #000;
 }
 
 #categoria_div {
