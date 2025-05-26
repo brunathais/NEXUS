@@ -118,7 +118,12 @@
   </style>
 </head>
 <body>
-    
+
+  <div style="margin-top: 30px; display: flex; gap: 10px;">
+  <input type="text" id="mensagem" placeholder="Digite sua mensagem..." style="padding: 10px; border-radius: 5px; border: none; outline: none; width: 300px;" autofocus>
+  <button onclick="enviarMensagem()" style="padding: 10px 20px; border-radius: 5px; border: none; background-color: #8E2AD6; color: white; cursor: pointer;">Enviar</button>
+  </div>
+
   <!-- Ícone de menu (hamburger) -->
   <div class="menu-toggle" onclick="toggleSidebar()">&#9776;</div>
 
@@ -142,7 +147,7 @@
   <div class="main-buttons">
     <button class="main-button">Transação</button>
     <button class="main-button">Boleto</button>
-    <button class="main-button">Metas</button>
+    <button class="main-button" onclick="ativarMetas()">Metas</button>
     
   </div>
 
@@ -156,7 +161,26 @@
       const sidebar = document.querySelector('.sideAvatar');
       sidebar.classList.toggle('exibir_painel_usuario');
     }
+
+    function ativarMetas() {
+
+    }
+
+    function enviarMensagem() {
+      const input = document.getElementById('mensagem');
+      const mensagem = input.value.trim();
+      if (mensagem) {
+      alert('Mensagem enviada: ' + mensagem);
+      input.value = '';
+      input.focus();
+      } else {
+      alert('Por favor, digite uma mensagem!');
+      }
+    }
+
   </script>
 
 </body>
 </html>
+
+
