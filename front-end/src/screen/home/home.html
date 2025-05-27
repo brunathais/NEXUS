@@ -120,24 +120,27 @@
 
     .sideNotificacoes {
       position: fixed;
-      top: 0;
-      right: -25%;
-      width: 15%;
-      height: 20%;
+      top: 0px;
+      display: none;
       background-color: #5A0CA8; /* Roxo mais escuro */
       padding: 20px;
       border-radius: 15px;
       border: 2px solid white;
-      border-right: none;
+      border-right: 0px;
       box-sizing: border-box;
-      transition: right 1s ease;
-      border-bottom-right-radius: 0px;
+      transition: top 1s ease;
       border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
       z-index: 1000;
+      border-top: 0px;
     }
 
     .sideNotificacoes.active {
-      right: 350px;
+      top: 0px;
+      width: 250px;
+      height: 280px;
+      display: block;
+      right: 60px;
     }
   </style>
 </head>
