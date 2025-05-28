@@ -1,0 +1,77 @@
+
+/* Reset básico e base */
+
+/* aqui teremos um padrao para todas as telas */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* Títulos padrão */
+h1, h2 {
+    text-align: center;
+    color: #333;
+    margin: 1em 0;
+}
+
+/* Container flexível para layout */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100vh; /* Pode ser ajustado por tela */
+    gap: 20px; /* Espaçamento entre itens */
+    flex-wrap: wrap; /* Para responsividade */
+}
+
+/* Formulário - estilo genérico */
+form label, form input, form select, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input[type="date"] {
+    color: #000;
+}
+
+/* Botões padrão */
+button {
+    background: #5d5dd6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #8c4cfc;
+}
+
