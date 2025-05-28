@@ -4,6 +4,7 @@ import com.ska.NEXUS.dto.UsuarioDTO;
 import com.ska.NEXUS.dto.autenticacaoDTO;
 import com.ska.NEXUS.service.AutenticacaoService;
 import com.ska.NEXUS.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 
+    @Autowired
+    UsuarioService usuarioService;
+        
    
     @PostMapping
     @RequestMapping("/autenticar")
@@ -39,12 +43,17 @@ public class UsuarioController {
     }
     
     
-    @PostMapping
+    @GetMapping
     @RequestMapping("/cadastro")
-    public ResponseEntity<?> cadastro(@RequestBody UsuarioDTO dto) {
-        UsuarioService service  = new UsuarioService();
+    public ResponseEntity<?> cadastro() {
+
+        UsuarioDTO teste = new UsuarioDTO();
+        teste.setEmail("ALGUMACOISA@GMAIL");
+        teste.setNome("POLENTA FRITA");
         
-        boolean cadastrado= service.cadastro(dto);
+        System.out.println("A");
+        
+        boolean cadastrado= usuarioService.cadastro(teste);
 
          System.err.println(cadastrado);
         
