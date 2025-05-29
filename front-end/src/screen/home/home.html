@@ -1,220 +1,105 @@
 <!DOCTYPE html>
+
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #6A0DAD; /* Roxo de fundo */
-      height: 100vh;
-      display: grid;
-      justify-content: center;
-      align-items: center; 
-      position: relative;
-    }
-
-    .main-buttons {
-      display: flex;
-      gap: 20px; 
-    }
-
-    .main-button {
-      padding: 20px 40px;
-      font-size: 1.2rem;
-      color: white;
-      background-color: #8E2AD6; /* Roxo mais saturado */
-      border: 2px solid;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .main-button:hover {
-      background-color: red; /* Tom mais forte no hover */
-      transform: scale(1.4);
-    }
-
-        
-    .menu-toggle {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-      z-index: 1001; /* Fica acima do menu */
-    }
-
-    .icone-usuario{
-      cursor: pointer;
-    }
-
-    .sideAvatar {
-      position: fixed;
-      top: 0;
-      right: -25%;
-      width: 15%;
-      height: 20%;
-      background-color: #5A0CA8; /* Roxo mais escuro */
-      padding: 20px;
-      border-radius: 15px;
-      border: 2px solid white;
-      border-right: none;
-      box-sizing: border-box;
-      transition: right 1s ease;
-      border-bottom-right-radius: 0px;
-      border-top-right-radius: 0px;
-      z-index: 1000;
-    }
-
-    .sideAvatar.exibir_painel_usuario{
-      right: 0px;
-    }
 
 
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -25%;
-      width: 25%;
-      height: 100%;
-      background-color: #5A0CA8; /* Roxo mais escuro */
-      padding: 20px;
-      border-radius: 15px;
-      border: 2px solid white;
-      border-left: none;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px;
-      box-sizing: border-box;
-      transition: left 1s ease;
-      z-index: 1000;
-    }
+  <head>
 
-    .sidebar.active {
-      left: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" media="" href="home.css">
 
-    .menu-text{
-        color: white;
-        position: relative;
-        left: 50px;
-        top: 3px;
-        font-size: 33px;
-    }
+  </head>
 
-    .titulo{
-        height: 80px;
-        font-size: 80px;
-        opacity: 0.4;
-        text-align: center;
-        color: lightblue
+  <body>
 
-    }
+    <div style="margin-top: 30px; display: flex; gap: 10px;">
+
+      <input type="text" id="mensagem" placeholder="Digite sua mensagem..." style="padding: 10px; border-radius: 5px; border: none; outline: none; width: 300px;" autofocus>
+
+      <button onclick="enviarMensagem()" style="padding: 10px 20px; border-radius: 5px; border: none; background-color: #8E2AD6; color: white; cursor: pointer;">Enviar</button>
     
-    .sideIconNotificacoes {
-      cursor: pointer;
-    }
-
-    .sideNotificacoes {
-      position: fixed;
-      top: 0px;
-      display: none;
-      background-color: #5A0CA8; /* Roxo mais escuro */
-      padding: 20px;
-      border-radius: 15px;
-      border: 2px solid white;
-      border-right: 0px;
-      box-sizing: border-box;
-      transition: top 1s ease;
-      border-top-right-radius: 0px;
-      border-top-left-radius: 0px;
-      z-index: 1000;
-      border-top: 0px;
-    }
-
-    .sideNotificacoes.active {
-      top: 0px;
-      width: 250px;
-      height: 280px;
-      display: block;
-      right: 60px;
-    }
-  </style>
-</head>
-<body>
-
-  <div style="margin-top: 30px; display: flex; gap: 10px;">
-  <input type="text" id="mensagem" placeholder="Digite sua mensagem..." style="padding: 10px; border-radius: 5px; border: none; outline: none; width: 300px;" autofocus>
-  <button onclick="enviarMensagem()" style="padding: 10px 20px; border-radius: 5px; border: none; background-color: #8E2AD6; color: white; cursor: pointer;">Enviar</button>
-  </div>
-
-  <!-- Ícone de menu (hamburger) -->
-  <div class="menu-toggle" onclick="toggleSidebar()">&#9776;</div>
-
-  <div class="icone-usuario" onclick="clickIconeUsuario()">USER</div>
-  <!-- Ícone de uso do Avatar-->
-
-  <div class="sideAvatar">
-  <img src="user.png" alt="" width="150" height="150">
-
-  </div>
-
-  <img src="notificacao.png" alt="Notificações" class="sideIconNotificacoes" onclick="clickIconNotificacoes()" width="30" height="30">
-
-  <div class="sideNotificacoes" alt="" width="100" height="250">------------</div>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="menu-text">Menu</div>
-    <!-- Botões adicionais serão colocados aqui futuramente -->
-  </div>
-
-  <div class="titulo">NEXUS</div>
-
-  <!-- Botões principais na horizontal -->
-  <div class="main-buttons">
-    <button class="main-button"><a href="../transacoes/transacoes.html">Transação</a></button>
-    <button class="main-button"><a href="../dicas/dicas.html">Dicas</a></button>
-    <button class="main-button"><a href="../historico_transacao/historico.html">Historico</a></button>
-    <button class="main-button"><a href="">Orçamento</a></button>
-    <button class="main-button"><a href="../contas/contas.html">Contas e Boletos</a></button>
+    </div>
     
-  </div>
+    <div class="menu-toggle" onclick="toggleSidebar()">&#9776;</div> <!-- Ícone de menu (hamburger) -->
+      
+    <div class="sidebar"> <!-- Sidebar -->
 
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.querySelector('.sidebar');
-      sidebar.classList.toggle('active');
-    }
+      <div class="menu-text">Menu</div> <!-- Botões adicionais serão colocados aqui dentro futuramente -->
+    
+    </div>
 
-    function clickIconeUsuario() {
-      const sidebar = document.querySelector('.sideAvatar');
-      sidebar.classList.toggle('exibir_painel_usuario');
-    }
 
-    function clickIconNotificacoes() {
-      const sideNotificacoes = document.querySelector('.sideNotificacoes');
-      sideNotificacoes.classList.toggle('active')
-    }
+    <div class="icone-usuario" onclick="clickIconeUsuario()">USER</div> <!-- Ícone de uso do Avatar-->
+    
 
-    function enviarMensagem() {
-      const input = document.getElementById('mensagem');
-      const mensagem = input.value.trim();
-      if (mensagem) {
-      alert('Mensagem enviada: ' + mensagem);
-      input.value = '';
-      input.focus();
-      } else {
-      alert('Por favor, digite uma mensagem!');
+    <div class="sideAvatar">
+
+      <img src="user.png" alt="" width="150" height="150">
+
+    </div>
+
+
+    <img src="notificacao.png" alt="Notificações" class="sideIconNotificacoes" onclick="clickIconNotificacoes()" width="30" height="30">
+
+
+    <div class="sideNotificacoes" alt="" width="100" height="250">------------</div>
+
+
+    <div class="titulo">NEXUS</div>
+
+    
+    <div class="main-buttons"> <!-- Botões principais na horizontal -->
+
+      <button class="main-button"><a href="../transacoes/transacoes.html">Transação</a></button>
+      <button class="main-button"><a href="../dicas/dicas.html">Dicas</a></button>
+      <button class="main-button"><a href="../historico_transacao/historico.html">Historico</a></button>
+      <button class="main-button"><a href="">Orçamento</a></button>
+      <button class="main-button"><a href="../contas/contas.html">Contas e Boletos</a></button>
+      
+    </div>
+
+
+    <script>
+
+      function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('active');
       }
-    }
 
-  </script>
 
-</body>
+      function clickIconeUsuario() {
+        const sidebar = document.querySelector('.sideAvatar');
+        sidebar.classList.toggle('exibir_painel_usuario');
+      }
+
+
+      function clickIconNotificacoes() {
+        const sideNotificacoes = document.querySelector('.sideNotificacoes');
+        sideNotificacoes.classList.toggle('active')
+      }
+
+
+      function enviarMensagem() {
+        const input = document.getElementById('mensagem');
+        const mensagem = input.value.trim();
+        if (mensagem) {
+          alert('Mensagem enviada: ' + mensagem);
+          input.value = '';
+          input.focus();
+        } else {
+          alert('Por favor, digite uma mensagem!');
+        }
+      }
+
+    </script>
+
+
+  </body>
+
+
 </html>
 
 
