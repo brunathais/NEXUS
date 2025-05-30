@@ -57,7 +57,7 @@
       border: 2px solid white;
       border-right: none;
       box-sizing: border-box;
-      transition: right 1s ease;
+      transition: right 0.5s ease;
       border-bottom-right-radius: 0px;
       border-top-right-radius: 0px;
       z-index: 1000;
@@ -119,7 +119,6 @@
       border-radius: 15px;
       border: 2px solid white;
       box-sizing: border-box;
-      transition: top 1s ease;
       border-top-right-radius: 0px;
       border-top-left-radius: 0px;
       z-index: 1000;
@@ -127,12 +126,17 @@
       top: 0px;
       width: 250px;
       height: 280px;
-      
+
+      transform: translateY(-100%);
+      transition: transform 0.5s ease;
     }
 
+
     .sideNotificacoes.active {
-      display: block;
-      right: 60px;      
+      transform: translateY(0);
+      right: 600px;
     }
+
+
 
 
