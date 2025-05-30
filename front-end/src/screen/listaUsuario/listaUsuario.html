@@ -6,13 +6,42 @@
     <title>Document</title>
 </head>
 
-<script>
-
-document.write(nome, senha, email)
-</script>
-
 <body>
     
+<table> 
+    <thead> 
+        <tr>
+
+        <th>titulo: usuarios</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>coluna id</td>
+            <td>coluna nome</td>
+            <td>coluna senha</td>
+            <td>coluna email</td>
+        </tr>
+    </tbody>
+
+</table id='lista'>
+
+    <script>
+        // Busca os dados do backend e exibe na lista
+        fetch('http://localhost:8080/usuarioController/listar')
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(usuarios => {
+                const list = document.getElementById('lista'); // Seleciona a lista
+                usuarios.forEach(usuario => {
+                    // Adiciona cada usuário como um item da lista
+                    const item = `<li>ID: ${usuario.id}, Usuário: ${usuario.usuario}, Email: ${usuario.email}</li>`;
+                    list.innerHTML += item;
+                });
+            })
+            .catch(error => console.error('Erro ao buscar usuários:', error)); // Exibe erros no console
+    </script>
 
 </body>
 </html>
