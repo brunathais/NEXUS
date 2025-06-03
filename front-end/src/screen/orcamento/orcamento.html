@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orçamento</title>
+
+</head>
+<body>
+  <h1>Definir Orçamento</h1>
+  <form id="formOrcamento">
+    <label>Essenciais:</label>
+    <input type="number" id="essenciais" min="0" step="0.01" required />
+
+    <label>Não Essenciais:</label>
+    <input type="number" id="naoEssenciais" min="0" step="0.01" required />
+
+    <label>Imprevistos:</label>
+    <input type="number" id="imprevistos" min="0" step="0.01" required />
+
+    <label>Reserva de Emergência:</label>
+    <input type="number" id="reservaEmergencia" min="0" step="0.01" required />
+
+    <button type="submit">Salvar Orçamento</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('formOrcamento');
+
+    // Carregar orçamento salvo
+    function carregarOrcamento() {
+      const orcamento = JSON.parse(localStorage.getItem('orcamento')) || {};
+      document.getElementById('essenciais').value = orcamento.essenciais || 0;
+      document.getElementById('naoEssenciais').value = orcamento.naoEssenciais || 0;
+      document.getElementById('imprevistos').value = orcamento.imprevistos || 0;
+      document.getElementById('reservaEmergencia').value = orcamento.reservaEmergencia || 0;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const orcamento = {
+        essenciais: parseFloat(document.getElementById('essenciais').value),
+        naoEssenciais: parseFloat(document.getElementById('naoEssenciais').value),
+        imprevistos: parseFloat(document.getElementById('imprevistos').value),
+        reservaEmergencia: parseFloat(document.getElementById('reservaEmergencia').value),
+      };
+      localStorage.setItem('orcamento', JSON.stringify(orcamento));
+      alert('Orçamento salvo com sucesso!');
+    });
+
+    carregarOrcamento();
+  </script>
+</body>
+</html>

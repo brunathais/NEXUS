@@ -1,13 +1,13 @@
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus - Cadastro</title>
     <link rel="stylesheet" href="cadastro.css">
-    <link rel="stylesheet" href="cadastro.js">
-    
+    <script src="cadastro.js" defer></script>
+
 </head>
 
 <script>
@@ -28,11 +28,9 @@
 
         // DTO que será enviado no corpo da requisição
         const UsarioDTO = {  //aqui junção do js com java
-            id: 10,
             nome: varnome,
             email: email,
-            senha: senha 
-        
+            senha: senha
         };
 
         // Configuração da requisição
@@ -60,7 +58,6 @@
 
 </script>
 
-
 </head>
 <body>
     <div class="register-container">
@@ -79,12 +76,10 @@
 
             <label for="confirmar-senha">Confirmar Senha:</label>
             <input type="password" id="confirmar-senha" placeholder="Confirme sua senha" required>
-
-            
         </form>
 
-          <button  onclick="efetuarLogin()">Cadastrar</button>
-          <!--button deve ser fora do form-->
+        <button onclick="efetuarLogin()">Cadastrar</button>
+        <!--button deve ser fora do form-->
 
         <!--sumit não funciona no button, 
             deve ser algo do metodo post q precisa de algum parametro, 

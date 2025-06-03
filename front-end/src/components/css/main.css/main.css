@@ -7,6 +7,26 @@
     box-sizing: border-box;
 }
 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #2f0c71;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 10;
+    }
+
+    /*
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,6 +35,7 @@ body {
     color: #333;
     min-height: 100vh;
 }
+*/
 
 /* Títulos padrão */
 h1, h2 {
@@ -59,19 +80,5 @@ input::placeholder {
 
 input[type="date"] {
     color: #000;
-}
-
-/* Botões padrão */
-button {
-    background: #5d5dd6;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background: #8c4cfc;
 }
 

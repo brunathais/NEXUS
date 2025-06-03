@@ -8,9 +8,6 @@ public class UsuarioDTO {
 
     private String senha;
     
-    
-    private String usuario;
-    
     private String email;
 
     
@@ -29,14 +26,6 @@ public class UsuarioDTO {
 
     public String getNome() {
         return nome;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String teste) {
-        this.usuario = teste;
     }
 
     public String getSenha() {

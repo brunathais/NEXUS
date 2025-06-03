@@ -1,0 +1,110 @@
+*
+
+    .menu-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .user-notification {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 300px;
+      justify-content: space-between;
+      margin-left: 60px; /* para não ficar em cima do menu-toggle */
+    }
+
+    .icone-usuario {
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .notificacao {
+      cursor: pointer;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100%;
+      background-color: #5647b4;
+      padding: 20px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .menu-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .menu-items li {
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .menu-items li:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .titulo {
+      font-size: 3rem;
+      color: lightblue;
+      margin-bottom: 20px;
+    }
+
+    .main-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .main-button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      background-color: #8E2AD6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .main-button:hover {
+      background-color: #5647b4;
+      transform: scale(1.1);
+    }
+  

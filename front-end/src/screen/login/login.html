@@ -1,63 +1,59 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css" />
-    <link rel="stylesheet" href="login.js">
+    <script src="login.js" defer></script>
+
     <title>Nexus - Login</title>
 
 </head>
 
 <script>
-    function efetuarLogin (){
-     event.preventDefault(); // Evita o reload da página
+    function efetuarLogin() {
+        event.preventDefault(); // Evita o reload da página
 
-    // Obter valores dos campos do formulário
-    const usuario = document.getElementById("nome").value;
-    const senha = document.getElementById("oi").value;
+        // Obter valores dos campos do formulário
+        const usuario = document.getElementById("nome").value;
+        const senha = document.getElementById("senha").value;
 
-    // DTO que será enviado no corpo da requisição
-    const papel  = {
-        login: usuario,
-        senha: senha
-       }
-
-     
-       
-
-    // Configuração da requisição
-    fetch("http://localhost:8080/aulaLista/dados", {
-    //fetch("http://localhost:8080/usuarioController/autenticar", {
-        method: "GET", // Método HTTP
-        headers: {
-            "Content-Type": "application/json", // Tipo de conteúdo enviado
+        // DTO que será enviado no corpo da requisição
+        const papel = {
+            login: usuario,
+            senha: senha
         }
-        //body: JSON.stringify(dto), // Converte o DTO para JSON
-    })
-        .then((response) => { //opcional
-            if (!response.ok) {
-                throw new Error("Usuário ou senha inválidos");
+
+        // Configuração da requisição
+        fetch("http://localhost:8080/aulaLista/dados", {
+            //fetch("http://localhost:8080/usuarioController/autenticar", {
+            method: "GET", // Método HTTP
+            headers: {
+                "Content-Type": "application/json", // Tipo de conteúdo enviado
             }
-
-            //href = 'home'
-
-            return response.json(); // Receber a mensagem de sucesso
+            //body: JSON.stringify(dto), // Converte o DTO para JSON
         })
-        .then((data) => {
-            alert(data); // Exibe a mensagem retornada pelo backend
-            // Redirecionar para o dashboard (caso necessário)
-            window.location.href = "cadastro.html";
-        })
-        .catch((error) => {
-            alert("Erro: " + error.message); // Exibe a mensagem de erro
-        });
+            .then((response) => { //opcional
+                if (!response.ok) {
+                    throw new Error("Usuário ou senha inválidos");
+                }
 
-}
+                //href = 'home'
 
-// dar uma olhada no button onclick e <button type="submit">Entrar</button>
-// testar GET, POST, PUT, DELETE   
-
+                return response.json(); // Receber a mensagem de sucesso
+            })
+            .then((data) => {
+                alert(data); // Exibe a mensagem retornada pelo backend
+                // Redirecionar para o dashboard (caso necessário)
+                window.location.href = "cadastro.html";
+            })
+            .catch((error) => {
+                alert("Erro: " + error.message); // Exibe a mensagem de erro
+            });
+    }
+    // dar uma olhada no button onclick e <button type="submit">Entrar</button>
+    // testar GET, POST, PUT, DELETE   
 </script>
 
 <body>
@@ -69,7 +65,6 @@
         </div>
 
     -->
-        
 
     <div class="login-container">
         <h1>Bem-vindo ao Nexus!🪙</h1>
@@ -77,22 +72,23 @@
 
         <form id="loginForm" method="POST">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome"  placeholder="Digite seu nome" required>
-        
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+
             <label for="senha">Senha:</label>
             <input type="password" id="senha" placeholder="Digite sua senha" required>
-        
-        <!--<button onclick="efetuarLogin()">Entrar</button>-->
 
-        <!--adicionar validação de campos obrigatorios-->
+            <!--<button onclick="efetuarLogin()">Entrar</button>-->
 
-        <button><a href="../home/home.html">ENTRAR</a></button>
+            <!--adicionar validação de campos obrigatorios-->
+
+            <button><a href="../home/home.html">ENTRAR</a></button>
 
         </form>
-    
+
         <p class="register-text">Não tem uma conta? <a href="../cadastro/cadastro.html">Cadastre-se</a></p>
 
     </div>
 
 </body>
+
 </html>
