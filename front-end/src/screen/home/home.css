@@ -138,5 +138,96 @@
     }
 
 
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #000, #2a2a72, #5d5dd6, #8c4cfc);
+            color: white;
+            height: 100vh;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .form-container, .historico-container {
+            width: 48%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px #5d5dd6;
+        }
+
+        .form-container form label, 
+        .form-container form input, 
+        .form-container form select, 
+        .form-container form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            background: linear-gradient(to right, #5d5dd6, #8c4cfc);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #8c4cfc, #5d5dd6);
+        }
+
+        .historico-container div {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+        }
+
+        .historico-container button {
+            width: auto;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background: linear-gradient(to right, #5d5dd6, #8c4cfc);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .historico-container button:hover {
+            background: linear-gradient(to right, #8c4cfc, #5d5dd6);
+        }
+
+        ::placeholder {
+            color: #cfcfcf;
+        }
+
+        input[type="date"] {
+            color: #000;
+        }
+
 
 
