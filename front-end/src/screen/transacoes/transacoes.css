@@ -1,4 +1,4 @@
-body {
+/*body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -6,11 +6,7 @@ body {
     color: #333;
     height: 100vh;
 }
-
-h1, h2 {
-    text-align: center;
-    color: #333;
-}
+    */
 
 .container {
     display: flex;
@@ -20,7 +16,8 @@ h1, h2 {
 }
 
 
-.form-container, .historico-container {
+.form-container,
+.historico-container {
     width: 48%;
     background: #f7f7f7;
     border-radius: 10px;
@@ -28,29 +25,29 @@ h1, h2 {
     box-shadow: 0 0 10px #ddd;
 }
 
-.form-container form label, 
+.form-container form label,
 /*.form-container form input[type="text"], 
 .form-container form input[type="date"], 
 .form-container form input[type="number"], */
-.form-container form :not(input[type="radio"]), 
-.form-container form select, 
+.form-container form :not(input[type="radio"]),
+.form-container form select,
 .form-container form button {
     display: block;
     width: 100%;
     margin-bottom: 20px;
 }
 
-.form-container form input[type="radio"]{
+.form-container form input[type="radio"] {
     margin-right: 10px;
 }
 
-    
+/* 
 input, select, button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 14px;
-}
+}*/
 
 button {
     background: #5d5dd6;

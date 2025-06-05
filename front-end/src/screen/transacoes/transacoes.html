@@ -92,39 +92,50 @@
         }
 
         // Função para salvar transações
-        function salvarTransacao() {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o tipo selecionado (Receita ou Despesa)
-            const valor = document.getElementById("valor").value;
-            const data = document.getElementById("data").value;
-            const descricao = document.getElementById("descricao").value;
-            let categoria = "";
-            if (tipo === "Despesa") {
-                categoria = document.getElementById("categoria").value;
-            }
+function salvarTransacao() {
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+    const valor = document.getElementById("valor").value;
+    const data = document.getElementById("data").value;
+    const descricao = document.getElementById("descricao").value;
+    const categoria = tipo === "Despesa" ? document.getElementById("categoria").value : "";
 
-            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {  // Valida se os campos obrigatórios estão preenchidos
-                alert("Todos os campos são obrigatórios!");
-                return;
-            }
+    if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {
+        alert("Todos os campos são obrigatórios!");
+        return;
+    }
 
-            const transacao = { tipo, valor, data, descricao, categoria };
-            let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            // Pega o array de transações armazenado no localStorage.
-            // Se não existir, cria um array vazio.
-            // Isso é necessário para salvar as transações entre atualizações da página.
+    const transacao = {
+        tipo,
+        valor: parseFloat(valor),
+        data,
+        descricao,
+        categoria
+    };
 
-            const idEditar = document.getElementById("editar_id").value;
-
-            if (idEditar) {
-                transacoes[idEditar] = transacao; // Atualiza transação existente
-            } else {
-                transacoes.push(transacao); // Adiciona nova transação
-            }
-
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));//o que faz? necessario? pode ser mais simples?
-            exibirHistorico();
-            limparCampos();
+    fetch("http://localhost:8080/transacoes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(transacao)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Erro ao salvar transação");
         }
+        return response.json();
+    })
+    .then(data => {
+        alert("Transação salva com sucesso!");
+        limparCampos();
+        exibirHistorico();
+    })
+    .catch(error => {
+        console.error("Erro ao salvar transação:", error);
+        alert("Erro ao salvar. Verifique a conexão com o servidor.");
+    });
+}
+
         // Salva o array atualizado no localStorage convertendo para string JSON
         // Necessário para persistência dos dados.
 
@@ -160,24 +171,31 @@
 
         // Exibe o histórico de transações
         function exibirHistorico() {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
-            const historicoDiv = document.getElementById("historico");//o que faz? necessario? pode ser mais simples?
+    fetch("http://localhost:8080/transacoes")
+        .then(response => response.json())
+        .then(transacoes => {
+            const historicoDiv = document.getElementById("historico");
             historicoDiv.innerHTML = "";
 
             transacoes.forEach((transacao, index) => {
                 const div = document.createElement("div");
                 div.innerHTML = `
-                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
+                    <strong>${transacao.tipo}:</strong><br>
                     Valor: R$${transacao.valor}<br>
                     Data: ${transacao.data}<br>
                     Descrição: ${transacao.descricao}<br>
-                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}//o que faz? necessario? pode ser mais simples?
-                    <button onclick="editarTransacao(${index})">Editar</button>
-                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
+                    <br><hr>
                 `;
-                historicoDiv.appendChild(div);//o que faz? necessario? pode ser mais simples?
+                historicoDiv.appendChild(div);
             });
-        }
+        })
+        .catch(error => {
+            console.error("Erro ao carregar transações:", error);
+            alert("Erro ao carregar histórico.");
+        });
+}
+
 
         // Função para filtrar transações
         function filtrarHistorico() {
