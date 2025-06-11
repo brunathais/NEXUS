@@ -4,6 +4,7 @@ import com.ska.NEXUS.dto.UsuarioDTO;
 import com.ska.NEXUS.dto.autenticacaoDTO;
 import com.ska.NEXUS.service.AutenticacaoService;
 import com.ska.NEXUS.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 
+    @Autowired
+    UsuarioService usuarioService;
+        
    
     @PostMapping
     @RequestMapping("/autenticar")
@@ -42,9 +46,8 @@ public class UsuarioController {
     @PostMapping
     @RequestMapping("/cadastro")
     public ResponseEntity<?> cadastro(@RequestBody UsuarioDTO dto) {
-        UsuarioService service  = new UsuarioService();
         
-        boolean cadastrado= service.cadastro(dto);
+        boolean cadastrado= usuarioService.cadastro(dto);
 
          System.err.println(cadastrado);
         
@@ -54,6 +57,7 @@ public class UsuarioController {
             return ResponseEntity.status(401).body("Usuário ou senha inválidos!");
         }
     }
+     
     
-    
+       
 }

@@ -7,6 +7,10 @@ public class UsuarioDTO {
     private String nome;
 
     private String senha;
+    
+    private String email;
+
+    
 
     public void setId(Long id) {
         this.id = id;
@@ -22,17 +26,6 @@ public class UsuarioDTO {
 
     public String getNome() {
         return nome;
-    }
-
-    private String usuario;
-    private String email;
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String teste) {
-        this.usuario = teste;
     }
 
     public String getSenha() {

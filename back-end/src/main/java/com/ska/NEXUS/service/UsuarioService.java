@@ -1,34 +1,43 @@
 package com.ska.NEXUS.service;
 
 import com.ska.NEXUS.dto.UsuarioDTO;
-import com.ska.NEXUS.repository.impl.UsuarioRepositoryImpl;
+import com.ska.NEXUS.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UsuarioService {
-    
+
     @Autowired
-    private UsuarioRepositoryImpl usuarioRepository;
-    
-    public boolean receberMensagem(UsuarioDTO usuarioDTO){
+    private UsuarioRepository usuarioRepository;
+
+    public boolean receberMensagem(UsuarioDTO usuarioDTO) {
         return usuarioRepository.inserirUsuario(usuarioDTO);
     }
 
-    private final String usuarioCerto = "oi";
-    private final String senhaCerta = "oi";
-
-    
-    
-    
     public Boolean cadastro(UsuarioDTO dto) {
         String usuario = dto.getUsuario();
         String senha = dto.getSenha();
-        
+        String email = dto.getEmail();
+
         System.err.println(usuario);
         System.err.println(senha);
+        System.err.println(email);
+
+        if(dto.getId() != null){
+            usuarioRepository.updateUsuario(dto);
+            
+        }else{
+             usuarioRepository.inserirUsuario(dto);
+        }    
         
-        return usuario.equals(this.usuarioCerto) && senha.equals(this.senhaCerta);
-        
+        return true;
+
     }
     
+    public boolean listarDados(){
+        
+    } 
+
     
 }
