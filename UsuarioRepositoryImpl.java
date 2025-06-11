@@ -1,11 +1,13 @@
 package com.ska.NEXUS.repository.impl;
 
 import com.ska.NEXUS.dto.UsuarioDTO;
+import com.ska.NEXUS.model.UsuarioModel;
 import com.ska.NEXUS.repository.custom.UsuarioRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,7 +31,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
 
         return true;
     }
-    
+
     @Override
     @Transactional
     public boolean updateUsuario(UsuarioDTO usuarioDTO) {
@@ -42,6 +44,13 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
         query.setParameter("id", usuarioDTO.getId()); // Certifique-se de que o DTO tem o campo 'id'
 
         return query.executeUpdate() > 0;
+    }
+
+    @Transactional
+    public List<UsuarioModel> exibirRegistros(UsuarioDTO usuarioDTO) {
+        String sql = "SELECT * FROM TB_USUARIO";
+        Query query = entityManager.createNativeQuery(sql, UsuarioModel.class);
+        return query.getResultList(); // Retorna a lista de resultados
     }
 
 }

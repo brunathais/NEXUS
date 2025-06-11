@@ -4,6 +4,7 @@ import com.ska.NEXUS.dto.UsuarioDTO;
 import com.ska.NEXUS.dto.autenticacaoDTO;
 import com.ska.NEXUS.service.AutenticacaoService;
 import com.ska.NEXUS.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,10 @@ public class UsuarioController {
         }
     }
      
-    
+    @GetMapping
+    @RequestMapping("/listar")
+    public List<UsuarioDTO> exibirRegistros(){
+        return usuarioService.listar();
+    }
        
 }
