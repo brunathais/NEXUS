@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,10 +9,12 @@
 </head>
 
 <body>
-
   <header>
-    <div class="user-notification">
-      <div class="icone-usuario" onclick="alert('Perfil do usuário!')">USER</div>
+    <div class="menu-toggle" id="toggleButton" onclick="toggleSidebar()">&#9776;</div>
+
+    <!-- Área fixa para usuário e notificações -->
+    <div class="user-notification-area">
+      <div class="icone-usuario" onclick="alert('Perfil do usuário!')">USUARIO</div>
       <img
         src="notificacao.png"
         alt="Notificações"
@@ -21,7 +22,6 @@
         class="icone-notificacao"
         onclick="toggleNotificacoes()"
       />
-      <div class="menu-toggle" id="toggleButton" onclick="toggleSidebar()">&#9776;</div>
     </div>
 
     <!-- Menu de Notificações -->
@@ -45,14 +45,16 @@
   </aside>
 
   <main>
-    <h1 class="titulo">NEXUS</h1>
+    <div class="central-area">
+      <h1 class="titulo">NEXUS</h1>
 
-    <div class="main-buttons">
-      <a href="../transacoes/transacoes.html" class="main-button">Transação</a>
-      <a href="../dicas/dicas.html" class="main-button">Dicas</a>
-      <a href="../historico_transacao/historico.html" class="main-button">Histórico</a>
-      <a href="../orcamento/orcamento.html" class="main-button">Orçamento</a>
-      <a href="../contas/contas.html" class="main-button">Contas e Boletos</a>
+      <div class="main-buttons">
+        <a href="../transacoes/transacoes.html" class="main-button">Transação</a>
+        <a href="../dicas/dicas.html" class="main-button">Dicas</a>
+        <a href="../historico_transacao/historico.html" class="main-button">Histórico</a>
+        <a href="../orcamento/orcamento.html" class="main-button">Orçamento</a>
+        <a href="../contas/contas.html" class="main-button">Contas e Boletos</a>
+      </div>
     </div>
   </main>
 
@@ -63,7 +65,6 @@
 
       sidebar.classList.toggle('active');
 
-      // Altera o ícone do botão
       if (sidebar.classList.contains('active')) {
         button.innerHTML = '&times;';
       } else {
@@ -84,7 +85,7 @@
       }
     });
   </script>
-
+  
 </body>
 
 </html>

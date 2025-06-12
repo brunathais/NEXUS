@@ -1,26 +1,55 @@
-/* ========== ESTILOS GERAIS ========== */
+/* ======= GERAIS ======= */
 body {
   background-color: #2e1a47;
   color: white;
   margin: 0;
   font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ========== USUÁRIO E NOTIFICAÇÕES ========== */
-.user-notification {
+/* ======= HEADER ======= */
+header {
+  height: 70px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  width: 100%;
-  max-width: 400px;
-  margin: 20px;
+  justify-content: space-between;
+  padding: 0 20px;
   position: relative;
+  z-index: 100;
+}
+
+/* ======= BOTÃO MENU ======= */
+.menu-toggle {
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+  left: 20px;
+  top: 20px;
+  z-index: 1100;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ======= USUÁRIO E NOTIFICAÇÕES ======= */
+.user-notification-area {
+  right: 20px;
+  top: 15px;
+  display: flex;
+  gap: 15px;
+  z-index: 1001;
+  display: block;
+  margin: 0 auto;
 }
 
 .icone-usuario {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid white;
 }
 
 .icone-notificacao {
@@ -28,18 +57,11 @@ body {
   width: 30px;
 }
 
-/* ========== BOTÃO MENU ========== */
-.menu-toggle {
-  font-size: 1.8rem;
-  color: white;
-  cursor: pointer;
-}
-
-/* ========== MENU DE NOTIFICAÇÕES ========== */
+/* ======= MENU DE NOTIFICAÇÕES ======= */
 #notificacao-menu {
   position: absolute;
   right: 20px;
-  top: 60px;
+  top: 65px;
   width: 250px;
   background-color: #5647b4;
   border: 1px solid #8E2AD6;
@@ -75,7 +97,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* ========== SIDEBAR ========== */
+/* ======= SIDEBAR ======= */
 .sidebar {
   position: fixed;
   top: 0;
@@ -114,23 +136,27 @@ body {
   text-decoration: underline;
 }
 
-/* ========== CONTEÚDO PRINCIPAL ========== */
+/* ======= MAIN ======= */
 main {
-  flex-grow: 1;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: calc(100vh - 70px);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ======= ÁREA CENTRAL COM BOTÕES ======= */
+.central-area {
   text-align: center;
 }
 
 .titulo {
   font-size: 3rem;
   color: lightblue;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-/* ========== BOTÕES PRINCIPAIS ========== */
 .main-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -146,7 +172,6 @@ main {
   border: none;
   border-radius: 8px;
   text-decoration: none;
-  text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, background-color 0.3s;
 }
