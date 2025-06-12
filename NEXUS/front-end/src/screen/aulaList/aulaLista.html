@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+ const dados = {
+      usuario: "seuUsuario",
+      senha: "suaSenha"
+    };
+
+    fetch("http://localhost:8080/autenticar/usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Erro na requisição: ${response.status}`);
+        }
+        return response.json(); // ou .text() dependendo do retorno da API
+      })
+      .then(data => {
+        console.log("Resposta da API:", data);
+      })
+      .catch(error => {
+        console.error("Erro ao fazer a requisição:", error);
+      });
+
+    </script>
+
+
+
+</body>
+</html>
+
+
+
