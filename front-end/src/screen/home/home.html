@@ -12,14 +12,29 @@
 <body>
 
   <header>
-    <div class="menu-toggle" onclick="toggleSidebar()">&#9776;</div>
     <div class="user-notification">
       <div class="icone-usuario" onclick="alert('Perfil do usuário!')">USER</div>
-      <img src="notificacao.png" alt="Notificações" width="30" class="notificacao" onclick="alert('Notificações!')" />
+      <img
+        src="notificacao.png"
+        alt="Notificações"
+        width="30"
+        class="icone-notificacao"
+        onclick="toggleNotificacoes()"
+      />
+      <div class="menu-toggle" id="toggleButton" onclick="toggleSidebar()">&#9776;</div>
+    </div>
+
+    <!-- Menu de Notificações -->
+    <div id="notificacao-menu">
+      <div id="notificacoes">
+        <div class="notificacao-item">Nova transação registrada</div>
+        <div class="notificacao-item">Dica do dia disponível</div>
+        <div class="notificacao-item">Atualização no histórico</div>
+      </div>
     </div>
   </header>
 
-  <div class="sidebar">
+  <aside class="sidebar">
     <ul class="menu-items">
       <li onclick="location.href='../transacoes/transacoes.html'">Transações</li>
       <li onclick="location.href='../dicas/dicas.html'">Dicas</li>
@@ -27,10 +42,11 @@
       <li onclick="location.href='../orcamento/orcamento.html'">Orçamento</li>
       <li onclick="location.href='../contas/contas.html'">Contas e Boletos</li>
     </ul>
-  </div>
+  </aside>
 
   <main>
-    <div class="titulo">NEXUS</div>
+    <h1 class="titulo">NEXUS</h1>
+
     <div class="main-buttons">
       <a href="../transacoes/transacoes.html" class="main-button">Transação</a>
       <a href="../dicas/dicas.html" class="main-button">Dicas</a>
@@ -42,8 +58,31 @@
 
   <script>
     function toggleSidebar() {
-      document.querySelector('.sidebar').classList.toggle('active');
+      const sidebar = document.querySelector('.sidebar');
+      const button = document.getElementById('toggleButton');
+
+      sidebar.classList.toggle('active');
+
+      // Altera o ícone do botão
+      if (sidebar.classList.contains('active')) {
+        button.innerHTML = '&times;';
+      } else {
+        button.innerHTML = '&#9776;';
+      }
     }
+
+    function toggleNotificacoes() {
+      const menu = document.getElementById('notificacao-menu');
+      menu.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function (e) {
+      const menu = document.getElementById('notificacao-menu');
+      const icone = document.querySelector('.icone-notificacao');
+      if (!menu.contains(e.target) && !icone.contains(e.target)) {
+        menu.classList.remove('show');
+      }
+    });
   </script>
 
 </body>
