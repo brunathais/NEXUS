@@ -42,7 +42,7 @@ body {
 
 .subtitle {
     font-family: 'Courier New', Courier, monospace;
-    color: #8b5cf6;
+    color: #c4aef7;
 }
 
 .description {
@@ -52,7 +52,7 @@ body {
 }
 
 .button {
-    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    background: linear-gradient(90deg, #6324f7, #ec4899);
     color: white;
     padding: 8px 15px;
     border: none;
@@ -102,11 +102,11 @@ body {
 
 .footer {
     font-size: 12px;
-    color: #666;
+    color: #696868;
 }
 
 .footer a {
-    color: #ec4899;
+    color: #c914da;
     text-decoration: none;
     font-weight: bold;
 }
