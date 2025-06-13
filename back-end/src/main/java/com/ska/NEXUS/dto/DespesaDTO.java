@@ -6,7 +6,13 @@ public class DespesaDTO {
     private float valor;
     private String data;
     private String categoria;
+    private String tipo;
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    
     public String getDescricao() {
         return descricao;
     }
@@ -39,4 +45,9 @@ public class DespesaDTO {
         this.categoria = categoria;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
 }

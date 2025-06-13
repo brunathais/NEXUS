@@ -5,8 +5,6 @@ import com.ska.NEXUS.service.DespesaService;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +22,10 @@ public class DespesasController {
         return new DespesaService().visualizarHistorico();
     }
 
-    @PostMapping("/salvar")
+    /*@PostMapping("/salvar")
     public ArrayList<DespesaDTO> salvar(@RequestBody DespesaDTO dto) { //metodo retorna referencia de aulaDTO 
         return new DespesaService().salvar(dto);
     }
-
+*/
      
 }

@@ -1,7 +1,7 @@
 package com.ska.NEXUS.service;
 
 import com.ska.NEXUS.dto.UsuarioDTO;
-import com.ska.NEXUS.repository.UsuarioRepository;
+import com.ska.NEXUS.repository.custom.UsuarioRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepositoryCustom usuarioRepository;
 
     public boolean receberMensagem(UsuarioDTO usuarioDTO) {
         return usuarioRepository.inserirUsuario(usuarioDTO);
     }
 
     public Boolean cadastro(UsuarioDTO dto) {
-        String usuario = dto.getUsuario();
+        String nome = dto.getNome();
         String senha = dto.getSenha();
         String email = dto.getEmail();
 
-        System.err.println(usuario);
+        System.err.println(nome);
         System.err.println(senha);
         System.err.println(email);
 
@@ -32,12 +32,8 @@ public class UsuarioService {
         }    
         
         return true;
-
     }
     
-    public boolean listarDados(){
-        
-    } 
-
-    
+    // public boolean listarDados(){
+ 
 }

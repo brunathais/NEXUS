@@ -1,7 +1,5 @@
 package com.ska.NEXUS.model;
 
-
-
 public class DespesaModel {
 
     private int id;
