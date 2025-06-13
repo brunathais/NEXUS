@@ -10,3 +10,50 @@ Esse projeto é um sistema de gerenciamento financeiro com funcionalidades como:
 - Cadastro de transações (receitas e despesas).
 - Visualização de relatórios financeiros.
 - Acompanhamento de metas e orçamentos.
+
+Estrutura do Projeto:
+
+NEXUS
+│
+├── .vscode
+├── back-end
+│   ├── src
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── HELP.md
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   ├── nb-configuration.xml
+│   └── pom.xml
+│
+└── front-end
+    └── src
+        ├── components
+        │   ├── footer
+        │   │   ├── footer.css
+        │   │   └── footer.html
+        │   └── header
+        │       ├── header.css
+        │       └── header.html
+        ├── resources
+        ├── screen
+        │   ├── alertas
+        │   ├── cadastro
+        │   │   ├── cadastro.css
+        │   │   ├── cadastro.html
+        │   │   └── cadastro.js
+        │   ├── contas
+        │   ├── dicas
+        │   ├── exportacao
+        │   ├── filtros
+        │   ├── graficos
+        │   ├── home
+        │   │   ├── home.css
+        │   │   └── home.html
+        │   └── inicial
+        │       ├── inicial.css
+        │       ├── inicial.html
+        │       └── login
+        │           ├── css.css
+        │           └── index.html
+
