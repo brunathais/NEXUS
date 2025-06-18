@@ -9,25 +9,52 @@
 </head>
 
 <body>
+  <!-- Cabeçalho com menu e ícones -->
   <header>
-    <div class="menu-toggle" id="toggleButton" onclick="toggleSidebar()">&#9776;</div>
+    <!-- Botão para abrir/fechar sidebar -->
+    <div
+      class="menu-toggle"
+      id="toggleButton"
+      role="button"
+      tabindex="0"
+      aria-label="Abrir menu lateral"
+      onclick="toggleSidebar()"
+      onkeypress="if(event.key==='Enter'){toggleSidebar();}"
+    >
+      &#9776;
+    </div>
 
-    <div class="icone-usuario" onclick="alert('Perfil do usuário!')">USUARIO</div>
+    <!-- Ícone/label do usuário -->
+    <div
+      class="icone-usuario"
+      role="button"
+      tabindex="0"
+      aria-label="Perfil do usuário"
+      onclick="alert('Perfil do usuário!')"
+      onkeypress="if(event.key==='Enter'){alert('Perfil do usuário!');}"
+    >
+      USUARIO
+    </div>
 
-    <!-- Área fixa para usuário e notificações -->
+    <!-- Área de notificações -->
     <div class="user-notification-area">
-
       <img
         src="notificacao.png"
         alt="Notificações"
         width="30"
         class="icone-notificacao"
+        role="button"
+        tabindex="0"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="notificacao-menu"
         onclick="toggleNotificacoes()"
+        onkeypress="if(event.key==='Enter'){toggleNotificacoes();}"
       />
     </div>
 
-    <!-- Menu de Notificações -->
-    <div id="notificacao-menu">
+    <!-- Menu de notificações (inicialmente oculto) -->
+    <div id="notificacao-menu" aria-live="polite" aria-hidden="true">
       <div id="notificacoes">
         <div class="notificacao-item">Nova transação registrada</div>
         <div class="notificacao-item">Dica do dia disponível</div>
@@ -36,16 +63,18 @@
     </div>
   </header>
 
-  <aside class="sidebar">
+  <!-- Sidebar lateral com links de navegação -->
+  <aside class="sidebar" aria-label="Menu lateral principal">
     <ul class="menu-items">
-      <li onclick="location.href='../transacoes/transacoes.html'">Transações</li>
-      <li onclick="location.href='../dicas/dicas.html'">Dicas</li>
-      <li onclick="location.href='../historico_transacao/historico.html'">Histórico</li>
-      <li onclick="location.href='../orcamento/orcamento.html'">Orçamento</li>
-      <li onclick="location.href='../contas/contas.html'">Contas e Boletos</li>
+      <li onclick="location.href='../transacoes/transacoes.html'" tabindex="0" role="link" aria-label="Ir para Transações" onkeypress="if(event.key==='Enter'){location.href='../transacoes/transacoes.html';}">Transações</li>
+      <li onclick="location.href='../dicas/dicas.html'" tabindex="0" role="link" aria-label="Ir para Dicas" onkeypress="if(event.key==='Enter'){location.href='../dicas/dicas.html';}">Dicas</li>
+      <li onclick="location.href='../historico_transacao/historico.html'" tabindex="0" role="link" aria-label="Ir para Histórico" onkeypress="if(event.key==='Enter'){location.href='../historico_transacao/historico.html';}">Histórico</li>
+      <li onclick="location.href='../orcamento/orcamento.html'" tabindex="0" role="link" aria-label="Ir para Orçamento" onkeypress="if(event.key==='Enter'){location.href='../orcamento/orcamento.html';}">Orçamento</li>
+      <li onclick="location.href='../contas/contas.html'" tabindex="0" role="link" aria-label="Ir para Contas e Boletos" onkeypress="if(event.key==='Enter'){location.href='../contas/contas.html';}">Contas e Boletos</li>
     </ul>
   </aside>
 
+  <!-- Conteúdo principal -->
   <main>
     <div class="central-area">
       <h1 class="titulo">NEXUS</h1>
@@ -64,30 +93,38 @@
     function toggleSidebar() {
       const sidebar = document.querySelector('.sidebar');
       const button = document.getElementById('toggleButton');
-
       sidebar.classList.toggle('active');
 
       if (sidebar.classList.contains('active')) {
         button.innerHTML = '&times;';
+        button.setAttribute('aria-label', 'Fechar menu lateral');
       } else {
         button.innerHTML = '&#9776;';
+        button.setAttribute('aria-label', 'Abrir menu lateral');
       }
     }
 
     function toggleNotificacoes() {
       const menu = document.getElementById('notificacao-menu');
+      const icone = document.querySelector('.icone-notificacao');
       menu.classList.toggle('show');
+
+      // Atualiza atributo aria para acessibilidade
+      const expanded = menu.classList.contains('show');
+      icone.setAttribute('aria-expanded', expanded);
+      menu.setAttribute('aria-hidden', !expanded);
     }
 
+    // Fecha o menu de notificações ao clicar fora
     document.addEventListener('click', function (e) {
       const menu = document.getElementById('notificacao-menu');
       const icone = document.querySelector('.icone-notificacao');
       if (!menu.contains(e.target) && !icone.contains(e.target)) {
         menu.classList.remove('show');
+        icone.setAttribute('aria-expanded', false);
+        menu.setAttribute('aria-hidden', true);
       }
     });
   </script>
-  
 </body>
-
 </html>
