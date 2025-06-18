@@ -1,6 +1,6 @@
 /* ======= GERAIS ======= */
 body {
-  background-color: #2e1a47;
+  background-color: blue;
   color: white;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -46,7 +46,7 @@ header {
   color: white;
   cursor: pointer;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 5px;
   background-color: transparent;
   border: 1px solid white;
@@ -180,3 +180,4 @@ main {
   background-color: #5647b4;
   transform: scale(1.1);
 }
+
