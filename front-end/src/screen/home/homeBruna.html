@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Home | Nexus</title>
+<link rel="stylesheet" href="../../components/css/main.css">
+
+</head>
+<body>
+
+<header>
+  <div class="menu-toggle" aria-label="Abrir menu" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="logo">BRUCARI<span style="font-weight:400;">NEXUS</span></div>
+  <div class="user-menu">
+    <span class="user-name">bruna</span>
+    <button class="btn-add" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menu adicionar">+</button>
+    <nav class="dropdown-menu" aria-label="Menu de opções">
+      <button><span class="icon">💾</span> Cadastro de transações</button>
+      <button><span class="icon">🗄️</span> Cadastro de contas e boletos</button>
+      <button><span class="icon">{ }</span> Planejamento e Mapeamento de Metas</button>
+      <button><span class="icon">{ }</span> Verificação de limites de gastos (orçamento)</button>
+      <button><span class="icon">📋</span> Geração de relatório financeiro detalhado</button>
+      <button><span class="icon">📄</span> Filtro por período</button>
+      <button><span class="icon">🖨️</span> Exportação dos relatórios financeiros</button>
+      <button><span class="icon">📊</span> Gráficos interativos</button>
+      <button><span class="icon">🗃️</span> Alertas sobre vencimentos</button>
+      <button><span class="icon">📝</span> Gamificação</button>
+      <button><span class="icon">📈</span> Educação Financeira</button>
+      <button><span class="icon">📋</span> Novo painel</button>
+      <button><span class="icon">📊</span> Novo painel analítico</button>
+      <button><span class="icon">⭐</span> Novo favorito</button>
+    </nav>
+  </div>
+</header>
+
+<main style="min-height:calc(100vh - 90px); display:flex; justify-content:center; align-items:center; font-size: 28px; font-weight:bold; color:#777;">
+  HOME - Conteúdo principal aqui
+</main>
+
+<footer>
+    BRUCARI
+</footer>
+
+<script>
+  const btnAdd = document.querySelector('.btn-add');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+
+  btnAdd.addEventListener('click', () => {
+    const expanded = btnAdd.getAttribute('aria-expanded') === 'true';
+    btnAdd.setAttribute('aria-expanded', !expanded);
+    dropdownMenu.classList.toggle('active');
+  });
+
+  // Fecha menu ao clicar fora
+  document.addEventListener('click', (event) => {
+    if (!btnAdd.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove('active');
+      btnAdd.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>
+
