@@ -123,4 +123,30 @@ a:hover {
   .register-container {
     width: 100%;                        /* Ocupa toda a largura disponível */
   }
+
+/* Header fixo */
+header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Footer fixo */
+footer.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Espaçamento para evitar sobreposição do conteúdo */
+main,
+.container {
+  padding-top: 100px;  /* espaço abaixo do header */
+  padding-bottom: 70px; /* espaço acima do footer */
+}
+
 }
