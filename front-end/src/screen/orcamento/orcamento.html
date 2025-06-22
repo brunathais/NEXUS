@@ -1,119 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Orçamento</title>
+  <title>NEXUS | Orçamento</title>
   <link rel="stylesheet" href="../../components/main.css" />
-
+  <script src="./orcamento.js"></script>
 </head>
-
 <body>
-  <main>
-    <!-- Título principal da página -->
+  <div data-include="../../components/header.html"></div>
+
+  <main class="container">
     <h1>Definir Orçamento</h1>
 
-    <!-- Formulário para entrada do orçamento -->
-    <form id="formOrcamento" aria-label="Formulário para definir orçamento mensal">
-      
-      <!-- Grupo para gastos essenciais -->
+    <section>
+      <ul>
+        <li>🔒 Separe pelo menos 10% da sua renda para <strong>reserva de emergência</strong>.</li>
+        <li>📊 Gaste no máximo 50% com <strong>essenciais</strong>, 30% com <strong>não essenciais</strong>.</li>
+      </ul>
+    </section>
+
+    <form id="formOrcamento">
+      <input type="hidden" id="orcamento_id" />
+
       <label for="essenciais">Essenciais:</label>
-      <input
-        type="number"
-        id="essenciais"
-        name="essenciais"
-        min="0"
-        step="0.01"
-        required
-        aria-required="true"
-        placeholder="0,00"
-      />
+      <input type="number" id="essenciais" required step="0.01" min="0" placeholder="0,00" />
 
-      <!-- Grupo para gastos não essenciais -->
       <label for="naoEssenciais">Não Essenciais:</label>
-      <input
-        type="number"
-        id="naoEssenciais"
-        name="naoEssenciais"
-        min="0"
-        step="0.01"
-        required
-        aria-required="true"
-        placeholder="0,00"
-      />
+      <input type="number" id="naoEssenciais" required step="0.01" min="0" placeholder="0,00" />
 
-      <!-- Grupo para imprevistos -->
       <label for="imprevistos">Imprevistos:</label>
-      <input
-        type="number"
-        id="imprevistos"
-        name="imprevistos"
-        min="0"
-        step="0.01"
-        required
-        aria-required="true"
-        placeholder="0,00"
-      />
+      <input type="number" id="imprevistos" required step="0.01" min="0" placeholder="0,00" />
 
-      <!-- Grupo para reserva de emergência -->
       <label for="reservaEmergencia">Reserva de Emergência:</label>
-      <input
-        type="number"
-        id="reservaEmergencia"
-        name="reservaEmergencia"
-        min="0"
-        step="0.01"
-        required
-        aria-required="true"
-        placeholder="0,00"
-      />
+      <input type="number" id="reservaEmergencia" required step="0.01" min="0" placeholder="0,00" />
 
-      <!-- Botão para salvar orçamento -->
       <button type="submit">Salvar Orçamento</button>
     </form>
+
+    <section id="relatorioGastos">
+      <h2>Resumo de Gastos</h2>
+      <div id="resumo"></div>
+    </section>
   </main>
 
-  <script>
-    // Referência ao formulário de orçamento
-    const form = document.getElementById('formOrcamento');
+  <div data-include="../../components/footer.html"></div>
+  <script src="../../components/include.js"></script>
 
-    /**
-     * Função para carregar os valores do orçamento armazenados no localStorage
-     * e preencher os inputs do formulário.
-     */
-    function carregarOrcamento() {
-      const orcamento = JSON.parse(localStorage.getItem('orcamento')) || {};
-      form.essenciais.value = orcamento.essenciais ?? 0;
-      form.naoEssenciais.value = orcamento.naoEssenciais ?? 0;
-      form.imprevistos.value = orcamento.imprevistos ?? 0;
-      form.reservaEmergencia.value = orcamento.reservaEmergencia ?? 0;
-    }
-
-    /**
-     * Evento para salvar os dados do formulário no localStorage.
-     */
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Monta o objeto orçamento com valores numéricos
-      const orcamento = {
-        essenciais: parseFloat(form.essenciais.value),
-        naoEssenciais: parseFloat(form.naoEssenciais.value),
-        imprevistos: parseFloat(form.imprevistos.value),
-        reservaEmergencia: parseFloat(form.reservaEmergencia.value),
-      };
-
-      // Salva no localStorage em formato JSON
-      localStorage.setItem('orcamento', JSON.stringify(orcamento));
-
-      // Feedback para o usuário
-      alert('Orçamento salvo com sucesso!');
-    });
-
-    // Carrega dados ao abrir a página
-    carregarOrcamento();
-  </script>
 </body>
-
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Transações</title>
+    <link rel="stylesheet" href="./transacoes.js">
+    <link rel="stylesheet" href="../../components/main.css">
+</head>
+<body>
+    <div data-include="../../components/header.html"></div>
+
+    <h1>Cadastro de Transações</h1>
+    <div class="form-container">
+        <form onsubmit="">
+            <label>Tipo de Transação</label>
+            <input type="radio" name="tipo" value="Despesa" onchange="MostrarCategoria()"> Despesa
+            <input type="radio" name="tipo" value="Receita" checked onchange="MostrarCategoria()"> Receita
+
+            <label>Valor</label>
+            <input type="float" id="valor" required>
+
+            <label>Data</label>
+            <input type="date" id="data" default today>
+
+            <label>Descrição</label>
+            <input type="text" id="descricao">
+
+            <div id="categoria_div">
+                <label>Categoria</label>
+                <select id="categoria">
+                    <option value="Essencial">Essencial</option>
+                    <option value="Não Essencial">Não Essencial</option>
+                </select>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

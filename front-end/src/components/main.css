@@ -61,18 +61,13 @@ textarea {
   font-size: 1rem;
 }
 
-/* Radios pequenos e com margem */
+/* Radios pequenos e com margem 
 input[type="radio"] {
   width: auto;
   margin-right: 10px;
 }
 
-/* Destaque ao focar no campo */
-input:focus,
-select:focus {
-  outline: none;
-  box-shadow: 0 0 5px #a570ff;         /* Brilho ao redor do campo */
-}
+*/
 
 /* Botões padrão */
 button {
