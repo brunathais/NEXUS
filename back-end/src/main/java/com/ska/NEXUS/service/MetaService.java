@@ -1,30 +1,30 @@
 package com.seuprojeto.nexus.service;
 
-import com.seuprojeto.nexus.model.MetaFinanceira;
-import com.seuprojeto.nexus.repository.MetaFinanceiraRepository;
+import com.seuprojeto.nexus.model.MetaModel;
+import com.seuprojeto.nexus.repository.MetaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MetaFinanceiraService {
+public class MetaService {
 
-    private final MetaFinanceiraRepository repository;
+    private final MetaRepository repository;
 
-    public MetaFinanceiraService(MetaFinanceiraRepository repository) {
+    public MetaService(MetaRepository repository) {
         this.repository = repository;
     }
 
-    public MetaFinanceira salvar(MetaFinanceira meta) {
+    public MetaModel salvar(MetaModel meta) {
         return repository.save(meta);
     }
 
-    public List<MetaFinanceira> listar() {
+    public List<MetaModel> listar() {
         return repository.findAll();
     }
 
-    public Optional<MetaFinanceira> buscarPorId(Long id) {
+    public Optional<MetaModel> buscarPorId(Long id) {
         return repository.findById(id);
     }
 

@@ -19,7 +19,7 @@ public class Orcamento implements Serializable {
     // Relacionamento futuro com usuário
     // private Long usuarioId;
 
-    public Orcamento() {}
+    public OrcamentoModel() {}
 
     // Getters e Setters
     public Long getId() { return id; }

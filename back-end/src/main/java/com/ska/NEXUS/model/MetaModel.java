@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-public class MetaFinanceira {
+public class MetaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
