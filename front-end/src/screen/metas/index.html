@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas</title>
+    <link rel="stylesheet" href="metas.css">
+</head>
+<body>
+
+    <h1>Metas a serem estabelecidas!</h1>
+    <label for="nomeMeta">Nome da meta:</label>
+    <br>
+    <input type="text" id= "nomeMeta" placeholder="Digite o nome da meta:" required>
+    <br><br>
+
+    <label for="valorMeta">Valor da meta a ser atingido(RS):</label>
+    <br>
+    <input type="number" id="valorMeta" placeholder="Valor da meta:" required>
+    <br><br>
+
+ <label for="valorInicial">Valor inicial(RS):</label>
+    <br>
+    <input type="number" id= "valorInicial" placeholder="Valor Incial poupado:" required>
+
+<br><br>
+      <button id="btnAdicionar">Adicionar meta</button>
+
+      <h3>Metas Salvas:</h3>
+      <div id="listaMetas"></div>
+
+</body>
+<script src="metas.js" defer></script>
+</html>

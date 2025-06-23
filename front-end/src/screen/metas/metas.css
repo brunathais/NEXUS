@@ -1,0 +1,53 @@
+
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    background-color: #faf6f6;
+  }
+
+  h1, h3 {
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .meta-card {
+    background-color: white;
+    border-left: 4px solid #4CAF50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+
+  .meta-card strong {
+    font-size: 1.1em;
+    color: #222;
+  }
+
+  .meta-card p {
+    margin: 6px 0;
+  }
