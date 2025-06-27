@@ -1,4 +1,4 @@
-package com.mycompany.nexus_certo.apirest.model;
+package com.ska.NEXUS.apirest.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

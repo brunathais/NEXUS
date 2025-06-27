@@ -1,7 +1,7 @@
-package com.seuprojeto.nexus.controller;
+/*package com.ska.NEXUS.apirest.controllers;
 
-import com.seuprojeto.nexus.model.Meta;
-import com.seuprojeto.nexus.service.MetaService;
+import com.ska.NEXUS.apirest.model.MetaModel;
+import com.ska.NEXUS.apirest.service.MetaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,3 +56,4 @@ public ResponseEntity<Meta> editarMeta(@PathVariable Long id, @RequestBody Meta 
 }
 
 }
+*/

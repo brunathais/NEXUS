@@ -1,4 +1,4 @@
-package com.seuprojeto.nexus.model;
+package com.ska.NEXUS.apirest.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -21,5 +21,52 @@ public class MetaModel {
 
     private String categoria;
 
-    // Getters e Setters
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public LocalDate getPrazo() {
+        return prazo;
+    }
+
+    public BigDecimal getValorPoupado() {
+        return valorPoupado;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPrazo(LocalDate prazo) {
+        this.prazo = prazo;
+    }
+
+    public void setValorPoupado(BigDecimal valorPoupado) {
+        this.valorPoupado = valorPoupado;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+    
 }

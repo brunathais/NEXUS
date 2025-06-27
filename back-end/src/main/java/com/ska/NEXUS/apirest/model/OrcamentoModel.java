@@ -1,11 +1,11 @@
-package model;
+package com.ska.NEXUS.apirest.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "orcamentos")
-public class Orcamento implements Serializable {
+public class OrcamentoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,7 @@
-package controller;
+/*package com.ska.NEXUS.apirest.controllers;
 
-import model.Orcamento;
-import service.OrcamentoService;
+import com.ska.NEXUS.apirest.model.Orcamento;
+import com.ska.NEXUS.apirest.service.OrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,3 +52,4 @@ public class OrcamentoController {
         orcamentoService.deletar(id);
     }
 }
+*/

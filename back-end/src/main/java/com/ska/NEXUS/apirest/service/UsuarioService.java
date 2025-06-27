@@ -1,9 +1,9 @@
 
 
-package com.mycompany.nexus_certo.apirest.service;
+package com.ska.NEXUS.apirest.service;
 
-import com.mycompany.nexus_certo.apirest.model.UsuarioModel;
-import com.mycompany.nexus_certo.apirest.repository.UsuarioRepository;
+import com.ska.NEXUS.apirest.model.UsuarioModel;
+import com.ska.NEXUS.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

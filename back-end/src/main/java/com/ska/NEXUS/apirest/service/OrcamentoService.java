@@ -1,7 +1,7 @@
-package service;
+/*package com.ska.NEXUS.apirest.service;
 
-import model.Orcamento;
-import repository.OrcamentoRepository;
+import com.ska.NEXUS.apirest.model.Orcamento;
+import com.ska.NEXUS.apirest.repository.OrcamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,3 +30,4 @@ public class OrcamentoService {
         orcamentoRepository.deleteById(id);
     }
 }
+*/

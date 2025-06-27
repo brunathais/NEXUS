@@ -1,9 +1,9 @@
-package com.seuapp.controller;
+/*package com.ska.NEXUS.apirest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.seuapp.model.Transacao;
-import com.seuapp.repository.TransacaoRepository;
+import com.ska.NEXUS.apirest.repository.TransacaoRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,3 +55,4 @@ public class TransacaoController {
         transacaoRepo.deleteById(id);
     }
 }
+*/

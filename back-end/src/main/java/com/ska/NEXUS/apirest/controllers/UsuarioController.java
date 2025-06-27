@@ -1,7 +1,7 @@
-package com.mycompany.nexus_certo.apirest.controllers;
+package com.ska.NEXUS.apirest.controllers;
 
-import com.mycompany.nexus_certo.apirest.model.UsuarioModel;
-import com.mycompany.nexus_certo.apirest.service.UsuarioService;
+import com.ska.NEXUS.apirest.model.UsuarioModel;
+import com.ska.NEXUS.apirest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

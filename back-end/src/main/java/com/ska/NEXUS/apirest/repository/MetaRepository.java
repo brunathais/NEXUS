@@ -1,6 +1,6 @@
-package com.seuprojeto.nexus.repository;
+package com.ska.NEXUS.apirest.repository;
 
-import com.seuprojeto.nexus.model.MetaModel;
+import com.ska.NEXUS.apirest.model.MetaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MetaRepository extends JpaRepository<MetaModel, Long> {

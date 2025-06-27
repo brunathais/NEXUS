@@ -1,7 +1,7 @@
-package com.seuprojeto.nexus.service;
+package com.ska.NEXUS.apirest.service;
 
-import com.seuprojeto.nexus.model.MetaModel;
-import com.seuprojeto.nexus.repository.MetaRepository;
+import com.ska.NEXUS.apirest.model.MetaModel;
+import com.ska.NEXUS.apirest.repository.MetaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

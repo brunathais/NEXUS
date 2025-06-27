@@ -1,6 +1,6 @@
-package com.mycompany.nexus_certo.apirest.repository;
+package com.ska.NEXUS.apirest.repository;
 
-import com.mycompany.nexus_certo.apirest.model.UsuarioModel;
+import com.ska.NEXUS.apirest.model.UsuarioModel;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

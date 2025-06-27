@@ -1,14 +1,16 @@
-package com.ska.NEXUS;
+package com.ska.NEXUS.apirest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
     @SpringBootApplication
-public class NexusApplication {
+public class ApiRestApplication {
     
 
     public static void main(String[] args) {
         
-        SpringApplication.run(NexusApplication.class, args);
+        SpringApplication.run(ApiRestApplication.class, args);
     }
 }
+
+

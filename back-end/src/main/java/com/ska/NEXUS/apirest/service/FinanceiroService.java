@@ -1,3 +1,5 @@
+/*package com.ska.NEXUS.apirest.service;
+
 public Map<String, Object> obterResumoFinanceiro() {
     BigDecimal totalReceitas = transacaoRepository.somarPorTipo("RECEITA");
     BigDecimal totalDespesas = transacaoRepository.somarPorTipo("DESPESA");
@@ -9,3 +11,4 @@ public Map<String, Object> obterResumoFinanceiro() {
     resumo.put("porCategoria", porCategoria);
     return resumo;
 }
+*/
