@@ -12,18 +12,8 @@
 </head>
 
 <script>
-    function efetuarLogin() {
-        event.preventDefault(); // Evita o reload da página
 
-        // Obter valores dos campos do formulário
-        const usuario = document.getElementById("nome").value;
-        const senha = document.getElementById("senha").value;
 
-        // DTO que será enviado no corpo da requisição
-        const papel = {
-            login: usuario,
-            senha: senha
-        }
 
         // Configuração da requisição
         fetch("http://localhost:8080/aulaLista/dados", {
@@ -81,8 +71,8 @@
 
             <!--adicionar validação de campos obrigatorios-->
 
-            <button><a href="../home/home.html">ENTRAR</a></button>
-
+            <button><a href="../home/home.html">ENTRAR home</a></button>
+            <button type="submit">ENTRAR submit</button>
         </form>
 
         <p class="register-text">Não tem uma conta? <a href="../cadastro/cadastro.html">Cadastre-se</a></p>
