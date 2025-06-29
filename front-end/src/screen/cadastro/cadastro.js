@@ -33,16 +33,28 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 function efetuarCadastro() {
     const { nome, email, senha, confirmarSenha } = obterDadosCadastro();
 
-    if (!nome || !email || !senha || !confirmarSenha) { //! inverte o valor true e false
+    if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) { //! inverte o valor true e false
         alert("Preencha os campos! Todos são obrigatórios para o Cadastro!")
         return;
     }
+}
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!emailRegex.test(email)){
+    alert("digite email valido");
+    return;
 }
 
 if (senha !== confirmarSenha) {
     alert("As senhas são diferentes!");
     return;
 }
+
+if(senha.lenght < 6){
+    alert("senha deve ter no min 6 caracteres");
+    return;
+}
+
 
 // DTO que será enviado no corpo da requisição
 const UsuarioDTO = {  //aqui junção do js com java
@@ -73,5 +85,5 @@ fetch("http://localhost:8080/usuarios", {
     .catch((error) => {
         alert("Erro: " + error.message); // Exibe a mensagem de erro
     });
-}
+
 

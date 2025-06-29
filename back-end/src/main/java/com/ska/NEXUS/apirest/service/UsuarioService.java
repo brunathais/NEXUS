@@ -13,12 +13,27 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repo;
 
-    public UsuarioModel salvar(UsuarioModel user) {
-        return repo.save(user);
+    @Autowired
+private PasswordEncoder passwordEncoder;
+
+
+    public UsuarioModel salvar(UsuarioModel usuario) {
+        usuario.setSenha(passwordEncoder.encode(UsuarioDTO.getSenha()));
+usuarioRepository.save(usuario);
+//não precisa do return? ex de antes: return repo.save(user);
     }
 
-    public boolean autenticar(String email, String senha) {
-        return repo.findByEmailAndSenha(email, senha).isPresent();
+    public ResponseEntity<?> autenticar(LoginDTO dto) {
+        Optional<Usuario> usuarioOpt = UsuarioRepository.findByEmail(dto.getEmail());
+        
+        if(usuarioOpt.isEmpty() || 
+        !passwordEncoder.matches(dto.getSenha(), usuarioOpt.get().getSenha()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body("Usuário ou senha inválidos/incorretos");
+        }
+        )
+        Usuario usuario = usuarioOpt.get();
+        return ResponseEntity.ok(usuario)
     }
 }
 
