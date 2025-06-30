@@ -6,8 +6,129 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Home | Nexus</title>
-<link rel="stylesheet" href="../../components/main.css">
+<style>
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
 
+  body, html {
+    height: 100%;
+    background-color: #ccc; /* igual a imagem */
+  }
+
+  /* Barra superior */
+  header {
+    background-color: #0b678a;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+  }
+
+  /* Ícone hamburguer */
+  .menu-toggle {
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .menu-toggle span {
+    display: block;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Logo central */
+  .logo {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  /* Menu do lado direito */
+  .user-menu {
+    position: relative;
+  }
+
+  .user-name {
+    margin-right: 10px;
+  }
+
+  .btn-add {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: #0b678a;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    width: 220px;
+    padding: 10px 0;
+    z-index: 10;
+  }
+
+  .dropdown-menu.active {
+    display: block;
+  }
+
+  .dropdown-menu button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dropdown-menu button:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  /* Ícones simples com emojis para exemplo (você pode substituir por SVG ou fontawesome) */
+  .dropdown-menu button span.icon {
+    width: 18px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  /* Rodapé igual a imagem */
+  footer {
+    background-color: #0b678a;
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+</style>
 </head>
 <body>
 
