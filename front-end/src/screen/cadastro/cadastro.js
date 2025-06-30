@@ -1,64 +1,45 @@
-function obterValorCampo(id) {
-    return document.getElementById(id).value.trim(); //o trim() tira espaços em branco do inicio e fim
-}
+import { obterValorCampo, verificarEmail, verificarSenhasIguais, verificarTamanhoSenha, camposNaoVazios } from "../../utils/validacoes";
+import { postJSON } from "../../services/api.js";
+import { mostrarErro, mostrarSucesso } from "../../utils/mensagens.js";
+
+await postJSON("http://localhost:8080/usuarios", loginDTO)
 
 function obterDadosCadastro() {
     return {
-        nome: obterValorCampo("nome"),
+        usuario: obterValorCampo("usuario"),
         email: obterValorCampo("email"),
         senha: obterValorCampo("senha"),
         confirmarSenha: obterValorCampo("confirmarSenha")
     }
 }
 
-function obterDadosLogin() {
-    return {
-        nome: obterValorCampo("nome"), //oq faz o :
-        senha: obterValorCampo("senha")
-    }
-}
-
-function efetuarLogin() {
-document.getElementById("loginForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Evita o reload da página, para usar o fetch
-        const { nome, senha } = obterDadosLogin(); //forma de desestruturação eu acho, pega as consts que estão na função
-
-        if (!nome || !senha) {
-            alert("Preencha os campos! Todos são obrigatórios para o Login!")
-            return;
-        }
-    })
-}
-
 function efetuarCadastro() {
-    const { nome, email, senha, confirmarSenha } = obterDadosCadastro();
+    const { usuario, email, senha, confirmarSenha } = obterDadosCadastro();
 
-    if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) { //! inverte o valor true e false
-        alert("Preencha os campos! Todos são obrigatórios para o Cadastro!")
+    if(!camposNaoVazios([usuario, email, senha, confirmarSenha])){
+        alert("Preencha os campos! Todos são obrigatórios para o Cadastro!");
         return;
     }
-}
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-if(!emailRegex.test(email)){
-    alert("digite email valido");
-    return;
-}
+    if(!verificarEmail(email)){
+        alert("email invalido");
+        return;
+    }
 
-if (senha !== confirmarSenha) {
-    alert("As senhas são diferentes!");
-    return;
-}
-
-if(senha.lenght < 6){
-    alert("senha deve ter no min 6 caracteres");
-    return;
+    if(!verificarSenhasIguais(senha, confirmarSenha)){
+        alert("senhas diferentes!");
+        return;
+    }
+    if(!verificarTamanhoSenha(email)){
+        alert("senha deve ter no min 6 caracteres");
+        return;
+    }
 }
 
 
 // DTO que será enviado no corpo da requisição
 const UsuarioDTO = {  //aqui junção do js com java
-    nome: varnome, // essa parte oq faz? de onde tem essas variaveis?
+    usuario: varUsuario, // essa parte oq faz? de onde tem essas variaveis?
     email: email,
     senha: senha
 };

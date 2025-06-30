@@ -1,10 +1,30 @@
-function efetuarLogin() {
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Evita o reload da página
+import { obterValorCampo, verificarTamanhoSenha, camposNaoVazios } from "../../utils/validacoes";
+import { postJSON } from "../../services/api.js";
 
-        // Obter valores dos campos do formulário
-        const usuario = document.getElementById("nome").value;
-        const senha = document.getElementById("senha").value;
+await postJSON("http://localhost:8080/login", loginDTO)
+
+function obterDadosLogin() {
+    return {
+        usuario: obterValorCampo("usuario"), //oq faz o :
+        senha: obterValorCampo("senha")
+    }
+}
+
+function efetuarLogin() {
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evita o reload da página, para usar o fetch
+        const { usuario, senha } = obterDadosLogin(); //forma de desestruturação eu acho, pega as consts que estão na função
+
+        if(!camposNaoVazios([usuario, senha])){
+            alert("Preencha os campos! Todos são obrigatórios para o Login!");
+            return;
+        }
+        if(!verificarTamanhoSenha(senha)){
+            alert("senha muito curta!");
+            return;
+        }
+    })
+}
 
         // DTO que será enviado no corpo da requisição
         const dto = {
@@ -14,8 +34,7 @@ function efetuarLogin() {
 
         // Configuração da requisição
 
-        fetch("http://localhost:8080/aulaLista/dados", { //alterar rota
-            //  fetch("http://localhost:8080/usuarioController/autenticar", {
+        fetch("http://localhost:8080/usuarios/login", { //conferir rota
             method: "POST", // Método HTTP
             headers: {
                 "Content-Type": "application/json", // Tipo de conteúdo enviado
@@ -34,7 +53,6 @@ function efetuarLogin() {
                 window.location.href = "index.html";
             })
             .catch((error) => {
-                alert("Erro: " + error.message); // Exibe a mensagem de erro
+                console.error(error);
+                alert("Falha no login. Verifique suas credenciais e tente novamente. Erro: " + error.message); // Exibe a mensagem de erro
             });
-    });
-}
