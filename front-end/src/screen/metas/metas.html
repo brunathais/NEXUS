@@ -3,60 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Gerenciador de Metas Financeiras</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
-    h1 {
-      text-align: center;
-    }
-    form {
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input[type="text"], input[type="number"] {
-      padding: 8px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .meta {
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    .meta h3 {
-      margin: 0 0 10px;
-    }
-    .progress-bar {
-      background-color: #eee;
-      border-radius: 6px;
-      overflow: hidden;
-      height: 20px;
-      margin-bottom: 5px;
-    }
-    .progress {
-      height: 100%;
-      background-color: #4caf50;
-      width: 0;
-      transition: width 0.4s ease;
-    }
-    .status {
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="./metas.css">
+  <script src="metas.js" defer></script>
 </head>
 <body>
 
@@ -64,13 +12,13 @@
 
   <form id="form-meta">
     <label for="nomeMeta">Nome da Meta</label>
-    <input type="text" id="nomeMeta" required />
+    <input type="text" id="nomeMeta" placeholder="Digite o nome da meta" required/>
 
     <label for="valorTotal">Valor Total (R$)</label>
-    <input type="number" id="valorTotal" min="30" step="0.8" required />
+    <input type="number" id="valorTotal" min="0" step="0.01" placeholder="Digite o valor da meta" required />
 
     <label for="valorPoupado">Valor Poupado Inicial (R$)</label>
-    <input type="number" id="valorPoupado" min="0" step="0.01" value="0" required />
+    <input type="number" id="valorPoupado" min="0" step="0.01" placeholder="Digite o valor ja poupado" />
 
     <button type="submit">Adicionar Meta</button>
   </form>
@@ -79,71 +27,6 @@
 
     
   </div>
-
-  <script>
-    const formMeta = document.getElementById('form-meta');
-    const listaMetas = document.getElementById('listaMetas');
-    let metas = [];
-
-    function atualizarLista() {
-      listaMetas.innerHTML = '';
-
-      metas.forEach((meta, index) => {
-        const porcentagem = Math.min((meta.valorPoupado / meta.valorTotal) * 100, 100).toFixed(2);
-
-        const divMeta = document.createElement('div');
-        divMeta.className = 'meta';
-
-        divMeta.innerHTML = `
-          <h3>${meta.nome}</h3>
-          <div class="progress-bar">
-            <div class="progress" style="width: ${porcentagem}%;"></div>
-          </div>
-          <div class="status">${porcentagem}% - R$${meta.valorPoupado.toFixed(2)} / R$${meta.valorTotal.toFixed(2)}</div>
-          <label>Adicionar valor poupado:</label>
-          <input type="number" min="0" step="0.01" id="inputPoupado${index}" placeholder="Valor" />
-          <button onclick="adicionarValor(${index})">Atualizar</button>
-        `;
-
-        listaMetas.appendChild(divMeta);
-      });
-    }
-
-    function adicionarValor(index) {
-      const input = document.getElementById(`inputPoupado${index}`);
-      const valor = parseFloat(input.value);
-
-      if (!isNaN(valor) && valor > 0) {
-        metas[index].valorPoupado += valor;
-        if (metas[index].valorPoupado >= metas[index].valorTotal) {
-          metas[index].valorPoupado = metas[index].valorTotal;
-
-          // Exibe mensagem de parabéns
-          alert(`Meta "${metas[index].nome}" atingida! Parabéns! 🎉`);
-        }
-        input.value = '';
-        atualizarLista();
-      } else {
-        alert('Informe um valor válido maior que zero.');
-      }
-    }
-
-    formMeta.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nome = document.getElementById('nomeMeta').value.trim();
-      const valorTotal = parseFloat(document.getElementById('valorTotal').value);
-      const valorPoupado = parseFloat(document.getElementById('valorPoupado').value);
-
-      if (nome && valorTotal > 0 && valorPoupado >= 0 && valorPoupado <= valorTotal) {
-        metas.push({ nome, valorTotal, valorPoupado });
-        formMeta.reset();
-        atualizarLista();
-      } else {
-        alert('Por favor, preencha os dados corretamente. O valor poupado não pode ser maior que o valor total.');
-      }
-    });
-  </script>
 
 </body>
 </html>
