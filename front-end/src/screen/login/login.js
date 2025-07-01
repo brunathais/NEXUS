@@ -1,7 +1,16 @@
 import { obterValorCampo, verificarTamanhoSenha, camposNaoVazios } from "../../utils/validacoes";
 import { postJSON } from "../../services/api.js";
+import { validarLogin } from "../../utils/validarFormulario.js";
+import { limparMensagem, mostrarErro, mostrarMensagem } from "../../utils/mensagens.js";
 
 await postJSON("http://localhost:8080/login", loginDTO)
+
+const erro = validarLogin({ usuario, senha })
+
+if (erro) {
+    mostrarErro(erro);
+    return;
+}
 
 function obterDadosLogin() {
     return {
@@ -10,7 +19,9 @@ function obterDadosLogin() {
     }
 }
 
-function efetuarLogin() {
+async function efetuarLogin() {
+    limparMensagem();
+
 document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Evita o reload da página, para usar o fetch
         const { usuario, senha } = obterDadosLogin(); //forma de desestruturação eu acho, pega as consts que estão na função
@@ -22,6 +33,13 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
         if(!verificarTamanhoSenha(senha)){
             alert("senha muito curta!");
             return;
+        }
+
+        try{
+            await postJSON("http://localhost:8080/usuarios/login", {usuario, senha});
+            setTimeout(() => window.location.href = "../home/home.html", 1500)
+        } catch (error){
+            mostrarMensagem("erro", error.message);
         }
     })
 }

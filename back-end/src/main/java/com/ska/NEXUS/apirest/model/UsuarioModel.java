@@ -1,5 +1,6 @@
 package com.ska.NEXUS.apirest.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,9 +11,10 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
-    private String senha;
+    @Column(unique = true)
+    private String usuario;
     private String email;
+    private String senha;
 
     public int getId() {
         return id;
@@ -22,8 +24,8 @@ public class UsuarioModel {
         return email;
     }
 
-    public String getNome() {
-        return nome;
+    public String getUsuario() {
+        return usuario;
     }
 
     public String getSenha() {
@@ -33,18 +35,17 @@ public class UsuarioModel {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
 }

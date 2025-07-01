@@ -1,8 +1,17 @@
 import { obterValorCampo, verificarEmail, verificarSenhasIguais, verificarTamanhoSenha, camposNaoVazios } from "../../utils/validacoes";
 import { postJSON } from "../../services/api.js";
-import { mostrarErro, mostrarSucesso } from "../../utils/mensagens.js";
+import { mostrarErro, mostrarMensagem, limparMensagem } from "../../utils/mensagens.js";
+import { validarCadastro } from "../../utils/validarFormulario.js";
 
 await postJSON("http://localhost:8080/usuarios", loginDTO)
+
+
+const erro = validarCadastro({ usuario, email, senha, confirmarSenha })
+
+if (erro) {
+    mostrarErro(erro);
+    return;
+}
 
 function obterDadosCadastro() {
     return {
@@ -14,28 +23,29 @@ function obterDadosCadastro() {
 }
 
 function efetuarCadastro() {
+    limparMensagem();
+
     const { usuario, email, senha, confirmarSenha } = obterDadosCadastro();
 
-    if(!camposNaoVazios([usuario, email, senha, confirmarSenha])){
-        alert("Preencha os campos! Todos são obrigatórios para o Cadastro!");
+    if (!camposNaoVazios([usuario, email, senha, confirmarSenha])) {
+        mostrarMensagem("erro", "Preencha os campos! Todos são obrigatórios para o Cadastro!");
         return;
     }
 
-    if(!verificarEmail(email)){
-        alert("email invalido");
+    if (!verificarEmail(email)) {
+        mostrarMensagem("erro","email invalido");
         return;
     }
 
-    if(!verificarSenhasIguais(senha, confirmarSenha)){
-        alert("senhas diferentes!");
+    if (senha !== confirmarSenha) {
+        mostrarMensagem("erro","senhas diferentes!");
         return;
     }
-    if(!verificarTamanhoSenha(email)){
-        alert("senha deve ter no min 6 caracteres");
+    if (!verificarTamanhoSenha(email)) {
+        alert("erro","senha deve ter no min 6 caracteres");
         return;
     }
 }
-
 
 // DTO que será enviado no corpo da requisição
 const UsuarioDTO = {  //aqui junção do js com java
@@ -44,6 +54,15 @@ const UsuarioDTO = {  //aqui junção do js com java
     senha: senha
 };
 
+try {
+    await postJSON("http://localhost:8080/usuarios", {nome, email, senha});
+    mostrarMensagem("sucesso", "Cadastro realizado com sucesso!");
+    setTimeout(() => window.location.href = "../login/login.html", 1500);
+} catch (error){
+    mostrarMensagem("erro", error.message);
+}
+
+/*
 // Configuração da requisição
 fetch("http://localhost:8080/usuarios", {
     method: "POST", // Método HTTP
@@ -67,4 +86,21 @@ fetch("http://localhost:8080/usuarios", {
         alert("Erro: " + error.message); // Exibe a mensagem de erro
     });
 
+*/
 
+/*
+.then(response => {
+  if (!response.ok) {
+    throw new Error("Usuário ou senha inválidos");
+  }
+  return response.text();
+})
+.then(data => {
+  alert("Login bem-sucedido!");
+  window.location.href = "../home/home.html";
+})
+.catch(error => {
+  alert(error.message);
+});
+
+*/

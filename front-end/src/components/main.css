@@ -8,7 +8,7 @@
 /* FONTE GLOBAL */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0c0028;
+  background-color: #b7a6dd;
   color: #333;
   line-height: 1.6;
   min-height: 100vh;
@@ -99,22 +99,25 @@ tr:hover {
   background-color: #f1f1f1;
 }
 
-/* MENSAGENS */
-.alert {
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 5px;
+.mensagem {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  display: none;        /* Começa escondido */
 }
 
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.alert-error {
+.mensagem.erro {
   background-color: #f8d7da;
   color: #721c24;
+  border: 1px solid #f5c6cb;
 }
+
+.mensagem.sucesso {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
 
 /* RODAPÉ */
 footer {
