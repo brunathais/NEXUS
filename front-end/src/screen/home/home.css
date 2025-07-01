@@ -33,9 +33,6 @@ header {
 
 /* ======= USUÁRIO E NOTIFICAÇÕES ======= */
 .user-notification-area {
-  position: absolute;               /* Necessário para posicionar com top/right */
-  right: 20px;
-  top: 15px;
   display: flex;                   /* Layout horizontal para ícones */
   gap: 15px;
   z-index: 1001;
