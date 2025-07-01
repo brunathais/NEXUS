@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home - Nexus</title>
+    <link rel="stylesheet" href="homeBruna.css">
+</head>
+<body>
+
+    <nav class="menu-toggle" onclick="toggleSidebar()">
+    <span class="icon">&#9776;</span>
+    <span></span>
+</nav>
+
+
+    <aside class="sidebar">
+        <h2 class="menu-text">Menu</h2>
+        <!-- Aqui futuramente colocar links adicionais -->
+    </aside>
+
+    <div class="icone-usuario" onclick="clickIconeUsuario()"><img src="../../assets/icons8-usuário-60.png" alt="" width="40px" lenght="40px"></div>
+
+    <div class="sideAvatar">
+        <h2>Caroline Oestreich</h2>
+    </div>
+
+    <img src="../../assets/icons8-sino-48 (1).png" alt="Notificações" width="30px" lenght="50px" class="sideIconNotificacoes" 
+         onclick="clickIconNotificacoes()" width="30" height="30">
+
+    <div class="sideNotificacoes">
+        <p>Notificações aparecerão aqui.</p>
+    </div>
+
+    <header>
+        <h1 class="titulo">NEXUS</h1>
+    </header>
+
+    <main>
+        <div class="main-buttons">
+            <a href="../transacoes/transacoes.html" class="main-button">Transação</a>
+            <a href="../dicas/dicas.html" class="main-button">Dicas</a>
+            <a href="../historico_transacao/historico.html" class="main-button">Histórico</a>
+            <a href="#" class="main-button">Orçamento</a>
+            <a href="../contas/contas.html" class="main-button">Contas e Boletos</a>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        function clickIconeUsuario() {
+            document.querySelector('.sideAvatar').classList.toggle('exibir_painel_usuario');
+        }
+
+        function clickIconNotificacoes() {
+            document.querySelector('.sideNotificacoes').classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
