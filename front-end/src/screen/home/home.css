@@ -19,6 +19,21 @@ header {
   z-index: 100;
 }
 
+
+#logOut {
+  display: inline-block;
+  width: auto;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: transparent;
+  color: white;
+}
+
+
 /* ======= BOTÃO MENU ======= */
 .menu-toggle {
   font-size: 1.8rem;
