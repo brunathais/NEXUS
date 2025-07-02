@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Transações</title>
+    <link rel="stylesheet" href="../../components/main.css">
+    <script src="./transacoes.js"></script>
+</head>
+<body>
+    <div data-include="../../components/header.html"></div> <!-- não esta funcional, não esta exibindo o header -->
+
+    <h1>Cadastro de Transações</h1>
+    <div class="container">
+
+        <div class="form-container">
+            <form onsubmit="salvarTransacao(event)">
+                <label><h2>Tipo de Transação:</h2></label>
+                <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
+                <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+
+                <label>Valor:</label>
+                <input type="number" id="valor" required> 
+        <!-- se eu usar float ou doble? -->
+
+                <label>Data:</label>
+                <input type="date" id="data"> 
+        <!-- tem como deiixar por default o dia de hoje -->
+
+                <label>Descrição:</label>
+                <input type="text" id="descricao">
+                
+        <!-- é importante mas não obrigatorio -->
+
+                <div id="categoria_div">
+                    <label>Categoria:</label>
+                    <select id="categoria">
+                        <option value="Essenciais">Essenciais</option>
+                        <option value="Não Essenciais">Não Essenciais</option>
+                        <option value="Imprevistos">Imprevistos</option> <!-- precisa ter o value? e aceita tudo o value? -->
+                    </select>
+                </div>
+
+                <!-- ID oculto para edição -->
+                <input type="hidden" id="transacao_id"> <!-- o que é esse hidden? -->
+
+                <button type="submit">Salvar Transação</button> <!-- o que é submit? -->
+            </form>
+        </div>
+
+        
+        <div class="historico-container">
+            <br>
+            <h2>Histórico de Transações</h2>
+
+            <div class="filtro-container">
+                <select id="filtroTipo" onchange="filtrarHistorico()"> <!-- onchange é o que? -->
+                    <option value="">Filtrar por Tipo</option>
+                    <option value="Receita">Somente Receitas</option>
+                    <option value="Despesa">Somente Despesas</option>
+                </select>
+
+                <select id="filtroCategoria" onchange="filtrarHistorico()">
+                    <option value="">Filtrar por Categoria</option>
+                    <option value="Essenciais">Essenciais</option>
+                    <option value="Não Essenciais">Não Essenciais</option>
+                    <option value="Imprevistos">Imprevistos</option>
+                </select>
+
+                <label for="filtroDataInicio">De:</label>
+                <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
+
+                <label for="filtroDataFim">Até:</label>
+                <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
+            </div>
+
+            <div id="historico"></div> <!-- dentro dessa div aparece o historico? ou qual a função dela? -->
+        </div>
+    </div>
+
+    <div data-include="../../components/footer.html"></div> <!-- não esta funcional, não esta exibindo o footer -->
+    <script src="../../components/include.js"></script>
+
+</body>

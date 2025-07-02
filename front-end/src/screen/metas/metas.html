@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerenciador de Metas Financeiras</title>
+  <link rel="stylesheet" href="../../components/main.css">
+
+</head>
+
+<body>
+
+  <h1>Gerenciador de Metas Financeiras</h1>
+
+<form id="form-meta">
+  <label for="nomeMeta">Nome da Meta</label>
+  <input type="text" id="nomeMeta" required />
+
+  <label for="valorTotal">Valor Total (R$)</label>
+  <input type="number" id="valorTotal" min="0" step="0.01" required />
+
+  <label for="valorPoupado">Valor Poupado Inicial (R$)</label>
+  <input type="number" id="valorPoupado" min="0" step="0.01" value="0" required />
+
+  <label for="prazo">Prazo</label>
+  <input type="date" id="prazo" required />
+
+  <label for="categoria">Categoria</label>
+  <select id="categoria" required>
+    <option value="Viagem">Viagem</option>
+    <option value="Reserva de Emergência">Reserva de Emergência</option>
+    <option value="Bem Material">Bem Material</option>
+    <option value="Outro">Outro</option>
+  </select>
+
+  <button type="submit">Adicionar Meta</button>
+</form>
+
+  <div id="listaMetas"></div>
+
+  <p>Você precisa guardar <strong>R$${poupancaMensal}/mês</strong> até ${meta.prazo}.</p>
+    
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home | Nexus</title>
+  <link rel="stylesheet" href="../../components/main.css" />
+  <link rel="stylesheet" href="./home.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NEXUS</div>
+    <div class="user-menu">
+      <span class="user-name">Olá, Bruna</span>
+      <img src="notificacao.png" alt="Notificações" class="icone-notificacao" onclick="toggleNotificacoes()" />
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <ul>
+      <li onclick="location.href='../transacoes/transacoes.html'">📥 Transações</li>
+      <li onclick="location.href='../orcamento/orcamento.html'">💰 Orçamento</li>
+      <li onclick="location.href='../contas/contas.html'">📄 Contas e Boletos</li>
+      <li onclick="location.href='../historico_transacao/historico.html'">📊 Histórico</li>
+      <li onclick="location.href='../educacaoFinanceira/educacaoFinanceira.html'">💡 Dicas Financeiras</li>
+      <li onclick="location.href='../metas/metas.html'">🎯 Metas</li>
+      <li onclick="alert('Em breve!')">📈 Relatórios</li>
+    </ul>
+  </aside>
+
+  <main>
+    <h1>Visão Geral</h1>
+    <p>Escolha uma ação abaixo para gerenciar suas finanças:</p>
+    <div class="dashboard">
+      <div class="card"><a href="../transacoes/transacoes.html">Registrar Transação</a></div>
+      <div class="card"><a href="../orcamento/orcamento.html">Definir Orçamento</a></div>
+      <div class="card"><a href="../contas/contas.html">Gerenciar Contas</a></div>
+      <div class="card"><a href="../historico_transacao/historico.html">Ver Histórico</a></div>
+      <div class="card"><a href="../educacaoFinanceira/educacaoFinanceira.html">Ler Dicas</a></div>
+      <div class="card"><a href="../metas/metas.html">Metas</a></div>
+    </div>
+
+    <section>
+      <h2>Aqui ficara a parte do resumo financeiro com graficos</h2>
+      <canvas id="graficoResumo" width="400" height="200"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    BRUCARI © 2025 - Todos os direitos reservados
+  </footer>
+
+</body>
+
+</html>

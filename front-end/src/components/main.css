@@ -1,0 +1,161 @@
+/* RESET BÁSICO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FONTE GLOBAL */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #620b9c;
+  color: #ffffff;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* CONTAINERS PRINCIPAIS */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* CABEÇALHO */
+header {
+  background-color: #0075e2;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+/* BOTÕES */
+button, .btn {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: #0228a5;
+}
+
+/* FORMULÁRIOS */
+form {
+  margin-top: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+}
+
+/* TABELAS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #2b3e50;
+  color: white;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* MENSAGENS */
+.alert {
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #0d6321;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* RODAPÉ */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #2b3e50;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+}
+
+/*parte para colocar o cadastro d transacao lado a lado, o historico fica do ladinho*/
+.container{
+  display: flex; /*cria espaco entre elas*/
+  justify-content: space-between;/*alinha*/
+  align-items: flex-start;/*da um espaco entre os dois*/
+  gap: 2px; /* VER PARA Q SERVE*/ 
+  max-width: 1200px; /* limita largura em telas enormes */
+  margin: 10 auto; /*eke centraliza na tela*/
+}
+
+.for-container{ /*ocupa 60% fixo */
+  flex:0 0 60%;
+}
+.historico-container{ /*/ ocupa 35% fixo */
+  flex: 0 0 50%;
+}
+.historico-container select,
+.historico-container input[type="date"] {
+  width: 100%;
+  max-width: 250px; /* limita largura para não esticar demais */
+}
+/*
+@media (max-width: 768px){
+  .container{
+    flex-direction: column;
+  }
+  .for-container,
+  .historico-container{
+    width:100%;
+  } 
+}*/

@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #2b084e, #5A0CA8, #8c4cfc);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+header .titulo {
+    font-size: 80px;
+    opacity: 0.8;
+    margin: 20px 0;
+    color: white;
+    text-shadow: 2px 2px 5px #8c4cfc;
+    text-align: center;
+}
+
+/* Botões principais */
+.main-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.main-button {
+    display: inline-block;
+    padding: 20px 50px;
+    font-size: 1.2rem;
+    color: white;
+    background: linear-gradient(135deg, #000000, #5A0CA8);
+    border: 2px solid white;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+
+.main-button:hover {
+    background: linear-gradient(135deg, #5A0CA8, #ffffff);
+    color: #000000;
+    transform: scale(1.1);
+}
+
+/* Sidebar */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1001;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: linear-gradient(to bottom, #000000, #5A0CA8);
+    padding: 20px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.menu-text {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Avatar */
+.icone-usuario {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.sideAvatar {
+    position: fixed;
+    top: 0;
+    right: -220px;
+    width: 200px;
+    background: linear-gradient(to bottom, #5A0CA8, #000000);
+    padding: 20px;
+    border-radius: 15px 0 0 15px;
+    transition: right 0.5s ease;
+    z-index: 1000;
+}
+
+.sideAvatar.exibir_painel_usuario {
+    right: 0;
+}
+
+/* Notificações */
+.sideIconNotificacoes {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.sideNotificacoes {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 250px;
+    background: linear-gradient(to bottom, #000000, #5A0CA8);
+    padding: 15px;
+    border-radius: 0 0 15px 15px;
+    transform: translateY(-200%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    border: 1px solid white;
+}
+
+.sideNotificacoes.active {
+    transform: translateY(0);
+}
+
+/* Links gerais */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Sombras suaves para elementos */
+.main-button, .sideAvatar, .sidebar, .sideNotificacoes {
+    box-shadow: 0 0 15px rgba(140, 76, 252, 0.5);
+}

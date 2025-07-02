@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NEXUS | Gerenciador Financeiro com Leitura de Boletos</title>
+<link rel="stylesheet" href="../../components/main.css">
+
+</head>
+<body>
+
+<h1>Cadastro e Leitura de Boletos</h1>
+
+<form id="formConta">
+  <label for="nomeConta">Nome da Conta / Boleto:</label>
+  <input type="text" id="nomeConta" placeholder="Ex: Luz, Água, Internet" required />
+
+  <label for="codigoBoleto">Código de Barras do Boleto:</label>
+  <input type="text" id="codigoBoleto" placeholder="Cole o código aqui" />
+
+  <label for="valorConta">Valor (R$):</label>
+  <input type="number" id="valorConta" step="0.01" min="0" placeholder="Ex: 150.75" required />
+
+  <label for="dataVencimento">Data de Vencimento:</label>
+  <input type="date" id="dataVencimento" required />
+
+  <button type="submit">Cadastrar Boleto</button>
+</form>
+
+<div id="reader"></div>
+
+<h2>Contas Cadastradas</h2>
+<table id="tabelaContas">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Valor (R$)</th>
+      <th>Vencimento</th>
+      <th>Status</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+  const form = document.getElementById('formConta');
+  const tabelaCorpo = document.querySelector('#tabelaContas tbody');
+  const readerDiv = document.getElementById('reader');
+
+  let contas = [];
+
+  // --- Função para carregar dados do localStorage
+  function carregarContas() {
+    const dados = localStorage.getItem('contasFinanceiras');
+    if (dados) {
+      contas = JSON.parse(dados);
+    } else {
+      contas = [];
+    }
+  }
+
+  // --- Função para salvar dados no localStorage
+  function salvarContas() {
+    localStorage.setItem('contasFinanceiras', JSON.stringify(contas));
+  }
+
+  // Função para formatar data dd/mm/yyyy
+  function formatarData(data) {
+    const d = new Date(data);
+    return d.toLocaleDateString('pt-BR');
+  }
+
+  // Diferença em dias entre duas datas
+  function diffDias(data1, data2) {
+    const diffMs = data2 - data1;
+    return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  }
+
+  // Atualizar tabela e status, com botão de deletar
+  function atualizarTabela() {
+    tabelaCorpo.innerHTML = '';
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    contas.forEach((conta, index) => {
+      const tr = document.createElement('tr');
+      const vencimento = new Date(conta.vencimento);
+      vencimento.setHours(0, 0, 0, 0);
+
+      const diasParaVencer = diffDias(hoje, vencimento);
+
+      let status = 'Ok';
+      if (diasParaVencer < 0) {
+        status = 'Vencido';
+        tr.classList.add('vencido');
+      } else if (diasParaVencer <= 3) {
+        status = `Vence em ${diasParaVencer} dia(s)`;
+        tr.classList.add('vencendo');
+      }
+
+      tr.innerHTML = `
+        <td>${conta.nome}</td>
+        <td>R$ ${conta.valor.toFixed(2)}</td>
+        <td>${formatarData(conta.vencimento)}</td>
+        <td>${status}</td>
+        <td><button data-index="${index}" class="btnDelete">Excluir</button></td>
+      `;
+      tabelaCorpo.appendChild(tr);
+    });
+
+    // Adicionar eventos aos botões de excluir
+    document.querySelectorAll('.btnDelete').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        if (confirm(`Excluir a conta "${contas[idx].nome}"?`)) {
+          contas.splice(idx, 1);
+          salvarContas();
+          atualizarTabela();
+        }
+      });
+    });
+  }
+
+  // Checar notificações básicas
+  function checarNotificacoes() {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    contas.forEach(conta => {
+      const vencimento = new Date(conta.vencimento);
+      vencimento.setHours(0, 0, 0, 0);
+
+      const diasParaVencer = diffDias(hoje, vencimento);
+
+      if (diasParaVencer === 0) {
+        alert(`Atenção! A conta "${conta.nome}" vence HOJE!`);
+      } else if (diasParaVencer > 0 && diasParaVencer <= 3) {
+        alert(`Lembrete: A conta "${conta.nome}" vence em ${diasParaVencer} dia(s).`);
+      }
+    });
+  }
+
+  // Função básica para extrair valor e vencimento do código do boleto
+  function extrairDadosBoleto(codigo) {
+    const c = codigo.replace(/\D/g, '');
+
+    let valor = null;
+    let vencimento = null;
+
+    if (c.length >= 44) {
+      const valorStr = c.substring(37, 47);
+      valor = parseInt(valorStr, 10) / 100;
+
+      const fatorVenc = parseInt(c.substring(33, 37), 10);
+      if (fatorVenc > 0) {
+        const baseData = new Date(1997, 9, 7);
+        vencimento = new Date(baseData.getTime() + (fatorVenc * 24 * 60 * 60 * 1000));
+      }
+    }
+
+    return { valor, vencimento };
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const nome = document.getElementById('nomeConta').value.trim();
+    const codigoBoleto = document.getElementById('codigoBoleto').value.trim();
+    const valor = parseFloat(document.getElementById('valorConta').value);
+    const vencimento = document.getElementById('dataVencimento').value;
+
+    if (!nome || !valor || !vencimento) {
+      alert('Preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    contas.push({ nome, codigoBoleto, valor, vencimento });
+    salvarContas();
+    atualizarTabela();
+    checarNotificacoes();
+
+    form.reset();
+  });
+
+  // Carregar dados ao iniciar
+  carregarContas();
+  atualizarTabela();
+
+</script>
+
+</body>
+</html>

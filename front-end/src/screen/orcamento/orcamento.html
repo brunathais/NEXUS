@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXUS | Orçamento</title>
+  <link rel="stylesheet" href="../../components/main.css" />
+  <script src="./orcamento.js"></script>
+</head>
+<body>
+  <div data-include="../../components/header.html"></div>
+
+  <main class="container">
+    <h1>Definir Orçamento</h1>
+
+    <section>
+      <ul>
+        <li>🔒 Separe pelo menos 10% da sua renda para <strong>reserva de emergência</strong>.</li>
+        <li>📊 Gaste no máximo 50% com <strong>essenciais</strong>, 30% com <strong>não essenciais</strong>.</li>
+      </ul>
+    </section>
+
+    <form id="formOrcamento">
+      <input type="hidden" id="orcamento_id" />
+
+      <label for="essenciais">Essenciais:</label>
+      <input type="number" id="essenciais" required step="0.01" min="0" placeholder="0,00" />
+
+      <label for="naoEssenciais">Não Essenciais:</label>
+      <input type="number" id="naoEssenciais" required step="0.01" min="0" placeholder="0,00" />
+
+      <label for="imprevistos">Imprevistos:</label>
+      <input type="number" id="imprevistos" required step="0.01" min="0" placeholder="0,00" />
+
+      <label for="reservaEmergencia">Reserva de Emergência:</label>
+      <input type="number" id="reservaEmergencia" required step="0.01" min="0" placeholder="0,00" />
+
+      <button type="submit">Salvar Orçamento</button>
+    </form>
+
+    <section id="relatorioGastos">
+      <h2>Resumo de Gastos</h2>
+      <div id="resumo"></div>
+    </section>
+  </main>
+
+  <div data-include="../../components/footer.html"></div>
+  <script src="../../components/include.js"></script>
+
+</body>
+</html>
