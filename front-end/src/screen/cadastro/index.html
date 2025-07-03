@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cadastro e Login Nexus</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .container { max-width: 400px; margin: auto; }
+        input, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
+        .mensagem { margin: 10px 0; padding: 10px; border-radius: 4px; display: none; }
+        .mensagem.sucesso { background: #d4edda; color: #155724; }
+        .mensagem.erro { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cadastro Nexus</h1>
+    <div id="mensagemCadastro" class="mensagem"></div>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Senha">
+    <input type="password" id="confirmarSenha" placeholder="Confirmar Senha">
+    <button onclick="cadastrar()">Cadastrar</button>
+
+    <hr>
+
+    <h1>Login Nexus</h1>
+    <div id="mensagemLogin" class="mensagem"></div>
+    <input type="text" id="login" placeholder="Nome ou Email">
+    <input type="password" id="loginSenha" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+</div>
+
+<script>
+    function mostrarMensagem(id, tipo, texto) {
+        const div = document.getElementById(id);
+        div.className = `mensagem ${tipo}`;
+        div.textContent = texto;
+        div.style.display = "block";
+        setTimeout(() => { div.style.display = "none"; }, 3000);
+    }
+
+    function obterUsuarios() {
+        return JSON.parse(localStorage.getItem("usuarios")) || [];
+    }
+
+    function salvarUsuarios(usuarios) {
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    }
+
+    function validarEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function cadastrar() {
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+        const confirmarSenha = document.getElementById("confirmarSenha").value.trim();
+
+        if (!nome || !email || !senha || !confirmarSenha) {
+            mostrarMensagem("mensagemCadastro", "erro", "Preencha todos os campos!");
+            return;
+        }
+        if (!validarEmail(email)) {
+            mostrarMensagem("mensagemCadastro", "erro", "Email inválido!");
+            return;
+        }
+        if (senha.length < 6) {
+            mostrarMensagem("mensagemCadastro", "erro", "Senha deve ter pelo menos 6 caracteres.");
+            return;
+        }
+        if (senha !== confirmarSenha) {
+            mostrarMensagem("mensagemCadastro", "erro", "Senhas não coincidem.");
+            return;
+        }
+
+        const usuarios = obterUsuarios();
+        if (usuarios.find(u => u.email === email || u.nome === nome)) {
+            mostrarMensagem("mensagemCadastro", "erro", "Usuário ou email já cadastrado.");
+            return;
+        }
+
+        usuarios.push({ nome, email, senha });
+        salvarUsuarios(usuarios);
+
+        mostrarMensagem("mensagemCadastro", "sucesso", "Cadastro realizado com sucesso!");
+        document.getElementById("nome").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("senha").value = "";
+        document.getElementById("confirmarSenha").value = "";
+    }
+
+    function login() {
+        const login = document.getElementById("login").value.trim();
+        const senha = document.getElementById("loginSenha").value.trim();
+
+        if (!login || !senha) {
+            mostrarMensagem("mensagemLogin", "erro", "Preencha todos os campos!");
+            return;
+        }
+
+        const usuarios = obterUsuarios();
+        const usuario = usuarios.find(u =>
+            (u.nome === login || u.email === login) && u.senha === senha
+        );
+
+        if (usuario) {
+            mostrarMensagem("mensagemLogin", "sucesso", "Login bem-sucedido! Redirecionando...");
+            setTimeout(() => {
+                alert("🚀 Bem-vindo ao Nexus, " + usuario.nome + "!");
+                // window.location.href = "home.html";
+            }, 1500);
+        } else {
+            mostrarMensagem("mensagemLogin", "erro", "Usuário ou senha incorretos.");
+        }
+    }
+</script>
+</body>
+</html>
