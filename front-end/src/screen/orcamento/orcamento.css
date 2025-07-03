@@ -1,0 +1,80 @@
+/* orcamento.css */
+
+/* ---------------------- */
+/* LAYOUT GERAL DA PÁGINA */
+/* ---------------------- */
+
+body {
+  background-color: #2f0c71; /* Fundo roxo escuro */
+  color: #ffffff;            /* Texto branco */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* ------------------------- */
+/* FORMULÁRIO - CONFIGURAÇÕES */
+/* ------------------------- */
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo com leve transparência */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+}
+
+/* -------------------------- */
+/* CAMPOS DE USUÁRIO E ENTRADA */
+/* -------------------------- */
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  /* Usado para nomear campos de entrada */
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #5647b4; /* Fundo roxo padrão */
+  color: white;
+}
+
+input[type="number"]::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Cor do placeholder levemente visível */
+}
+
+/* ---------------- */
+/* BOTÃO DE AÇÃO */
+/* ---------------- */
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #8E2AD6; /* Roxo claro - estilo principal */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
+  transition: transform 0.3s, background-color 0.3s; /* Suaviza hover */
+}
+
+button:hover {
+  background-color: #5647b4; /* Cor mais escura ao passar o mouse */
+  transform: scale(1.1);     /* Efeito de leve aumento */
+}
