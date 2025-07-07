@@ -67,7 +67,17 @@
 
 
     <!-- Botão de Logout do Usuário -->
-    <button id="logOut">Logout</button>
+    <button id="logout" >logout</button>
+<script> 
+  document.getElementById('logout').addEventListener('click', function(){
+  if (confirm('tem certeza q deseja sair?')){
+    window.location.href = '../inicial/inicial.html';
+  }
+  });
+</script> 
+
+    
+
 
 
   </header>
@@ -76,8 +86,7 @@
   <aside class="sidebar" aria-label="Menu lateral principal">
     <ul class="menu-items">
       <li onclick="location.href='../transacoes/transacoes.html'" tabindex="0" role="link" aria-label="Ir para Transações" onkeypress="if(event.key==='Enter'){location.href='../transacoes/transacoes.html';}">Transações</li>
-      <li onclick="location.href='../dicas/dicas.html'" tabindex="0" role="link" aria-label="Ir para Dicas" onkeypress="if(event.key==='Enter'){location.href='../dicas/dicas.html';}">Dicas</li>
-      <li onclick="location.href='../historico_transacao/historico.html'" tabindex="0" role="link" aria-label="Ir para Histórico" onkeypress="if(event.key==='Enter'){location.href='../historico_transacao/historico.html';}">Histórico</li>
+      <li onclick="location.href='../educacaoFinanceira/educacaoFinanceira.html'" tabindex="0" role="link" aria-label="Ir para educacao Financeira" onkeypress="if(event.key==='Enter'){location.href='../educacaoFinanceira/educacaoFinanceira.html';}">Educacao Financeira</li>
       <li onclick="location.href='../orcamento/orcamento.html'" tabindex="0" role="link" aria-label="Ir para Orçamento" onkeypress="if(event.key==='Enter'){location.href='../orcamento/orcamento.html';}">Orçamento</li>
       <li onclick="location.href='../contas/contas.html'" tabindex="0" role="link" aria-label="Ir para Contas e Boletos" onkeypress="if(event.key==='Enter'){location.href='../contas/contas.html';}">Contas e Boletos</li>
     </ul>
@@ -90,8 +99,7 @@
 
       <div class="main-buttons">
         <a href="../transacoes/transacoes.html" class="main-button">Transação</a>
-        <a href="../dicas/dicas.html" class="main-button">Dicas</a>
-        <a href="../historico_transacao/historico.html" class="main-button">Histórico</a>
+        <a href="../educacaoFinanceira/educacaoFinanceira.html" class="main-button">Educacao Financeira</a>
         <a href="../orcamento/orcamento.html" class="main-button">Orçamento</a>
         <a href="../contas/contas.html" class="main-button">Contas e Boletos</a>
       </div>
