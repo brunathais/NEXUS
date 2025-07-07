@@ -1,10 +1,13 @@
 
+
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
+
 
         body {
             background: linear-gradient(to right, #f5f7fa, #c3cfe2);
@@ -13,7 +16,7 @@
             align-items: center;
             height: 100vh;
         }
-        
+       
         .register-container {
             background: rgba(255, 255, 255,);
             padding: 30px;
@@ -23,12 +26,13 @@
             width: 350px;
             color: #333;
         }
-        
+       
         .register-container h1 {
             margin-bottom: 20px;
             font-size: 24px;
             color: #5c6bc0;
         }
+
 
         .register-container label {
             display: block;
@@ -37,6 +41,7 @@
             font-size: 15px;
             color: #5c6bc0;
         }
+
 
         .register-container input {
             width: 100%;
@@ -49,11 +54,13 @@
             color: #333;
         }
 
+
         .register-container input:focus {
             outline: none;
             border-color: #5c6bc0;
             box-shadow: 0 0 8px rgba(92, 107, 192, 0.7);
         }
+
 
         .register-container button {
             width: 100%;
@@ -66,12 +73,16 @@
             font-weight: bold;
         }
 
+
         .login-text {
             margin-top: 15px;
             font-size: 14px;
         }
 
+
         .login-text a {
             color: #5c6bc0;
             font-weight: bold;
         }
+
+
