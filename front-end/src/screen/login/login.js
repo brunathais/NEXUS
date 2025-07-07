@@ -1,39 +1,29 @@
-document.getElementById("loginForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Evita o reload da página
 
-    // Obter valores dos campos do formulário
-    const usuario = document.getElementById("nome").value;
-    const senha = document.getElementById("senha").value;
+function efetuarLogin() {
+    const usuarioInput = document.getElementById("nome").value.trim();
+    const senhaInput = document.getElementById("senha").value.trim();
 
-    // DTO que será enviado no corpo da requisição
-    const dto = {
-        usuario: usuario,
-        senha: senha
-       }
 
-    // Configuração da requisição
+    if (!usuarioInput || !senhaInput) {
+        alert("Preencha todos os campos!");
+        return;
+    }
 
-      fetch("http://localhost:8080/aulaLista/dados", {
-  //  fetch("http://localhost:8080/usuarioController/autenticar", {
-        method: "POST", // Método HTTP
-        headers: {
-            "Content-Type": "application/json", // Tipo de conteúdo enviado
-        },
-        body: JSON.stringify(dto), // Converte o DTO para JSON
-    })
-        .then((response) => { //opcional
-            if (!response.ok) {
-                throw new Error("Usuário ou senha inválidos");
-            }
-            return response.json(); // Receber a mensagem de sucesso
-        })
-        .then((data) => {
-            alert(data); // Exibe a mensagem retornada pelo backend
-            // Redirecionar para o dashboard (caso necessário)
-            window.location.href = "index.html";
-        })
-        .catch((error) => {
-            alert("Erro: " + error.message); // Exibe a mensagem de erro
-        });
-});
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+
+    const usuarioEncontrado = usuarios.find(u =>
+        (u.nome === usuarioInput || u.email === usuarioInput) && u.senha === senhaInput
+    );
+
+
+    if (usuarioEncontrado) {
+        alert(`Bem-vindo, ${usuarioEncontrado.nome}!`);
+        window.location.href = "../home/home.html";
+    } else {
+        alert("Usuário ou senha incorretos.");
+    }
+}
+
 
