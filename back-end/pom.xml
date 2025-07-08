@@ -21,7 +21,7 @@
     <properties>
 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <java.version>17</java.version> <!-- ou sua versão instalada -->
-<exec.mainClass>com.mycompany.nexus_certo.NEXUS_certo</exec.mainClass>
+<exec.mainClass>com.ska.NEXUS.NexusApplication</exec.mainClass>
 </properties>
  
     <dependencies>
@@ -69,7 +69,7 @@
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-maven-plugin</artifactId>
 <configuration>
-<mainClass>com.mycompany.nexus_certo.NEXUS_certo</mainClass>
+<mainClass>com.ska.NEXUS.NexusApplication</mainClass>
 </configuration>
 </plugin>
 </plugins>
