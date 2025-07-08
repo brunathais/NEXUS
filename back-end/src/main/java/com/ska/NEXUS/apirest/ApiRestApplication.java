@@ -1,4 +1,4 @@
-package com.ska.NEXUS.apirest;
+package com.mycompany.nexus_certo.apirest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,5 +12,3 @@ public class ApiRestApplication {
         SpringApplication.run(ApiRestApplication.class, args);
     }
 }
-
-
