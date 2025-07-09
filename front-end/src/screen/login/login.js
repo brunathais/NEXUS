@@ -1,4 +1,15 @@
+import { validarLogin } from "../../utils/validarForm";
+import { postJSON } from "../../services/api";
 
+const erro = validarLogin({ usuario, senha });
+if (erro) {
+    mostrarErro(erro);
+    return;
+}
+
+await postJSON("localhost:8080/login", usuarioDTO)
+
+/*
 function efetuarLogin() {
     const usuarioInput = document.getElementById("nome").value.trim();
     const senhaInput = document.getElementById("senha").value.trim();
@@ -26,4 +37,4 @@ function efetuarLogin() {
     }
 }
 
-
+*/

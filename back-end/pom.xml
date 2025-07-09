@@ -5,7 +5,7 @@
  
     <modelVersion>4.0.0</modelVersion>
  
-    <!--Adiciona o parent para o Spring Boot -->
+    <!-- Adiciona o parent para o Spring Boot -->
 <parent>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-parent</artifactId>
@@ -21,7 +21,7 @@
     <properties>
 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <java.version>17</java.version> <!-- ou sua versão instalada -->
-<exec.mainClass>com.ska.NEXUS.NexusApplication</exec.mainClass>
+<exec.mainClass>com.mycompany.nexus_certo.NEXUS_certo</exec.mainClass>
 </properties>
  
     <dependencies>
@@ -56,11 +56,6 @@
 <version>2.0.1</version>
 </dependency>
  
-        <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-security</artifactId>
-</dependency>
- 
     </dependencies>
 <build>
 <plugins>
@@ -69,7 +64,7 @@
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-maven-plugin</artifactId>
 <configuration>
-<mainClass>com.ska.NEXUS.NexusApplication</mainClass>
+<mainClass>com.mycompany.nexus_certo.NEXUS_certo</mainClass>
 </configuration>
 </plugin>
 </plugins>
