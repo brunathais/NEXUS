@@ -1,3 +1,141 @@
+document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("usuario").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.innerHTML = ""; // limpa antes
+
+    // Validações
+    if (!nome || !email || !senha || !confirmarSenha) {
+        exibirMensagem("Preencha todos os campos!", "erro");
+        return;
+    }
+    if (!validarEmail(email)) {
+        exibirMensagem("Digite um email válido!", "erro");
+        return;
+    }
+    if (senha.length < 6) {
+        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
+        return;
+    }
+    if (senha !== confirmarSenha) {
+        exibirMensagem("As senhas não conferem!", "erro");
+        return;
+    }
+
+    // LocalStorage
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    // Verificar duplicidade por nome ou email
+    const jaExiste = usuarios.some(u => u.nome === nome || u.email === email);
+    if (jaExiste) {
+        exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
+        return;
+    }
+
+    // Adiciona novo usuário
+    usuarios.push({ nome, email, senha });
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    exibirMensagem("Cadastro realizado com sucesso! Redirecionando...", "sucesso");
+
+    setTimeout(() => {
+        window.location.href = "../login/login.html";
+    }, 2000);
+});
+
+function exibirMensagem(texto, tipo) {
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.className = "mensagem " + tipo;
+    mensagemDiv.innerText = texto;
+}
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+
+/*
+document.getElementById("cadastroForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("usuario").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.innerHTML = ""; // limpa antes
+
+    // Validações
+    if (!usuario || !email || !senha || !confirmarSenha) {
+        exibirMensagem("Preencha todos os campos!", "erro");
+        return;
+    }
+    if (!validarEmail(email)) {
+        exibirMensagem("Digite um email válido!", "erro");
+        return;
+    }
+    if (senha.length < 6) {
+        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
+        return;
+    }
+    if (senha !== confirmarSenha) {
+        exibirMensagem("As senhas não conferem!", "erro");
+        return;
+    }
+
+    // Monta DTO para enviar pro Java Spring
+    const usuarioDTO = {
+        usuario: usuario,
+        email: email,
+        senha: senha
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(usuarioDTO),
+        });
+
+        if (!response.ok) {
+            const erro = await response.text();
+            throw new Error(erro || "Erro ao cadastrar");
+        }
+
+        const mensagem = await response.text();
+        exibirMensagem(mensagem || "Cadastro realizado com sucesso!", "sucesso");
+
+        setTimeout(() => {
+            window.location.href = "../login/login.html";
+        }, 2000);
+        
+    } catch (error) {
+        exibirMensagem("Erro: " + error.message, "erro");
+    }
+});
+
+function exibirMensagem(texto, tipo) {
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.className = "mensagem " + tipo; // Ex: mensagem erro ou mensagem sucesso
+    mensagemDiv.innerText = texto;
+}
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+
+/*
 import { validarCadastro } from "../../utils/validarForm";
 import { postJSON } from "../../services/api";
 
@@ -33,8 +171,6 @@ function efetuarCadastro() {
     window.location.href = "../login/login.html";
 }
     */
-
-
 
 
 /*

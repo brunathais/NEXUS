@@ -96,3 +96,21 @@ body {
     color: #1f34ad;
     font-weight: bold;
 }
+
+.mensagem {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mensagem.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.mensagem.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+}
