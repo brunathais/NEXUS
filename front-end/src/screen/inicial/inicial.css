@@ -5,8 +5,7 @@
 }
 
 body {
-    background: linear-gradient(180deg, #31004f, #27032c, #0c0c1b);
-    color: #eae6f7;
+    background: #2b0064; /* fundo roxo escuro liso */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     min-height: 100vh;
@@ -23,22 +22,21 @@ body {
 .title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #9a6df1;
+    color: #a1d0f0; /* azul claro */
     margin-bottom: 12px;
-    text-shadow: 0 0 6px #5a28b5;
 }
 
 .subtitle {
     font-size: 3.5rem;
     font-weight: 900;
-    color: #6a8df7;
-    margin-bottom: 25px;
-    text-shadow: 0 0 8px #3d2b94;
+    color: #a1d0f0;
+    margin-bottom: 2px;
+    text-shadow: 0 0 8px #28014b;
 }
 
-.description {
-    font-size: 1.2rem;
-    color: #cfcff7;
+p {
+    font-size: 1.3rem;
+    color: #d8d8f8;
     margin-bottom: 50px;
     max-width: 700px;
     margin-left: auto;
@@ -48,7 +46,7 @@ body {
 .features {
     display: flex;
     justify-content: center;
-    gap: 50px;
+    gap: 60px;
     margin-bottom: 60px;
     flex-wrap: wrap;
 }
@@ -59,49 +57,49 @@ body {
 }
 
 .feature img {
-    width: 60px;
+    width: 160px;
     margin-bottom: 12px;
-    filter: drop-shadow(0 0 6px #7a5cf8);
+    filter: drop-shadow(0 0 6px #a65dfd);
     transition: transform 0.3s, filter 0.3s;
 }
 
 .feature img:hover {
     transform: scale(1.15);
-    filter: drop-shadow(0 0 12px #7a5cf8);
+    filter: drop-shadow(0 0 12px #a65dfd);
 }
 
 .feature p {
     font-size: 1rem;
-    color: #ddd7f0;
+    color: #e0d8f8;
 }
 
 .button {
-    background: linear-gradient(90deg, #7b2ff7, #3e70f7);
+    background: #9b47e0;
     color: white;
-    padding: 15px 50px;
-    border-radius: 50px;
-    font-size: 17px;
+    padding: 18px 40px;
+    border-radius: 12px;
+    font-size: 25px;
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
-    box-shadow: 0 0 12px #5a28b5;
+    box-shadow: 0 0 10px #5c20a5;
 }
 
 .button:hover {
-    background: linear-gradient(90deg, #3e70f7, #7b2ff7);
+    background: #b25ef0;
     transform: scale(1.08);
-    box-shadow: 0 0 18px #c33ef7;
+    box-shadow: 0 0 16px #b96df3;
 }
 
 .footer {
     margin-top: 50px;
-    font-size: 1rem;
-    color: #aaa5d5;
+    font-size: 1.5rem;
+    color: #d3c9f0;
 }
 
 .footer a {
-    color: #7a5cf8;
+    color: #c685f0;
     font-weight: bold;
     text-decoration: none;
 }
