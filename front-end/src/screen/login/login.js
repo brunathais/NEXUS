@@ -23,11 +23,11 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
     // Verifica se existe com nome ou email + senha
     const usuarioEncontrado = usuarios.find(u =>
-        (u.nome === usuarioInput || u.email === usuarioInput) && u.senha === senhaInput
+        (u.usuario === usuarioInput || u.email === usuarioInput) && u.senha === senhaInput
     );
 
     if (usuarioEncontrado) {
-        exibirMensagem(`Bem-vindo, ${usuarioEncontrado.nome}!`, "sucesso");
+        exibirMensagem(`Bem-vindo, ${usuarioEncontrado.usuario}!`, "sucesso");
 
         setTimeout(() => {
             window.location.href = "../home/home.html";
@@ -121,7 +121,7 @@ await postJSON("localhost:8080/login", usuarioDTO)
 */
 
 function efetuarLogin() {
-    const usuarioInput = document.getElementById("nome").value.trim();
+    const usuarioInput = document.getElementById("usuario").value.trim();
     const senhaInput = document.getElementById("senha").value.trim();
 
 
@@ -135,12 +135,12 @@ function efetuarLogin() {
 
 
     const usuarioEncontrado = usuarios.find(u =>
-        (u.nome === usuarioInput || u.email === usuarioInput) && u.senha === senhaInput
+        (u.usuario === usuarioInput || u.email === usuarioInput) && u.senha === senhaInput
     );
 
 
     if (usuarioEncontrado) {
-        alert(`Bem-vindo, ${usuarioEncontrado.nome}!`);
+        alert(`Bem-vindo, ${usuarioEncontrado.usuario}!`);
         window.location.href = "../home/home.html";
     } else {
         alert("Usuário ou senha incorretos.");
