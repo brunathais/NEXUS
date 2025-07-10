@@ -39,7 +39,7 @@ header {
 /* Estilização padrão para títulos h1 e h2 */
 h1, h2 {
     text-align: center; /* Centraliza o texto */
-    color: #333; /* Cor neutra para contraste */
+    color: #f5f5f5; /* Cor neutra para contraste */
     margin: 1em 0; /* Espaçamento vertical */
 }
 

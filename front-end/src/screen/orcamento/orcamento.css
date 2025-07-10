@@ -24,7 +24,7 @@ h1 {
 form {
   max-width: 400px;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo com leve transparência */
+  background-color: rgba(241, 0, 0, 0.1); /* Fundo com leve transparência */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
@@ -64,7 +64,7 @@ button {
   width: 100%;
   padding: 10px;
   margin-top: 20px;
-  background-color: #8E2AD6; /* Roxo claro - estilo principal */
+  background-color: #4d0f79; /* Roxo claro - estilo principal */
   color: #ffffff;
   border: none;
   border-radius: 8px;

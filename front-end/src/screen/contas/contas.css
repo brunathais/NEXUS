@@ -6,6 +6,10 @@
   }
   h1 {
     text-align: center;
+    color: white;
+  }
+  h2{
+    color: #ddd;
   }
   form {
     background: #f4f4f4;
@@ -32,6 +36,7 @@
   }
   th, td {
     border-bottom: 1px solid #ddd;
+    color: white;
     padding: 0.5rem;
     text-align: left;
   }
