@@ -18,8 +18,8 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
         exibirMensagem("Digite um email válido!", "erro");
         return;
     }
-    if (senha.length < 6) {
-        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
+    if (senha.length < 8) {
+        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
         return;
     }
     if (senha !== confirmarSenha) {

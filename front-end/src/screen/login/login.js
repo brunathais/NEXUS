@@ -13,8 +13,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         return;
     }
 
-    if (senhaInput.length < 6) {
-        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
+    if (senhaInput.length < 8) {
+        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
         return;
     }
 
