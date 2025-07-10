@@ -35,6 +35,11 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     } else {
         exibirMensagem("Usuário ou senha incorretos.", "erro");
     }
+
+    if(usuarioInput.length > 50 || senhaInput.length > 50){
+        exibirMensagem("O maximo de caracteres desse campo é 50")
+        return;
+    }
 });
 
 function exibirMensagem(texto, tipo) {

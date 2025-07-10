@@ -1,7 +1,7 @@
 document.getElementById("cadastroForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const nome = document.getElementById("usuario").value.trim();
+    const usuario = document.getElementById("usuario").value.trim();
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value.trim();
     const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
@@ -10,7 +10,7 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     mensagemDiv.innerHTML = ""; // limpa antes
 
     // Validações
-    if (!nome || !email || !senha || !confirmarSenha) {
+    if (!usuario || !email || !senha || !confirmarSenha) {
         exibirMensagem("Preencha todos os campos!", "erro");
         return;
     }
@@ -27,18 +27,23 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
         return;
     }
 
+    if(usuario.length > 50 || email.length > 50 || senha.length > 50 || confirmarSenha > 50){
+        exibirMensagem("O maximo de caracteres para esse campo é 50", "erro");
+        return;
+    }
+
     // LocalStorage
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    // Verificar duplicidade por nome ou email
-    const jaExiste = usuarios.some(u => u.nome === nome || u.email === email);
+    // Verificar duplicidade por usuario ou email
+    const jaExiste = usuarios.some(u => u.usuario === usuario || u.email === email);
     if (jaExiste) {
         exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
         return;
     }
 
     // Adiciona novo usuário
-    usuarios.push({ nome, email, senha });
+    usuarios.push({ usuario, email, senha });
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     exibirMensagem("Cadastro realizado com sucesso! Redirecionando...", "sucesso");
