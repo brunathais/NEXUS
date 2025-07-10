@@ -93,44 +93,76 @@
 
         // Função para salvar transações
         function salvarTransacao() {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o tipo selecionado (Receita ou Despesa)
-            const valor = document.getElementById("valor").value;
-            const data = document.getElementById("data").value;
-            const descricao = document.getElementById("descricao").value;
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const valorInput = document.getElementById("valor");
+            const dataInput = document.getElementById("data");
+            const descricaoInput = document.getElementById("descricao");
             let categoria = "";
+
+            const valor = parseFloat(valorInput.value);
+            const data = dataInput.value;
+            const descricao = descricaoInput.value.trim();
+
             if (tipo === "Despesa") {
                 categoria = document.getElementById("categoria").value;
             }
 
-            if (!valor || !data || !descricao || (tipo === "Despesa" && !categoria)) {  // Valida se os campos obrigatórios estão preenchidos
-                alert("Todos os campos são obrigatórios!");
+            // Valida valor
+            if (isNaN(valor) || valor <= 0) {
+                alert("O valor deve ser um número maior que zero.");
+                valorInput.focus();
+                return;
+            }
+
+            // Valida data
+            if (!data) {
+                alert("A data é obrigatória.");
+                dataInput.focus();
+                return;
+            }
+
+            const dataHoje = new Date().toISOString().split("T")[0];
+            if (data > dataHoje) {
+                alert("A data não pode ser no futuro.");
+                dataInput.focus();
+                return;
+            }
+
+            // Valida descrição
+            if (!descricao || descricao.length < 3) {
+                alert("A descrição deve ter pelo menos 3 caracteres.");
+                descricaoInput.focus();
+                return;
+            }
+
+            // Categoria para despesa
+            if (tipo === "Despesa" && !categoria) {
+                alert("A categoria é obrigatória para despesas.");
                 return;
             }
 
             const transacao = { tipo, valor, data, descricao, categoria };
             let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            // Pega o array de transações armazenado no localStorage.
-            // Se não existir, cria um array vazio.
-            // Isso é necessário para salvar as transações entre atualizações da página.
 
             const idEditar = document.getElementById("editar_id").value;
 
             if (idEditar) {
-                transacoes[idEditar] = transacao; // Atualiza transação existente
+                transacoes[idEditar] = transacao;
             } else {
-                transacoes.push(transacao); // Adiciona nova transação
+                transacoes.push(transacao);
             }
 
-            localStorage.setItem("transacoes", JSON.stringify(transacoes));//o que faz? necessario? pode ser mais simples?
+            localStorage.setItem("transacoes", JSON.stringify(transacoes));
             exibirHistorico();
             limparCampos();
         }
+
         // Salva o array atualizado no localStorage convertendo para string JSON
         // Necessário para persistência dos dados.
 
         // Função para editar uma transação
         function editarTransacao(index) {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
             const transacao = transacoes[index];
 
             document.getElementById("valor").value = transacao.valor;
@@ -138,7 +170,7 @@
             document.getElementById("descricao").value = transacao.descricao;
 
             if (transacao.tipo === "Despesa") {
-                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;//o que faz? necessario? pode ser mais simples?
+                document.querySelector('input[name="tipo"][value="Despesa"]').checked = true;
                 document.getElementById("categoria").value = transacao.categoria;
                 document.getElementById("categoria_div").style.display = "block";
             } else {
@@ -152,7 +184,7 @@
         // Função para excluir uma transação
         function excluirTransacao(index) {
             let transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-            transacoes.splice(index, 1);//o que faz? necessario? pode ser mais simples?
+            transacoes.splice(index, 1);
 
             localStorage.setItem("transacoes", JSON.stringify(transacoes));
             exibirHistorico();
@@ -160,8 +192,8 @@
 
         // Exibe o histórico de transações
         function exibirHistorico() {
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
-            const historicoDiv = document.getElementById("historico");//o que faz? necessario? pode ser mais simples?
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+            const historicoDiv = document.getElementById("historico");
             historicoDiv.innerHTML = "";
 
             transacoes.forEach((transacao, index) => {
@@ -171,11 +203,11 @@
                     Valor: R$${transacao.valor}<br>
                     Data: ${transacao.data}<br>
                     Descrição: ${transacao.descricao}<br>
-                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}//o que faz? necessario? pode ser mais simples?
+                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
                     <button onclick="editarTransacao(${index})">Editar</button>
                     <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
                 `;
-                historicoDiv.appendChild(div);//o que faz? necessario? pode ser mais simples?
+                historicoDiv.appendChild(div);
             });
         }
 
@@ -186,9 +218,9 @@
             const dataInicioFiltro = document.getElementById("filtroDataInicio").value;
             const dataFimFiltro = document.getElementById("filtroDataFim").value;
 
-            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];//o que faz? necessario? pode ser mais simples?
+            const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
             const transacoesFiltradas = transacoes.filter(transacao => {
-                const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;//o que faz? necessario? pode ser mais simples?
+                const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;
                 const categoriaValida = categoriaFiltro ? transacao.categoria === categoriaFiltro : true;
                 const dataValida = (dataInicioFiltro ? transacao.data >= dataInicioFiltro : true) &&
                     (dataFimFiltro ? transacao.data <= dataFimFiltro : true);
@@ -209,7 +241,7 @@
                     ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
                     <button onclick="editarTransacao(${index})">Editar</button>
                     <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-                `;//o que faz? necessario? pode ser mais simples?
+                `;
                 historicoDiv.appendChild(div);
             });
         }
@@ -220,7 +252,7 @@
             document.getElementById("data").value = "";
             document.getElementById("descricao").value = "";
             document.getElementById("editar_id").value = "";
-            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;//o que faz? necessario? pode ser mais simples?
+            document.querySelector('input[name="tipo"][value="Receita"]').checked = true;
             document.getElementById("categoria").value = "Essenciais";
             mostrarCategoria();
         }
