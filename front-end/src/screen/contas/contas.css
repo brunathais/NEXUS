@@ -40,11 +40,15 @@
     padding: 0.5rem;
     text-align: left;
   }
+.tabelaContas{
+  background-color: #ddd;
+
+}
   .vencendo {
-    background: #fff3cd;
+    background: #ffc400;
   }
   .vencido {
-    background: #f8d7da;
+    background: #fd626f;
   }
   #reader {
     width: 100%;
