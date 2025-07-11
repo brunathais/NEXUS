@@ -8,7 +8,7 @@
 
 /* Fundo suave com degradê pastel */
 body {
-    background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+    background: linear-gradient(to right, #38058a);
     display: flex;
     justify-content: center;
     align-items: center;

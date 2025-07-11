@@ -24,7 +24,7 @@ h1 {
 form {
   max-width: 400px;
   margin: 0 auto;
-  background-color: rgba(241, 0, 0, 0.1); /* Fundo com leve transparência */
+  background-color: rgb(77, 56, 134); /* Fundo com leve transparência */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
@@ -48,8 +48,8 @@ input[type="number"] {
   border: none;
   border-radius: 5px;
   box-sizing: border-box;
-  background-color: #5647b4; /* Fundo roxo padrão */
-  color: white;
+  background-color: white; /* Fundo roxo padrão */
+  color: black;
 }
 
 input[type="number"]::placeholder {
@@ -64,7 +64,7 @@ button {
   width: 100%;
   padding: 10px;
   margin-top: 20px;
-  background-color: #4d0f79; /* Roxo claro - estilo principal */
+  background-color: #e6b2f3; /* Roxo claro - estilo principal */
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -75,6 +75,6 @@ button {
 }
 
 button:hover {
-  background-color: #5647b4; /* Cor mais escura ao passar o mouse */
+  background-color: #776db6; /* Cor mais escura ao passar o mouse */
   transform: scale(1.1);     /* Efeito de leve aumento */
 }
