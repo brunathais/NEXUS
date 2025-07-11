@@ -27,11 +27,12 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
         return;
     }
 
+    /*
     if(usuario.length > 50 || email.length > 50 || senha.length > 50 || confirmarSenha > 50){
         exibirMensagem("O maximo de caracteres para esse campo é 50", "erro");
         return;
     }
-
+*/
     // LocalStorage
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
