@@ -1,3 +1,4 @@
+/*
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -45,6 +46,7 @@ function exibirMensagem(texto, tipo) {
     mensagemDiv.className = "mensagem " + tipo;
     mensagemDiv.innerText = texto;
 }
+*/
 
 /*
 // com local storage
@@ -102,7 +104,7 @@ document.getElementById("cadastroForm").addEventListener("submit", async functio
 
         exibirMensagem(data.mensagem || "Cadastro realizado com sucesso!", "sucesso");
         setTimeout(() => {
-            window.location.href = "../login/login.html";
+            window.location.href = "../home/home.html";
         }, 2000);
 
     } catch (error) {
@@ -122,7 +124,7 @@ function exibirMensagem(texto, tipo) {
 }
 */
 
-/*
+
 // usando local storage
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -174,7 +176,7 @@ function exibirMensagem(texto, tipo) {
     mensagemDiv.innerText = texto;
 }
 
-*/
+
 
 
 /*
