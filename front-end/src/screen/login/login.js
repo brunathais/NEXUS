@@ -1,3 +1,129 @@
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const emailOuUsuario = document.getElementById("usuario").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.innerHTML = "";
+
+    if (!emailOuUsuario || !senha) {
+        exibirMensagem("Preencha todos os campos!", "erro");
+        return;
+    }
+    if (senha.length < 8) {
+        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
+        return;
+    }
+
+    const loginDTO = { email: emailOuUsuario, senha };
+
+    try {
+        const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(loginDTO),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.erro || "Erro ao fazer login");
+        }
+
+        exibirMensagem(data.mensagem || "Login realizado com sucesso!", "sucesso");
+        setTimeout(() => {
+            window.location.href = "../home/home.html";
+        }, 2000);
+
+    } catch (error) {
+        exibirMensagem("Erro: " + error.message, "erro");
+    }
+});
+
+function exibirMensagem(texto, tipo) {
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.className = "mensagem " + tipo;
+    mensagemDiv.innerText = texto;
+}
+
+/*
+// com local storage
+document.getElementById("cadastroForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const usuario = document.getElementById("usuario").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.innerHTML = "";
+
+    if (!usuario || !email || !senha || !confirmarSenha) {
+        exibirMensagem("Preencha todos os campos!", "erro");
+        return;
+    }
+    if (!validarEmail(email)) {
+        exibirMensagem("Digite um email válido!", "erro");
+        return;
+    }
+    if (senha.length < 8) {
+        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
+        return;
+    }
+    if (senha !== confirmarSenha) {
+        exibirMensagem("As senhas não conferem!", "erro");
+        return;
+    }
+
+    // DTO para o backend
+    const cadastroDTO = {
+        nome: usuario,
+        email: email,
+        senha: senha
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/cadastros", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cadastroDTO),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            let erros = "";
+            for (const campo in data) {
+                erros += `${campo}: ${data[campo]}\n`;
+            }
+            throw new Error(erros);
+        }
+
+        exibirMensagem(data.mensagem || "Cadastro realizado com sucesso!", "sucesso");
+        setTimeout(() => {
+            window.location.href = "../login/login.html";
+        }, 2000);
+
+    } catch (error) {
+        exibirMensagem("Erro:\n" + error.message, "erro");
+    }
+});
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+function exibirMensagem(texto, tipo) {
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.className = "mensagem " + tipo;
+    mensagemDiv.innerText = texto;
+}
+*/
+
+/*
+// usando local storage
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -47,6 +173,9 @@ function exibirMensagem(texto, tipo) {
     mensagemDiv.className = "mensagem " + tipo; // mensagem erro ou mensagem sucesso
     mensagemDiv.innerText = texto;
 }
+
+*/
+
 
 /*
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
