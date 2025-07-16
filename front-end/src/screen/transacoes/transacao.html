@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Transações</title>
+    <link rel="stylesheet" href="transacoes.css">
+    <link rel="stylesheet" href="../../components/css/main.css">
+    <script src="../transacoes/transacoes.js" defer></script>
+</head>
+
+<body>
+    <h1>Cadastro de Transações</h1>
+    <div class="container">
+        <div class="form-container">
+            <form onsubmit="event.preventDefault(); salvarTransacao();"> <!--
+  onsubmit: Quando o formulário for enviado, impede o comportamento padrão (recarregar a página)
+  e chama a função salvarTransacao() para processar os dados via JavaScript.
+-->
+                <label>Tipo de Transação:</label>
+
+                <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
+                <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+
+                <label>Valor:</label>
+                <input type="number" id="valor" placeholder="Valor" maxlength="10" required>
+                <!--'required' garante que o usuário deve preencher este campo-->
+
+                <label>Data:</label>
+                <input type="date" id="data" maxlength="8" required>
+
+                <label>Descrição:</label>
+                <input type="text" id="descricao" placeholder="Descrição" maxlength="50" required>
+
+                <div id="categoria_div">
+                    <label>Categoria:</label>
+                    <select id="categoria">
+                        <option value="Essenciais">Essenciais</option>
+                        <option value="Não Essenciais">Não Essenciais</option>
+                        <option value="Imprevistos">Imprevistos</option>
+                    </select>
+                </div>
+
+                <input type="hidden" id="editar_id"> <!--necessario?-->
+
+                <button type="submit">Salvar Transação</button>
+            </form>
+        </div>
+
+        <div class="historico-container">
+            <h2>Histórico de Transações</h2>
+
+            <div class="filtro-select">
+                <div class="filtro-container">
+                    <select id="filtroTipo" onchange="filtrarHistorico()">
+                        <option value="">Filtrar por Tipo</option>
+                        <option value="Receita">Somente Receitas</option>
+                        <option value="Despesa">Somente Despesas</option>
+                    </select>
+
+                    <select id="filtroCategoria" onchange="filtrarHistorico()">
+                        <option value="">Filtrar por Categoria</option>
+                        <option value="Essenciais">Essenciais</option>
+                        <option value="Não Essenciais">Não Essenciais</option>
+                        <option value="Imprevistos">Imprevistos</option>
+                    </select>
+                </div>
+
+                <div class="filtro-date">
+                <label for="filtroDataInicio">De:</label>
+                <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
+
+                <label for="filtroDataFim">Até:</label>
+                <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
+                </div>
+
+
+            </div>
+
+            <div id="historico"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
