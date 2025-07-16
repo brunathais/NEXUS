@@ -7,43 +7,44 @@
 <link rel="stylesheet" href="contas.css">
 <link rel="stylesheet" href="../../components/css/main.css">
 <script src="contas.js" defer></script>
-
 </head>
 <body>
 
 <h1>Cadastro e Leitura de Boletos</h1>
 
-<form id="formConta">
-  <label for="nomeConta">Nome da Conta / Boleto:</label>
-  <input type="text" id="nomeConta" placeholder="Ex: Luz, Água, Internet" required />
+<div class="container">
+  <form id="formConta">
+    <label for="nomeConta">Nome da Conta / Boleto:</label>
+    <input type="text" id="nomeConta" placeholder="Ex: Luz, Água, Internet" required />
 
-  <label for="codigoBoleto">Código de Barras do Boleto:</label>
-  <input type="text" id="codigoBoleto" placeholder="Cole o código aqui" />
+    <label for="codigoBoleto">Código de Barras do Boleto:</label>
+    <input type="text" id="codigoBoleto" placeholder="Cole o código aqui" />
 
-  <label for="valorConta">Valor (R$):</label>
-  <input type="number" id="valorConta" step="0.01" min="0" placeholder="Ex: 150.75" required />
+    <label for="valorConta">Valor (R$):</label>
+    <input type="number" id="valorConta" step="0.01" min="0" placeholder="Ex: 150.75" required />
 
-  <label for="dataVencimento">Data de Vencimento:</label>
-  <input type="date" id="dataVencimento" required />
+    <label for="dataVencimento">Data de Vencimento:</label>
+    <input type="date" id="dataVencimento" required />
 
-  <button type="submit">Cadastrar Boleto</button>
-</form>
+    <button type="submit">Cadastrar Boleto</button>
+  </form>
 
-<div id="reader"></div>
-
-<h2>Contas Cadastradas</h2>
-<table id="tabelaContas">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Valor (R$)</th>
-      <th>Vencimento</th>
-      <th>Status</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <div id="historico">
+    <h2>Contas Cadastradas</h2>
+    <table id="tabelaContas">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor (R$)</th>
+          <th>Vencimento</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
 
 </body>
 </html>

@@ -63,3 +63,26 @@
     margin-top: 1rem;
     display: none;
   }
+body {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.container {
+  display: flex;
+
+  align-items: flex-start; /* para alinhar pelo topo */
+}
+
+/* faz o form ocupar menos espaço */
+#formConta {
+  flex: 50;
+}
+
+/* faz a tabela ocupar mais espaço */
+#historico {
+  flex: 82;
+}
+
+
