@@ -1,88 +1,94 @@
-*
-  body {
-    font-family: Arial, sans-serif;
-    margin: 1rem;
-    max-width: 600px;
-  }
-  h1 {
-    text-align: center;
-    color: white;
-  }
-  h2{
-    color: #ddd;
-  }
-  form {
-    background: #f4f4f4;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-  label {
-    display: block;
-    margin-top: 0.5rem;
-  }
-  input, button {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.2rem;
-    box-sizing: border-box;
-  }
-  button {
-    cursor: pointer;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    border-bottom: 1px solid #ddd;
-    color: white;
-    padding: 0.5rem;
-    text-align: left;
-  }
-#tabelaContas {
-  background-color: #007906;
-}
-
-#tabelaContas thead{
-  background-color: rgb(78, 62, 173);
-}
-#tabelaContas th{
-  color: white;
-}
-
-
-  .vencendo {
-    background: #e07801;
-  }
-  .vencido {
-    background: #fd626f;
-  }
-  #reader {
-    width: 100%;
-    margin-top: 1rem;
-    display: none;
-  }
 body {
+  font-family: Arial, sans-serif;
+  margin: 1rem;
+  max-width: 1200px;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: flex-start;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+h2 {
+  color: #ddd;
+}
+
+form {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+input, button {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
 }
 
 .container {
   display: flex;
-
-  align-items: flex-start; /* para alinhar pelo topo */
+  gap: 2rem;
+  align-items: flex-start;
+  width: 100%;
 }
 
-/* faz o form ocupar menos espaço */
 #formConta {
-  flex: 50;
+  flex: 7;
 }
 
-/* faz a tabela ocupar mais espaço */
 #historico {
-  flex: 82;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
+#historico table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #007906;
+}
 
+th, td {
+  border-bottom: 1px solid #ddd;
+  color: white;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+#tabelaContas thead {
+  background-color: rgb(78, 62, 173);
+}
+
+#tabelaContas th {
+  color: white;
+}
+
+.vencendo {
+  background: #e07801;
+}
+
+.vencido {
+  background: #fd626f;
+}
+
+#reader {
+  width: 100%;
+  margin-top: 1rem;
+  display: none;
+}
