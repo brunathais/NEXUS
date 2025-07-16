@@ -20,8 +20,11 @@
 -->
                 <label>Tipo de Transação:</label>
 
+                <div class="radio-group">
                 <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
                 <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+                </div>
+
 
                 <label>Valor:</label>
                 <input type="number" id="valor" placeholder="Valor" maxlength="10" required>

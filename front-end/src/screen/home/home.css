@@ -61,10 +61,6 @@ header {
   background-color: transparent;
 }
 
-img{
-  width: 30px;
-}
-
 .icone-notificacao {
   cursor: pointer;
   width: 30px;
@@ -193,3 +189,9 @@ main {
   background-color: #5647b4;    /* Roxo escuro */
   transform: scale(1.1);         /* Aumenta levemente */
 }
+
+.icone-usuario i {
+  font-size: 25px;  /* ajuste para o tamanho desejado */
+  color: white;     /* mantém branco */
+}
+

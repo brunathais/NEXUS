@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="home.css" />
   <link rel="stylesheet" href="../../components/css/main.css" />
   <script src="./home.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <title>Home</title>
 </head>
 
@@ -36,14 +38,16 @@
       onclick="alert('Perfil do usuário!')"
       onkeypress="if(event.key==='Enter'){alert('Perfil do usuário!');}"
     >
-      <img src="../../resources/iconHome/user.png" alt="USUARIO">
+      
+<i class="fa-solid fa-user"></i>
+
       
     </div>
 
     <!-- Área de notificações -->
     <div class="user-notification-area">
       <img
-        src="../../resources/iconHome/notificacao.png"
+        src="../../resources/iconHome/white-icon-notification.png"
         alt="Notificações"
         width="30"
         class="icone-notificacao"
@@ -68,10 +72,10 @@
 
 
     <!-- Botão de Logout do Usuário -->
-    <button id="logout" >logout</button>
+    <button id="logout" >Logout</button>
 <script> 
   document.getElementById('logout').addEventListener('click', function(){
-  if (confirm('tem certeza q deseja sair?')){
+  if (confirm('Realmente deseja sair do NEXUS?')){
     window.location.href = '../inicial/inicial.html';
   }
   });
