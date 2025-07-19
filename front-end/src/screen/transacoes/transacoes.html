@@ -12,6 +12,22 @@
 
 <body>
     <h1>Cadastro de Transações</h1>
+<div class="resumo-cards">
+  <div class="resumo-card saldo">
+    <p>Saldo Atual</p>
+    <span id="saldoAtual">R$ 0,00</span>
+  </div>
+  <div class="resumo-card receita">
+    <p>Total de Receitas</p>
+    <span id="totalReceitas">R$ 0,00</span>
+  </div>
+  <div class="resumo-card despesa">
+    <p>Total de Despesas</p>
+    <span id="totalDespesas">R$ 0,00</span>
+  </div>
+</div>
+
+
     <div class="container">
         <div class="form-container">
             <form onsubmit="event.preventDefault(); salvarTransacao();"> <!--
@@ -84,6 +100,10 @@
             <div id="historico"></div>
         </div>
     </div>
+
+    <div id="toast" class="toast"></div>
+
+    <button class="botao-flutuante" onclick="rolarParaFormulario()">+</button>
 
 </body>
 

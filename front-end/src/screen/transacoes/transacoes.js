@@ -171,5 +171,37 @@
             mostrarCategoria();
         }
 
+        function atualizarResumo() {
+    const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+
+    let totalReceitas = 0;
+    let totalDespesas = 0;
+
+    transacoes.forEach(t => {
+        if (t.tipo === "Receita") {
+            totalReceitas += parseFloat(t.valor);
+        } else if (t.tipo === "Despesa") {
+            totalDespesas += parseFloat(t.valor);
+        }
+    });
+
+    const saldoAtual = totalReceitas - totalDespesas;
+
+    document.getElementById("saldoAtual").textContent = `R$ ${saldoAtual.toFixed(2)}`;
+    document.getElementById("totalReceitas").textContent = `R$ ${totalReceitas.toFixed(2)}`;
+    document.getElementById("totalDespesas").textContent = `R$ ${totalDespesas.toFixed(2)}`;
+}
+
+
         window.onload = exibirHistorico;
     
+        atualizarResumo();
+
+        function mostrarToast(mensagem) {
+    const toast = document.getElementById("toast");
+    toast.textContent = mensagem;
+    toast.className = "toast show";
+    setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+    }, 3000);
+}
