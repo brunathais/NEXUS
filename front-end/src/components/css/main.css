@@ -13,7 +13,6 @@ body {
     flex-direction: column; /* Coloca os elementos em coluna */
 }
 
-
 header {
     display: flex; /* Ativa o modelo flexível */
     justify-content: space-between; /* Espaça os itens igualmente */
