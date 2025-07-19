@@ -1,7 +1,3 @@
-/* ============================ */
-/* RESET BÁSICO E CONFIGURAÇÃO */
-/* ============================ */
-
 /* Garante que o tamanho dos elementos inclua padding e bordas */
 * {
     box-sizing: border-box;
@@ -17,11 +13,7 @@ body {
     flex-direction: column; /* Coloca os elementos em coluna */
 }
 
-/* ================= */
-/* CABEÇALHO (HEADER) */
-/* ================= */
 
-/* Área superior da página, geralmente usada para menu, logo etc. */
 header {
     display: flex; /* Ativa o modelo flexível */
     justify-content: space-between; /* Espaça os itens igualmente */
@@ -32,20 +24,11 @@ header {
     z-index: 10; /* Mantém o header acima de outros elementos */
 }
 
-/* =================== */
-/* TÍTULOS E TEXTOS    */
-/* =================== */
-
-/* Estilização padrão para títulos h1 e h2 */
 h1, h2 {
     text-align: center; /* Centraliza o texto */
     color: #f5f5f5; /* Cor neutra para contraste */
     margin: 1em 0; /* Espaçamento vertical */
 }
-
-/* ============================== */
-/* CONTAINER FLEXÍVEL DO LAYOUT  */
-/* ============================== */
 
 /* Div principal para agrupamento de seções em layout flexível */
 .container {
@@ -56,10 +39,6 @@ h1, h2 {
     gap: 20px; /* Espaçamento entre os elementos filhos */
     flex-wrap: wrap; /* Permite quebra de linha para responsividade */
 }
-
-/* ============================ */
-/* FORMULÁRIOS E CAMPOS PADRÃO */
-/* ============================ */
 
 /* Aplica exibição em bloco e largura total aos componentes do formulário */
 form label,
