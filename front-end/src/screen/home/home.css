@@ -1,4 +1,4 @@
-/* ======= GERAIS ======= */
+*
 body {
   background-color: blue;            /* Fundo azul */
   color: white;                      /* Texto branco */
@@ -8,7 +8,6 @@ body {
   overflow-x: hidden;               /* Esconde scroll horizontal */
 }
 
-/* ======= HEADER ======= */
 header {
   height: 70px;
   display: flex;
@@ -33,8 +32,6 @@ header {
   color: white;
 }
 
-
-/* ======= BOTÃO MENU ======= */
 .menu-toggle {
   font-size: 1.8rem;
   color: white;
@@ -46,7 +43,6 @@ header {
   margin: 0 auto;
 }
 
-/* ======= USUÁRIO E NOTIFICAÇÕES ======= */
 .user-notification-area {
   display: flex;                   /* Layout horizontal para ícones */
   gap: 15px;
@@ -70,7 +66,6 @@ img{
   width: 30px;
 }
 
-/* ======= MENU DE NOTIFICAÇÕES ======= */
 #notificacao-menu {
   position: absolute;
   right: 20px;
@@ -110,7 +105,6 @@ img{
   font-size: 0.9rem;
 }
 
-/* ======= SIDEBAR ======= */
 .sidebar {
   position: fixed;
   top: 0;
@@ -149,7 +143,6 @@ img{
   text-decoration: underline;
 }
 
-/* ======= MAIN ======= */
 main {
   display: flex;
   justify-content: center;
@@ -159,7 +152,6 @@ main {
   box-sizing: border-box;
 }
 
-/* ======= ÁREA CENTRAL COM BOTÕES ======= */
 .central-area {
   text-align: center;
 }
@@ -192,4 +184,9 @@ main {
 .main-button:hover {
   background-color: #5647b4;    /* Roxo escuro */
   transform: scale(1.1);         /* Aumenta levemente */
+}
+
+footer{
+    display: flex;
+  justify-content: center;
 }
