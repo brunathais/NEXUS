@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS | Educação Financeira</title>
     <link rel="stylesheet" href="../../components/main.css">
+    <link rel="stylesheet" href="../../screen/educacaoFinanceira/educacaoFinanceira.css">
 </head>
+
 <body>
     <h1>NEXUS | Educação Financeira</h1>
+
     <p>NEXUS se preocupa com seus conhecimentos sobre finanças
         <br>
-        Então nessa seção apresentaremos algumas dicas uteis para o gerenciamento financeiro</p>
-        <a href="">video do youtube</a>
-        <a href="">Artigos</a>
-        <a href="">Livros</a>
-        <a href="">Cursos</a>
-        <a href="">Frases</a>
+        Então nessa seção apresentaremos algumas dicas uteis para o gerenciamento financeiro
+    </p>
+
+    <div class="container-links">
+        <a class="link-button" href="https://www.youtube.com/watch?v=CB5zuxQl5ro" target="_blank">🎥 Vídeo sobre
+            Finanças</a> <br>
+        <a class=" link-button"
+            href="https://repositorio.pucgoias.edu.br/jspui/bitstream/123456789/4122/1/TCC2%20-%20DAVID%20LUCAS%20SALERNO%20FELISBINO%20-%20FINAL.docx%20%281%29.pdf"
+            target="blank">📄💰Artigos Financeiros</a><br>
+        <a class="link-button"
+            href="https://www.amazon.com.br/Educa%C3%A7%C3%A3o-Financeira-Adultos-Ezequiel-Alves-ebook/dp/B0CYYJPRPF">📚Livros</a>
+        <!--daria pra fazer um botao ao clicar mostrar algumas ideias de livros--> <br>
+        <button class="link-button" id="btnFrases">🔄⏳Frase motivadora</button>
+        <div id="frasesContainer" style="display: none; margin-top: 10px; text-align: center;">
+            <p>💡 "A persistência realiza o impossível."</p>
+            <p>💡 "Você não precisa ser rico para começar, mas precisa começar a se organizar para ser livre."</p>
+            <p>💡 "Empreender é arriscar com sabedoria. E sabedoria começa com saber aonde seu dinheiro está indo."</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("btnFrases").addEventListener("click", function () {
+            const container = document.getElementById("frasesContainer");
+            container.style.display = container.style.display === "none" ? "block" : "none";
+        });
+    </script>
+
 </body>
 </html>

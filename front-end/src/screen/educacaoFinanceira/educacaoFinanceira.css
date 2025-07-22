@@ -1,0 +1,49 @@
+/* main.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color:  #2b0064;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #ba8cf7;
+    padding: 15px;
+    border-radius: 8px;
+   
+}
+
+.container-links {
+    display: inline-block;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.link-button {
+    display: block;
+    background-color: #b567fd;
+    color: rgb(61, 11, 94);
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border-radius: 20px;
+    font-size: 1rem;
+ 
+}
+
+.link-button:hover {
+    background-color: #ddbfff;
+}
