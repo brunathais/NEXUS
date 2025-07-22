@@ -32,6 +32,87 @@ document.addEventListener("DOMContentLoaded", () => {
   const lerValor = str =>
     parseFloat(str.replace(/[R$\s\.]/g, "").replace(",", ".")) || 0;
 
+  form.addEventListener("submit", async e => {
+  e.preventDefault();
+  
+  const novo = {};
+  for (const c of campos) {
+    const val = lerValor(document.getElementById(c).value);
+    if (val <= 0) return alert("Todos os campos devem ser maiores que zero.");
+    novo[c] = val;
+  }
+
+  try {
+    const res = await fetch("http://localhost:8080/orcamentos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(novo)
+    });
+
+    if (!res.ok) throw new Error("Erro ao salvar.");
+    alert("Orçamento salvo!");
+    form.reset();
+    campos.forEach(id => document.getElementById(id).value = "R$ 0,00");
+    render(); // atualiza lista
+  } catch (err) {
+    alert("Erro ao salvar orçamento.");
+  }
+});
+
+async function render() {
+  dadosOrc.innerHTML = "";
+  try {
+    const res = await fetch("http://localhost:8080/orcamentos");
+    const lista = await res.json();
+
+    lista.forEach((orc, i) => {
+      const box = document.createElement("div");
+      box.className = "orcamento-box";
+      box.innerHTML = `<strong>Orçamento ${orc.id}</strong>`;
+
+      const det = document.createElement("div");
+      det.className = "orcamento-detalhes";
+      det.style.display = "none";
+      det.innerHTML = `
+        <strong>Essenciais:</strong> R$ ${orc.essenciais.toFixed(2)}<br>
+        <strong>Não Essenciais:</strong> R$ ${orc.naoEssenciais.toFixed(2)}<br>
+        <strong>Imprevistos:</strong> R$ ${orc.imprevistos.toFixed(2)}<br>
+        <strong>Reserva Emergência:</strong> R$ ${orc.reservaEmergencia.toFixed(2)}
+      `;
+
+      box.addEventListener("click", () => {
+        det.style.display = det.style.display === "none" ? "block" : "none";
+      });
+
+      box.appendChild(det);
+      dadosOrc.appendChild(box);
+    });
+
+  } catch (err) {
+    alert("Erro ao carregar orçamentos.");
+  }
+}
+
+btnMassDelete.addEventListener("click", async () => {
+  if (!confirm("Deseja mesmo apagar todos os orçamentos?")) return;
+  
+  try {
+    const res = await fetch("http://localhost:8080/orcamentos");
+    const lista = await res.json();
+
+    for (const item of lista) {
+      await fetch(`http://localhost:8080/orcamentos/${item.id}`, { method: "DELETE" });
+    }
+
+    alert("Todos os orçamentos foram deletados.");
+    render();
+  } catch (err) {
+    alert("Erro na deleção em massa.");
+  }
+});
+
+  /*
+  //localStorage funcional
   // Salva novo orçamento (limite 5, sem zeros)
   form.addEventListener("submit", e => {
     e.preventDefault();
@@ -128,7 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     }
   });
-
+*/
   // Inicializa
   render();
 });
+
