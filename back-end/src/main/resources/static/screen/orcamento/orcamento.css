@@ -1,80 +1,120 @@
-/* orcamento.css */
-
-/* ---------------------- */
-/* LAYOUT GERAL DA PÁGINA */
-/* ---------------------- */
-
 body {
-  background-color: #2f0c71; /* Fundo roxo escuro */
-  color: #ffffff;            /* Texto branco */
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
+  background-color: #2c0066;
+  color: white;
+  font-family: sans-serif;
+  padding: 2rem;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-/* ------------------------- */
-/* FORMULÁRIO - CONFIGURAÇÕES */
-/* ------------------------- */
 
 form {
+  background-color: #4b1d8a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00000055;
   max-width: 400px;
-  margin: 0 auto;
-  background-color: rgb(77, 56, 134); /* Fundo com leve transparência */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  width: 100%;
 }
-
-/* -------------------------- */
-/* CAMPOS DE USUÁRIO E ENTRADA */
-/* -------------------------- */
 
 label {
   display: block;
-  margin-top: 15px;
+  margin-top: 1rem;
   font-weight: bold;
-  /* Usado para nomear campos de entrada */
 }
 
-input[type="number"] {
+input {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: none;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
   border-radius: 5px;
-  box-sizing: border-box;
-  background-color: white; /* Fundo roxo padrão */
-  color: black;
-}
-
-input[type="number"]::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Cor do placeholder levemente visível */
-}
-
-/* ---------------- */
-/* BOTÃO DE AÇÃO */
-/* ---------------- */
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #e6b2f3; /* Roxo claro - estilo principal */
-  color: #ffffff;
   border: none;
+  font-size: 1rem;
+}
+
+button[type="submit"],
+#btnExportar {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #e8b3f7;
+  border: 1px solid #ffffffaa;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+button[type="submit"]:hover,
+#btnExportar:hover {
+  background-color: #d18ee8;
+  transform: scale(1.02);
+}
+
+/* Botão secreto de deleção em massa */
+.secret-btn {
+  background-color: #b8345f;
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  display: block;
+}
+
+.secret-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+#orcamentoSalvo {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 700px;
+}
+
+.orcamento-box {
+  position: relative;
+  background-color: #e8b3f7;
+  color: #000;
+  padding: 1rem;
+  margin-bottom: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
-  transition: transform 0.3s, background-color 0.3s; /* Suaviza hover */
+  box-shadow: 0 0 5px #00000022;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #776db6; /* Cor mais escura ao passar o mouse */
-  transform: scale(1.1);     /* Efeito de leve aumento */
+.orcamento-box:hover {
+  background-color: #d18ee8;
+}
+
+.orcamento-detalhes {
+  background-color: #f4ddff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.btn-edit {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: #ff8a65;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.btn-edit:hover {
+  background-color: #e76b45;
 }
