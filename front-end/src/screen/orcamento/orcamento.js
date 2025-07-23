@@ -111,7 +111,7 @@ btnMassDelete.addEventListener("click", async () => {
   }
 });
 
-  /*
+
   //localStorage funcional
   // Salva novo orçamento (limite 5, sem zeros)
   form.addEventListener("submit", e => {
@@ -209,7 +209,7 @@ btnMassDelete.addEventListener("click", async () => {
       render();
     }
   });
-*/
+
   // Inicializa
   render();
 });
