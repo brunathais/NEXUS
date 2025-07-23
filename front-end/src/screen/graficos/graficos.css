@@ -22,17 +22,27 @@ h1 {
 form {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  bottom: 20px;
   gap: 10px;
 }
 
 
-input, select, button {
+input,
+select,
+button {
   padding: 8px;
   font-size: 1rem;
   flex: 1;
   border-radius: 4px;
   border: 1px solid #ccc;
+}
+
+#btn-historico {
+  left: 1200px;
+  bottom: 70px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 
@@ -73,8 +83,9 @@ canvas {
   .charts {
     flex-direction: row;
   }
+
   canvas {
-    width: 100% !important;
+    width: 80% !important;
   }
 }
 
