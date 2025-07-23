@@ -10,3 +10,18 @@
     <span aria-label="Configurações">&#9881;</span>
   </div>
 </header>
+
+<header>
+  <div class="menu-toggle" onclick="toggleSidebar()">&#9776;</div>
+  <div class="icone-usuario" onclick="location.href='../perfil/perfil.html'">
+    <i class="fa-solid fa-user"></i>
+  </div>
+  <div class="user-notification-area">
+    <img src="../../resources/iconHome/white-notification-icon.png" alt="Notificações"
+      width="30" class="icone-notificacao" onclick="toggleNotificacoes()" />
+  </div>
+  <div id="notificacao-menu">
+    <div class="notificacao-item">Nova transação registrada</div>
+  </div>
+  <button id="logout">Logout</button>
+</header>
