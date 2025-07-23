@@ -1,31 +1,37 @@
 // registros em memória
 const records = [];
 
+// tenta carregar do localStorage
+const savedRecords = localStorage.getItem('financeRecords');
+if (savedRecords) {
+  records = JSON.parse(savedRecords);
+  updateCharts();
+}
 
 // contextos dos gráficos
-const pieCtx = document.getElementById('pieChart').getContext('2d');
+
 const barCtx = document.getElementById('barChart').getContext('2d');
 
 
-// inicializa pieChart sem frestas
-let pieChart = new Chart(pieCtx, {
-  type: 'pie',
-  data: {
-    labels: ['Receitas', 'Despesas'],
-    datasets: [{
-      data: [0, 0],
-      backgroundColor: ['#4caf50', '#f44336'],
-      borderWidth: 0
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      tooltip: { enabled: true },
-      legend: { position: 'top' }
-    }
-  }
-});
+// // inicializa pieChart sem frestas
+// let pieChart = new Chart(pieCtx, {
+//   type: 'pie',
+//   data: {
+//     labels: ['Receitas', 'Despesas'],
+//     datasets: [{
+//       data: [0, 0],
+//       backgroundColor: ['#4caf50', '#f44336'],
+//       borderWidth: 0
+//     }]
+//   },
+//   options: {
+//     responsive: true,
+//     plugins: {
+//       tooltip: { enabled: true },
+//       legend: { position: 'top' }
+//     }
+//   }
+// });
 
 
 // inicializa barChart
@@ -56,8 +62,7 @@ function updateCharts() {
     .reduce((acc, r) => acc + r.amount, 0);
 
 
-  pieChart.data.datasets[0].data = [totalReceitas, totalDespesas];
-  pieChart.update();
+  
 
 
   const labels = records.map((r, i) =>
@@ -112,6 +117,31 @@ form.addEventListener('submit', function (e) {
 
   const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
   records.push({ type, desc, amount });
+
+
+  // ... código anterior ...
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const type = document.getElementById('type').value;
+    const desc = document.getElementById('desc').value.trim();
+
+    if (!type || !desc || rawValue === '' || rawValue === '0') {
+      alert('Preencha todos os campos corretamente.');
+      return;
+    }
+
+    const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
+    records.push({ type, desc, amount });
+
+    // Salva no localStorage
+    localStorage.setItem('financeRecords', JSON.stringify(records));
+
+    this.reset();
+    rawValue = '';
+    amountInput.value = '';
+    updateCharts();
+  });
 
 
   this.reset();

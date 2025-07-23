@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Histórico de Finanças</title>
+  <link rel="stylesheet" href="historico.css" />
+</head>
+<body>
+  <button id="btn-voltar" aria-label="Voltar para a página principal">← Voltar</button>
+  <h1>Histórico de Finanças</h1>
+  <table aria-label="Tabela de histórico de lançamentos financeiros">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tipo</th>
+        <th>Descrição</th>
+        <th>Valor (R$)</th>
+      </tr>
+    </thead>
+    <tbody id="historico-body">
+      <!-- Conteúdo será inserido por JS -->
+    </tbody>
+  </table>
+
+  <script>
+    function formatToBRL(value) {
+      const parts = value.toFixed(2).split('.');
+      const intPart = parts[0];
+      const decimalPart = parts[1];
+      const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return `R$ ${formattedInt},${decimalPart}`;
+    }
+
+    const historicoBody = document.getElementById('historico-body');
+
+    const records = JSON.parse(localStorage.getItem('financeRecords')) || [];
+
+    records.forEach((record, i) => {
+      const tr = document.createElement('tr');
+
+      const tdIndex = document.createElement('td');
+      tdIndex.textContent = `Finança ${i + 1}`;
+      tr.appendChild(tdIndex);
+
+      const tdType = document.createElement('td');
+      tdType.textContent = record.type === 'receita' ? 'Receita' : 'Despesa';
+      tr.appendChild(tdType);
+
+      const tdDesc = document.createElement('td');
+      tdDesc.textContent = record.desc;
+      tr.appendChild(tdDesc);
+
+      const tdAmount = document.createElement('td');
+      tdAmount.textContent = formatToBRL(record.amount);
+      tr.appendChild(tdAmount);
+
+      historicoBody.appendChild(tr);
+    });
+  </script>
+
+  <script src="historico.js"></script>
+</body>
+</html>

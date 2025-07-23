@@ -1,29 +1,19 @@
-/* ============================ */
-/* RESET BÁSICO E CONFIGURAÇÃO */
-/* ============================ */
-
 /* Garante que o tamanho dos elementos inclua padding e bordas */
 * {
     box-sizing: border-box;
 }
 
-/* Estilização global do corpo da página */
 body {
     margin: 0; /* Remove espaçamento padrão */
-    font-family: Arial, sans-serif; /* Fonte padrão */
-    background-color: #2f0c71; /* Cor de fundo principal */
+    font-family: Arial, sans-serif; 
+    background-color: #2f0c71; 
     height: 100vh; /* Altura da tela inteira */
     display: flex;
     flex-direction: column; /* Coloca os elementos em coluna */
 }
 
-/* ================= */
-/* CABEÇALHO (HEADER) */
-/* ================= */
-
-/* Área superior da página, geralmente usada para menu, logo etc. */
 header {
-    display: flex; /* Ativa o modelo flexível */
+    display: flex; 
     justify-content: space-between; /* Espaça os itens igualmente */
     align-items: center; /* Alinha verticalmente ao centro */
     padding: 20px; /* Espaçamento interno */
@@ -32,36 +22,26 @@ header {
     z-index: 10; /* Mantém o header acima de outros elementos */
 }
 
-/* =================== */
-/* TÍTULOS E TEXTOS    */
-/* =================== */
 
-/* Estilização padrão para títulos h1 e h2 */
 h1, h2 {
-    text-align: center; /* Centraliza o texto */
-    color: #f5f5f5; /* Cor neutra para contraste */
+    text-align: center; 
+    color: #f5f5f5; 
     margin: 1em 0; /* Espaçamento vertical */
 }
 
-/* ============================== */
-/* CONTAINER FLEXÍVEL DO LAYOUT  */
-/* ============================== */
+label{
+    color: #f5f5f5;
+}
 
-/* Div principal para agrupamento de seções em layout flexível */
 .container {
-    display: flex; /* Ativa o modelo flexível */
-    justify-content: space-between; /* Distribui elementos igualmente */
-    padding: 20px; /* Espaçamento interno */
+    display: flex; 
+    justify-content: space-between; 
+    padding: 20px; 
     height: 100vh; /* Ocupa toda a altura da tela */
     gap: 20px; /* Espaçamento entre os elementos filhos */
     flex-wrap: wrap; /* Permite quebra de linha para responsividade */
 }
 
-/* ============================ */
-/* FORMULÁRIOS E CAMPOS PADRÃO */
-/* ============================ */
-
-/* Aplica exibição em bloco e largura total aos componentes do formulário */
 form label,
 form input,
 form select,
@@ -71,7 +51,6 @@ form button {
     margin-bottom: 20px; /* Espaçamento entre os elementos do formulário */
 }
 
-/* Estilização comum para entradas de dados, botões e seletores */
 input,
 select,
 button {
@@ -81,7 +60,6 @@ button {
     font-size: 14px; /* Tamanho da fonte padrão */
 }
 
-/* Estilo específico para botões de opção (radio) */
 input[type="radio"] {
     width: auto; /* Tamanho ajustado ao conteúdo */
     margin-right: 5px; /* Espaço à direita para separação do texto */
