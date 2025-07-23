@@ -107,3 +107,8 @@ p {
 .footer a:hover {
     text-decoration: underline;
 }
+
+.logo img{
+    width:15%;
+    height: 15%;
+}
