@@ -282,3 +282,7 @@ button:hover {
     background-color: #5a50d4;
     color: white;
 }
+
+.historico-container h2{
+    color: #222;
+}

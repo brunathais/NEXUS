@@ -71,7 +71,7 @@ function salvarTransacao() {
     }
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
-    exibirHistorico();
+    carregarTransacoes();
     limparCampos();
 }
 
@@ -103,28 +103,7 @@ function excluirTransacao(index) {
     transacoes.splice(index, 1);
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
-    exibirHistorico();
-}
-
-function exibirHistorico() {
-    const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
-    const historicoDiv = document.getElementById("historico");
-    historicoDiv.innerHTML = "";
-
-    transacoes.forEach((transacao, index) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
-                    Valor: R$${transacao.valor}<br>
-                    Data: ${transacao.data}<br>
-                    Descrição: ${transacao.descricao}<br>
-                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
-                    <br>
-                    <button onclick="editarTransacao(${index})">Editar</button>
-                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-                `;
-        historicoDiv.appendChild(div);
-    });
+    carregarTransacoes();
 }
 
 function filtrarHistorico() {
@@ -193,7 +172,7 @@ function atualizarResumo() {
 }
 
 
-window.onload = exibirHistorico;
+window.onload = carregarTransacoes;
 
 atualizarResumo();
 
@@ -252,10 +231,6 @@ function carregarTransacoes() {
     `;
         container.appendChild(div);
     });
-}
-
-function editarTransacao(index) {
-    alert(`Função de edição para transação ${index} ainda não implementada`);
 }
 
 function excluirTransacao(index) {
