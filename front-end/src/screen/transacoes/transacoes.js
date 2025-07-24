@@ -164,9 +164,6 @@ function atualizarResumo() {
         }
     });
 
-    const saldoAtual = totalReceitas - totalDespesas;
-
-    document.getElementById("saldoAtual").textContent = `R$ ${saldoAtual.toFixed(2)}`;
     document.getElementById("totalReceitas").textContent = `R$ ${totalReceitas.toFixed(2)}`;
     document.getElementById("totalDespesas").textContent = `R$ ${totalDespesas.toFixed(2)}`;
 }
