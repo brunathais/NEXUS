@@ -113,11 +113,10 @@ btnMassDelete.addEventListener("click", async () => {
 
 
   //localStorage funcional
-  // Salva novo orçamento (limite 5, sem zeros)
+  
   form.addEventListener("submit", e => {
     e.preventDefault();
     const lista = JSON.parse(localStorage.getItem("orcamentos")) || [];
-    if (lista.length >= 5) return alert("Limite de 5 orçamentos atingido.");
 
     const novo = {};
     for (const c of campos) {
