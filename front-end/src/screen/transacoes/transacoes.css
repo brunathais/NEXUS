@@ -286,3 +286,7 @@ button:hover {
 .historico-container h2{
     color: #222;
 }
+
+.back-button{
+    width: 20px;
+}

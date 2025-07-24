@@ -11,17 +11,17 @@ body {
 
 h1 {
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 1.rem;
     margin-bottom: 20px;
 }
 
 p {
     max-width: 600px;
     margin: 0 auto 30px;
-    font-size: 1rem;
+    font-size: 18px;
     line-height: 1.5;
     background-color: #ba8cf7;
-    padding: 15px;
+    padding: 40px;
     border-radius: 8px;
    
 }
