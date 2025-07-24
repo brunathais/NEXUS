@@ -1,4 +1,78 @@
-document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+document.getElementById("cadastroForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const usuario = document.getElementById("usuario").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.innerHTML = "";
+
+    // Validações
+    if (!usuario || !email || !senha || !confirmarSenha) {
+        exibirMensagem("Preencha todos os campos!", "erro");
+        return;
+    }
+    if (!validarEmail(email)) {
+        exibirMensagem("Digite um email válido!", "erro");
+        return;
+    }
+    if (senha.length < 8) {
+        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
+        return;
+    }
+    if (senha !== confirmarSenha) {
+        exibirMensagem("As senhas não conferem!", "erro");
+        return;
+    }
+
+    // DTO enviado ao backend
+    const usuarioDTO = {
+        usuario: usuario,
+        email: email,
+        senha: senha
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/cadastros", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(usuarioDTO),
+        });
+
+        if (!response.ok) {
+            const erro = await response.text();
+            throw new Error(erro || "Erro ao cadastrar");
+        }
+
+        exibirMensagem("Cadastro realizado com sucesso!", "sucesso");
+
+        setTimeout(() => {
+            window.location.href = "../login/login.html";
+        }, 2000);
+
+    } catch (error) {
+        exibirMensagem("Erro: " + error.message, "erro");
+    }
+});
+
+function exibirMensagem(texto, tipo) {
+    const mensagemDiv = document.getElementById("mensagem");
+    mensagemDiv.className = "mensagem " + tipo; // "mensagem erro" ou "mensagem sucesso"
+    mensagemDiv.innerText = texto;
+}
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+
+/*
+
+ document.getElementById("cadastroForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const usuario = document.getElementById("usuario").value.trim();
@@ -33,6 +107,7 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
         return;
     }
 */
+/*
     // LocalStorage
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -65,6 +140,7 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
+*/
 
 /*
 document.getElementById("cadastroForm").addEventListener("submit", async function(event) {

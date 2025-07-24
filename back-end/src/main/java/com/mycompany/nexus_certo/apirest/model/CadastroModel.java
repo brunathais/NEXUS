@@ -24,13 +24,38 @@ public class CadastroModel {
     @Size(min = 8, max = 100, message = "Senha deve ter entre 8 e 100 caracteres")
     private String senha;
 
-    public int getId() { return id; }
-    public String getUsuario() { return usuario; }
-    public String getEmail() { return email; }
-    public String getSenha() { return senha; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setId(int id) { this.id = id; }
-    public void setUsuario(String usuario) { this.usuario = usuario; }
-    public void setEmail(String email) { this.email = email; }
-    public void setSenha(String senha) { this.senha = senha; }
+    public int getId() {
+        return id;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    
 }
+

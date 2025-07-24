@@ -33,3 +33,9 @@
         menu.setAttribute('aria-hidden', true);
       }
     });
+
+      document.getElementById('logout').addEventListener('click', function () {
+        if (confirm('Realmente deseja sair do NEXUS?')) {
+          window.location.href = '../inicial/inicial.html';
+        }
+      });

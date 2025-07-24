@@ -5,7 +5,7 @@ import com.mycompany.nexus_certo.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-    @Service
+@Service
 public class UsuarioService {
 
     @Autowired
@@ -18,5 +18,5 @@ public class UsuarioService {
     public boolean autenticar(String usuario, String senha) {
         return repo.findByUsuarioAndSenha(usuario, senha).isPresent();
     }
-}
 
+}

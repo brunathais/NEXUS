@@ -1,20 +1,4 @@
 /*
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const emailOuUsuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = "";
-
-    if (!emailOuUsuario || !senha) {
-        exibirMensagem("Preencha todos os campos!", "erro");
-        return;
-    }
-    if (senha.length < 8) {
-        exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
-        return;
-    }
 
     const loginDTO = { email: emailOuUsuario, senha };
 
@@ -50,16 +34,9 @@ function exibirMensagem(texto, tipo) {
 
 /*
 // com local storage
-document.getElementById("cadastroForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
 
-    const usuario = document.getElementById("usuario").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
     const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
 
-    const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = "";
 
     if (!usuario || !email || !senha || !confirmarSenha) {
         exibirMensagem("Preencha todos os campos!", "erro");
@@ -180,25 +157,6 @@ function exibirMensagem(texto, tipo) {
 
 
 /*
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-
-    const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = ""; // limpa antes
-
-    // Validações simples
-    if (!usuario || !senha) {
-        exibirMensagem("Preencha todos os campos!", "erro");
-        return;
-    }
-
-    if (senha.length < 6) {
-        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
-        return;
-    }
 
     const usuarioDTO = {
         usuario: usuario, // pode ser nome ou email, seu backend decide

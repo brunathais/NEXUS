@@ -1,12 +1,15 @@
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const emailOuUsuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
+const usuario = document.getElementById("usuario").value.trim();
+const senha = document.getElementById("senha").value.trim();
+
+const loginDTO = { usuario, senha }; // <-- usar somente 'usuario' aqui
+
     const mensagemDiv = document.getElementById("mensagem");
     mensagemDiv.innerHTML = "";
 
-    if (!emailOuUsuario || !senha) {
+    if (!usuario || !senha) {
         exibirMensagem("Preencha todos os campos!", "erro");
         return;
     }
@@ -14,8 +17,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
         return;
     }
-
-    const loginDTO = { email: emailOuUsuario, senha };
 
     try {
         const response = await fetch("http://localhost:8080/login", {

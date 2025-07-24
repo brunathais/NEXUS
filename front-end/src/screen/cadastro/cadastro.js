@@ -1,5 +1,65 @@
-document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+/*
+import {
+    obterValores,
+    validarEmail,
+    exibirMensagem,
+    usuarioExistente,
+    salvarUsuario
+} from '../../utils/validacoes.js'; // ajuste o caminho conforme necessário
+
+document.getElementById("cadastroForm").addEventListener("submit", function (event) {
     event.preventDefault();
+
+    const campos = ["usuario", "email", "senha", "confirmar-senha"];
+    const valores = obterValores(campos);
+    const mensagemDiv = document.getElementById("mensagem");
+
+    mensagemDiv.innerHTML = "";
+
+    const erro = validarFormulario(valores);
+    if (erro) {
+        exibirMensagem(erro, "erro");
+        return;
+    }
+
+    if (usuarioExistente(valores.usuario, valores.email)) {
+        exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
+        return;
+    }
+
+    salvarUsuario(valores);
+    exibirMensagem("Cadastro realizado com sucesso! Redirecionando...", "sucesso");
+
+    setTimeout(() => {
+        window.location.href = "../login/login.html";
+    }, 2000);
+});
+
+function validarFormulario({ usuario, email, senha, "confirmar-senha": confirmarSenha }) {
+    if (!usuario || !email || !senha || !confirmarSenha) {
+        return "Preencha todos os campos!";
+    }
+    if (!validarEmail(email)) {
+        return "Digite um email válido!";
+    }
+    if (senha.length < 8) {
+        return "Senha deve ter pelo menos 8 caracteres!";
+    }
+    if (senha !== confirmarSenha) {
+        return "As senhas não conferem!";
+    }
+    return null;
+}
+    */
+
+
+//funcional com localStorage
+document.getElementById("cadastroForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    function getById(id) {
+        return document.getElementById(id).value.trim();
+    }
 
     const usuario = document.getElementById("usuario").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -7,13 +67,13 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
 
     const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = ""; // limpa antes
+    mensagemDiv.innerHTML = ""; // limpa antes -- innerHTML?
 
     // Validações
     if (!usuario || !email || !senha || !confirmarSenha) {
         exibirMensagem("Preencha todos os campos!", "erro");
         return;
-    }
+    } // !... faz oq? como funciona?
     if (!validarEmail(email)) {
         exibirMensagem("Digite um email válido!", "erro");
         return;
@@ -27,22 +87,16 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
         return;
     }
 
-/*
-    if(usuario.length > 50 || email.length > 50 || senha.length > 50 || confirmarSenha > 50){
-        exibirMensagem("O maximo de caracteres para esse campo é 50", "erro");
-        return;
-    }
-    */
-
     // LocalStorage
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     // Verificar duplicidade por usuario ou email
-    const jaExiste = usuarios.some(u => u.usuario === usuario || u.email === email);
+    const jaExiste = usuarios.some(u => u.usuario === usuario || u.email === email); //some?
     if (jaExiste) {
         exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
         return;
     }
+
 
     // Adiciona novo usuário
     usuarios.push({ usuario, email, senha });
