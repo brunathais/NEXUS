@@ -74,18 +74,17 @@ button:hover {
 canvas {
   background: white;
   border-radius: 6px;
-  padding: 15px;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 }
 
 
-@media(min-width: 600px) {
+@media(mini-width: 600px) {
   .charts {
     flex-direction: row;
   }
 
   canvas {
-    width: 80% !important;
+    width: 100px;
+    height: 100px;
   }
 }
 
