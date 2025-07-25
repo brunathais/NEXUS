@@ -1,33 +1,39 @@
 /*
-import {
-    obterValores,
-    validarEmail,
-    exibirMensagem,
-    usuarioExistente,
-    salvarUsuario
-} from '../../utils/validacoes.js'; // ajuste o caminho conforme necessário
+// reutilizando funções
+// esta fazendo reload na tela e não direcionando
+
+import { getValue, exibirMensagem, validarEmail, carregarLocalStorage, salvarLocalStorage } from './utils.js';
 
 document.getElementById("cadastroForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const campos = ["usuario", "email", "senha", "confirmar-senha"];
-    const valores = obterValores(campos);
-    const mensagemDiv = document.getElementById("mensagem");
+    const usuario = getValue("usuario");
+    const email = getValue("email");
+    const senha = getValue("senha");
+    const confirmarSenha = getValue("confirmar-senha");
 
-    mensagemDiv.innerHTML = "";
-
-    const erro = validarFormulario(valores);
-    if (erro) {
-        exibirMensagem(erro, "erro");
-        return;
+    if (!usuario || !email || !senha || !confirmarSenha) {
+        return exibirMensagem("Preencha todos os campos!", "erro");
+    }
+    if (!validarEmail(email)) {
+        return exibirMensagem("Digite um email válido!", "erro");
+    }
+    if (senha.length < 8) {
+        return exibirMensagem("Senha deve ter pelo menos 8 caracteres!", "erro");
+    }
+    if (senha !== confirmarSenha) {
+        return exibirMensagem("As senhas não conferem!", "erro");
     }
 
-    if (usuarioExistente(valores.usuario, valores.email)) {
-        exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
-        return;
+    const usuarios = carregarLocalStorage("usuarios");
+
+    if (usuarios.some(u => u.usuario === usuario || u.email === email)) {
+        return exibirMensagem("Já existe um usuário com esse nome ou email.", "erro");
     }
 
-    salvarUsuario(valores);
+    usuarios.push({ usuario, email, senha });
+    salvarLocalStorage("usuarios", usuarios);
+
     exibirMensagem("Cadastro realizado com sucesso! Redirecionando...", "sucesso");
 
     setTimeout(() => {
@@ -35,24 +41,8 @@ document.getElementById("cadastroForm").addEventListener("submit", function (eve
     }, 2000);
 });
 
-function validarFormulario({ usuario, email, senha, "confirmar-senha": confirmarSenha }) {
-    if (!usuario || !email || !senha || !confirmarSenha) {
-        return "Preencha todos os campos!";
-    }
-    if (!validarEmail(email)) {
-        return "Digite um email válido!";
-    }
-    if (senha.length < 8) {
-        return "Senha deve ter pelo menos 8 caracteres!";
-    }
-    if (senha !== confirmarSenha) {
-        return "As senhas não conferem!";
-    }
-    return null;
-}
     */
-
-
+   
 //funcional com localStorage
 document.getElementById("cadastroForm").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -61,19 +51,18 @@ document.getElementById("cadastroForm").addEventListener("submit", function (eve
         return document.getElementById(id).value.trim();
     }
 
-    const usuario = document.getElementById("usuario").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+    const usuario = getById("usuario");
+    const email = getById("email");
+    const senha = getById("senha");
+    const confirmarSenha = getById("confirmar-senha");
 
     const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = ""; // limpa antes -- innerHTML?
+    mensagemDiv.innerHTML = ""; 
 
-    // Validações
     if (!usuario || !email || !senha || !confirmarSenha) {
         exibirMensagem("Preencha todos os campos!", "erro");
         return;
-    } // !... faz oq? como funciona?
+    }
     if (!validarEmail(email)) {
         exibirMensagem("Digite um email válido!", "erro");
         return;
@@ -120,167 +109,3 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
-
-/*
-document.getElementById("cadastroForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById("usuario").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
-
-    const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.innerHTML = ""; // limpa antes
-
-    // Validações
-    if (!usuario || !email || !senha || !confirmarSenha) {
-        exibirMensagem("Preencha todos os campos!", "erro");
-        return;
-    }
-    if (!validarEmail(email)) {
-        exibirMensagem("Digite um email válido!", "erro");
-        return;
-    }
-    if (senha.length < 6) {
-        exibirMensagem("Senha deve ter pelo menos 6 caracteres!", "erro");
-        return;
-    }
-    if (senha !== confirmarSenha) {
-        exibirMensagem("As senhas não conferem!", "erro");
-        return;
-    }
-
-    // Monta DTO para enviar pro Java Spring
-    const usuarioDTO = {
-        usuario: usuario,
-        email: email,
-        senha: senha
-    };
-
-    try {
-        const response = await fetch("http://localhost:8080/usuarios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(usuarioDTO),
-        });
-
-        if (!response.ok) {
-            const erro = await response.text();
-            throw new Error(erro || "Erro ao cadastrar");
-        }
-
-        const mensagem = await response.text();
-        exibirMensagem(mensagem || "Cadastro realizado com sucesso!", "sucesso");
-
-        setTimeout(() => {
-            window.location.href = "../login/login.html";
-        }, 2000);
-        
-    } catch (error) {
-        exibirMensagem("Erro: " + error.message, "erro");
-    }
-});
-
-function exibirMensagem(texto, tipo) {
-    const mensagemDiv = document.getElementById("mensagem");
-    mensagemDiv.className = "mensagem " + tipo; // Ex: mensagem erro ou mensagem sucesso
-    mensagemDiv.innerText = texto;
-}
-
-function validarEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-
-/*
-import { validarCadastro } from "../../utils/validarForm";
-import { postJSON } from "../../services/api";
-
-const erro = validarCadastro({ usuario, email, senha, confirmarSenha });
-if (erro) {
-    mostrarErro(erro);
-    return;
-}
-
-await postJSON("http://localhost:8080/usuarios", usuarioDTO);
-
-/*
-function efetuarCadastro() {
-
-    // Buscar usuarios já cadastrados
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    // Verifica duplicidade
-    const jaExiste = usuarios.some(u => u.nome === nome || u.email === email);
-
-    if (jaExiste) {
-        alert("Já existe um usuário com esse nome ou email.");
-        return;
-    }
-
-    // Adiciona novo usuario
-    usuarios.push({ nome, email, senha });
-
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("Cadastro realizado com sucesso! Faça login.");
-
-    window.location.href = "../login/login.html";
-}
-    */
-
-
-/*
-    function efetuarLogin() {
-        //event.preventDefault(); // Evita o reload da página
-
-        // Obter valores dos campos do formulário
-        const varnome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
-        const confirmarSenha = document.getElementById("confirmar-senha").value;
-
-        // Validação no frontend
-        if (senha !== confirmarSenha) {
-            alert("As senhas não coincidem!");
-            return;
-        }
-
-        // DTO que será enviado no corpo da requisição
-        const UsuarioDTO = {  //aqui junção do js com java
-            nome: varnome,
-            email: email,
-            senha: senha
-        };
-
-
-    // Configuração da requisição
-    fetch("http://localhost:8080/usuarios", {
-        method: "POST", // Método HTTP
-        headers: {
-            "Content-Type": "application/json", // Tipo de conteúdo enviado
-        },
-        body: JSON.stringify(UsuarioDTO), // Converte o DTO para JSON
-    })
-        .then((response) => { //opcional
-            if (!response.ok) {
-                throw new Error("Erro ao cadastrar o usuário");
-            }
-            return response.text(); // Receber a mensagem de sucesso
-        })
-        .then((data) => {
-            alert(data); // Exibe a mensagem retornada pelo backend
-            // Redirecionar para o dashboard (caso necessário)
-            window.location.href = "../login/login.html";
-        })
-        .catch((error) => {
-            alert("Erro: " + error.message); // Exibe a mensagem de erro
-        });
-}
-
-
-*/

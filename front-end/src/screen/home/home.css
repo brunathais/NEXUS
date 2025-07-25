@@ -190,3 +190,19 @@ footer{
     display: flex;
   justify-content: center;
 }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto; /* Empurra os itens para a direita */
+}
+
+.icone-usuario,
+.user-notification-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+}
