@@ -1,17 +1,21 @@
-*
-body {
-  color: white;                      /* Texto branco */
+* body {
+  color: white;
+  /* Texto branco */
   margin: 0;
   font-family: Arial, sans-serif;
-  height: 100vh;                    /* Ocupa toda a altura da viewport */
-  overflow-x: hidden;               /* Esconde scroll horizontal */
+  height: 100vh;
+  /* Ocupa toda a altura da viewport */
+  overflow-x: hidden;
+  /* Esconde scroll horizontal */
 }
 
 header {
   height: 70px;
   display: flex;
-  align-items: center;              /* Centraliza verticalmente */
-  justify-content: space-between;  /* Espaça itens nas extremidades */
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: space-between;
+  /* Espaça itens nas extremidades */
   padding: 0 20px;
   position: relative;
   z-index: 100;
@@ -43,7 +47,8 @@ header {
 }
 
 .user-notification-area {
-  display: flex;                   /* Layout horizontal para ícones */
+  display: flex;
+  /* Layout horizontal para ícones */
   gap: 15px;
   z-index: 1001;
   margin: 0 auto;
@@ -56,7 +61,7 @@ header {
   background-color: transparent;
 }
 
-img{
+img {
   width: 30px;
 }
 
@@ -107,7 +112,8 @@ img{
 .sidebar {
   position: fixed;
   top: 0;
-  left: -300px;                    /* Escondida à esquerda inicialmente */
+  left: -300px;
+  /* Escondida à esquerda inicialmente */
   width: 300px;
   height: 100%;
   background-color: #5647b4;
@@ -120,7 +126,8 @@ img{
 }
 
 .sidebar.active {
-  left: 0;                       /* Sidebar visível */
+  left: 0;
+  /* Sidebar visível */
 }
 
 .menu-items {
@@ -146,7 +153,8 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 70px);    /* Altura total menos o header */
+  height: calc(100vh - 70px);
+  /* Altura total menos o header */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -171,21 +179,42 @@ main {
 .main-button {
   padding: 15px 30px;
   font-size: 1rem;
-  background-color: #8E2AD6;     /* Roxo claro */
+  background-color: #8E2AD6;
+  /* Roxo claro */
   color: white;
   border: none;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra */
   transition: transform 0.3s, background-color 0.3s;
 }
 
 .main-button:hover {
-  background-color: #5647b4;    /* Roxo escuro */
-  transform: scale(1.1);         /* Aumenta levemente */
+  background-color: #5647b4;
+  /* Roxo escuro */
+  transform: scale(1.1);
+  /* Aumenta levemente */
 }
 
-footer{
-    display: flex;
+footer {
+  display: flex;
   justify-content: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+  /* Empurra os itens para a direita */
+}
+
+.icone-usuario,
+.user-notification-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
 }
