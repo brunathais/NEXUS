@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,8 +9,13 @@
   <link rel="stylesheet" href="../graficos/graficos.css">
   <link rel="stylesheet" href="../../components/css/main.css">
 </head>
+
 <body>
   <main>
+    <div class="back-button">
+      <button onclick="history.back()">Voltar</button>
+    </div>
+
     <h1>Gerenciador Rápido de Finanças</h1>
 
     <section>
@@ -22,23 +28,11 @@
         </select>
 
         <label for="desc" class="visually-hidden">Descrição</label>
-        <input
-          type="text"
-          id="desc"
-          placeholder="Descrição"
-          required
-          aria-label="Descrição do lançamento"
-        />
+        <input type="text" id="desc" placeholder="Descrição" required aria-label="Descrição do lançamento" />
 
         <label for="amount" class="visually-hidden">Valor</label>
-        <input
-          type="text"
-          id="amount"
-          placeholder="Valor (R$)"
-          required
-          inputmode="decimal"
-          aria-label="Valor do lançamento"
-        />
+        <input type="text" id="amount" placeholder="Valor (R$)" required inputmode="decimal"
+          aria-label="Valor do lançamento" />
 
         <button type="submit">Adicionar</button>
 
@@ -60,4 +54,5 @@
   <script src="../graficos/graficos.js"></script>
   <script src="../graficos/historico-link.js"></script>
 </body>
+
 </html>
