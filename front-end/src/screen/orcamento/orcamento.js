@@ -117,7 +117,7 @@ btnMassDelete.addEventListener("click", async () => {
   form.addEventListener("submit", e => {
     e.preventDefault();
     const lista = JSON.parse(localStorage.getItem("orcamentos")) || [];
-    if (lista.length >= 5) return alert("Limite de 5 orçamentos atingido.");
+    if (lista.length >= 5) return alert("Limite de 5 orçamentos atingido."); //não é necessario isso
 
     const novo = {};
     for (const c of campos) {
