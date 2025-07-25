@@ -17,7 +17,7 @@ header {
     justify-content: space-between; /* Espaça os itens igualmente */
     align-items: center; /* Alinha verticalmente ao centro */
     padding: 20px; /* Espaçamento interno */
-    background-color: rgba(0, 0, 0, 0.2); /* Fundo semitransparente */
+    background-color: #240955;
     position: relative; /* Permite manipulação em camadas */
     z-index: 10; /* Mantém o header acima de outros elementos */
 }
