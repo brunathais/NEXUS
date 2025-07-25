@@ -1,4 +1,3 @@
-
 // Mostra ou esconde o campo de categoria com base no tipo selecionado (receita ou despesa)
 function mostrarCategoria() {
     const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o valor do radio button 'tipo' selecionado (Receita ou Despesa)
@@ -72,6 +71,7 @@ function salvarTransacao() {
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
     carregarTransacoes();
+    atualizarResumo();
     limparCampos();
 }
 
@@ -104,6 +104,7 @@ function excluirTransacao(index) {
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
     carregarTransacoes();
+    atualizarResumo();
 }
 
 function filtrarHistorico() {
@@ -113,32 +114,41 @@ function filtrarHistorico() {
     const dataFimFiltro = document.getElementById("filtroDataFim").value;
 
     const transacoes = JSON.parse(localStorage.getItem("transacoes")) || [];
+
     const transacoesFiltradas = transacoes.filter(transacao => {
         const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;
         const categoriaValida = categoriaFiltro ? transacao.categoria === categoriaFiltro : true;
-        const dataValida = (dataInicioFiltro ? transacao.data >= dataInicioFiltro : true) &&
-            (dataFimFiltro ? transacao.data <= dataFimFiltro : true);
-
+        const dataValida = (!dataInicioFiltro || transacao.data >= dataInicioFiltro) &&
+            (!dataFimFiltro || transacao.data <= dataFimFiltro);
         return tipoValido && categoriaValida && dataValida;
     });
 
-    const historicoDiv = document.getElementById("historico");
-    historicoDiv.innerHTML = "";
+    const container = document.getElementById("lista-transacoes");
+    container.innerHTML = "";
 
     transacoesFiltradas.forEach((transacao, index) => {
         const div = document.createElement("div");
-        div.innerHTML = `
-                    <strong>${transacao.tipo} ${index + 1}:</strong><br>
-                    Valor: R$${transacao.valor}<br>
-                    Data: ${transacao.data}<br>
-                    Descrição: ${transacao.descricao}<br>
-                    ${transacao.tipo === "Despesa" ? "Categoria: " + transacao.categoria + "<br>" : ""}
-                    <button onclick="editarTransacao(${index})">Editar</button>
-                    <button onclick="excluirTransacao(${index})">Excluir</button><br><br>
-                `;
-        historicoDiv.appendChild(div);
+        div.className = "transacao";
+        div.onclick = () => div.classList.toggle("ativa");
+
+        div.innerHTML = 
+            <div class="transacao-cabecalho">
+                <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
+            </div>
+            <div class="transacao-detalhes">
+                <p><strong>Data:</strong> ${transacao.data}</p>
+                <p><strong>Descrição:</strong> ${transacao.descricao}</p>
+                ${transacao.tipo === "Despesa" ? <p><strong>Categoria:</strong> ${transacao.categoria}</p> : ""}
+                <div class="acoes">
+                    <button onclick="editarTransacao(${index}); event.stopPropagation();">Editar</button>
+                    <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
+                </div>
+            </div>
+            ;
+        container.appendChild(div);
     });
 }
+
 
 function limparCampos() {
     document.getElementById("valor").value = "";
@@ -164,11 +174,8 @@ function atualizarResumo() {
         }
     });
 
-    const saldoAtual = totalReceitas - totalDespesas;
-
-    document.getElementById("saldoAtual").textContent = `R$ ${saldoAtual.toFixed(2)}`;
-    document.getElementById("totalReceitas").textContent = `R$ ${totalReceitas.toFixed(2)}`;
-    document.getElementById("totalDespesas").textContent = `R$ ${totalDespesas.toFixed(2)}`;
+    document.getElementById("totalReceitas").textContent = R$ ${ totalReceitas.toFixed(2) };
+    document.getElementById("totalDespesas").textContent = R$ ${ totalDespesas.toFixed(2) };
 }
 
 
@@ -186,22 +193,16 @@ function mostrarToast(mensagem) {
 }
 
 document.getElementById('btnFiltrar').addEventListener('click', () => {
-    const tipo = document.getElementById('tipo').value;
-    const categoria = document.getElementById('categoria').value;
-    const dataInicio = document.getElementById('dataInicio').value;
-    const dataFim = document.getElementById('dataFim').value;
-
-    // Aqui você aplica a lógica de filtragem
-    console.log('Filtrando por:', { tipo, categoria, dataInicio, dataFim });
-
-    // Ex: chamar função filterTransactions(tipo, categoria, dataInicio, dataFim);
+    filtrarHistorico();
 });
 
 document.getElementById('btnLimpar').addEventListener('click', () => {
-    document.getElementById('tipo').value = '';
-    document.getElementById('categoria').value = '';
-    document.getElementById('dataInicio').value = '';
-    document.getElementById('dataFim').value = '';
+    document.getElementById('filtroTipo').value = '';
+    document.getElementById('filtroCategoria').value = '';
+    document.getElementById('filtroDataInicio').value = '';
+    document.getElementById('filtroDataFim').value = '';
+    carregarTransacoes();
+    atualizarResumo(); 
 });
 
 
@@ -216,7 +217,7 @@ function carregarTransacoes() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = `
+        div.innerHTML = 
         <div class="transacao-cabecalho">
     <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
         </div>
@@ -228,7 +229,7 @@ function carregarTransacoes() {
             <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
     </div>
         </div>
-    `;
+            ;
         container.appendChild(div);
     });
 }
@@ -244,5 +245,3 @@ function excluirTransacao(index) {
 
 // Inicializa na primeira carga
 window.onload = carregarTransacoes;
-
-
