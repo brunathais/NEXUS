@@ -4,58 +4,69 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
+
 public class OrcamentoModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    private float essenciais;
-    private float naoEssenciais;
-    private float imprevistos;
-    private float reservaEmergencia;
+    private String nome;
+    private BigDecimal essenciais;
+    private BigDecimal naoEssenciais;
+    private BigDecimal imprevistos;
+    private BigDecimal reservaEmergencia;
 
-    public float getEssenciais() {
-        return essenciais;
-    }
-
+    // Getters //
     public int getId() {
         return id;
     }
 
-    public float getImprevistos() {
-        return imprevistos;
+    public String getNome() {
+        return nome;
     }
 
-    public float getNaoEssenciais() {
+    public BigDecimal getEssenciais() {
+        return essenciais;
+    }
+
+    public BigDecimal getNaoEssenciais() {
         return naoEssenciais;
     }
 
-    public float getReservaEmergencia() {
+    public BigDecimal getImprevistos() {
+        return imprevistos;
+    }
+
+    public BigDecimal getReservaEmergencia() {
         return reservaEmergencia;
     }
 
-    public void setEssenciais(float essenciais) {
-        this.essenciais = essenciais;
-    }
-
+    // Setters //
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setImprevistos(float imprevistos) {
-        this.imprevistos = imprevistos;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setNaoEssenciais(float naoEssenciais) {
-        this.naoEssenciais = naoEssenciais;
+    public void setEssenciais(BigDecimal Essenciais) {
+        this.essenciais = Essenciais;
     }
 
-    public void setReservaEmergencia(float reservaEmergencia) {
+    public void setNaoEssenciais(BigDecimal NaoEssenciais) {
+        this.naoEssenciais = NaoEssenciais;
+    }
+
+    public void setImprevistos(BigDecimal Imprevistos) {
+        this.imprevistos = Imprevistos;
+    }
+
+    public void setReservaEmergencia(BigDecimal reservaEmergencia) {
         this.reservaEmergencia = reservaEmergencia;
     }
-    
-    
+
 }

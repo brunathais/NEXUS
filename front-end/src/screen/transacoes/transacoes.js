@@ -131,7 +131,7 @@ function filtrarHistorico() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = 
+        div.innerHTML = ``
             <div class="transacao-cabecalho">
                 <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
             </div>
