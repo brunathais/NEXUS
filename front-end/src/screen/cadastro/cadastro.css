@@ -120,3 +120,11 @@ body {
     user-select: none;
     font-size: 18px;
 }
+
+.contador {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 1rem;
+    display: block;
+    text-align: right;
+}

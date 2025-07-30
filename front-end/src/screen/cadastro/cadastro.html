@@ -18,25 +18,27 @@
         <div id="mensagem" class="mensagem"></div>
 
         <form id="cadastroForm">
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" placeholder="Digite seu nome de usuario" maxlength="50" required>
-            <!--não esta funcional o max-->
+            <label for="usuario">Usuário:</label>
+            <input type="text" maxlength="50" id="usuario" placeholder="Digite seu nome de usuário" required>
+            <small id="usuario-contador" class="contador">0/50</small>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Digite seu email" maxlength="50" required>
+            <input type="email" maxlength="100" id="email" placeholder="Digite seu email" required>
+            <small id="email-contador" class="contador">0/100</small>
 
             <label for="senha">Senha:</label>
             <div class="campo-senha">
-                <input type="password" id="senha" placeholder="Crie uma senha" maxlength="50" required>
+                <input type="password" maxlength="20" id="senha" placeholder="Crie uma senha" required>
                 <span class="olho" onclick="toggleSenha('senha', this)">🙈</span>
             </div>
+            <small id="senha-contador" class="contador">0/20</small>
 
             <label for="confirmar-senha">Confirmar Senha:</label>
             <div class="campo-senha">
-                <input type="password" id="confirmar-senha" placeholder="Confirme sua senha" maxlength="50" required>
+                <input type="password" maxlength="20" id="confirmar-senha" placeholder="Confirme sua senha" required>
                 <span class="olho" onclick="toggleSenha('confirmar-senha', this)">🙈</span>
             </div>
-
+            <small id="confirmar-senha-contador" class="contador">0/20</small>
 
             <button type="submit">Cadastrar</button>
         </form>

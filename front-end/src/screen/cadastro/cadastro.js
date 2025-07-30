@@ -73,7 +73,26 @@ function toggleSenha(idCampo, icone) {
     icone.textContent = mostrando ? "🙈" : "👁️";
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const campos = [
+        { id: "usuario", max: 50 },
+        { id: "email", max: 100 },
+        { id: "senha", max: 20 },
+        { id: "confirmar-senha", max: 20 }
+    ];
 
+    campos.forEach(({ id, max }) => {
+        const input = document.getElementById(id);
+        const contador = document.getElementById(`${id}-contador`);
+
+        const atualizarContador = () => {
+            contador.textContent = `${input.value.length}/${max}`;
+        };
+
+        input.addEventListener("input", atualizarContador);
+        atualizarContador(); // já atualiza ao carregar a página
+    });
+});
 
 
 /*
