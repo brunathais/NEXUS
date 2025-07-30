@@ -1,4 +1,3 @@
-
 // Mostra ou esconde o campo de categoria com base no tipo selecionado (receita ou despesa)
 function mostrarCategoria() {
     const tipo = document.querySelector('input[name="tipo"]:checked').value; // Pega o valor do radio button 'tipo' selecionado (Receita ou Despesa)
@@ -72,7 +71,7 @@ function salvarTransacao() {
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
     carregarTransacoes();
-    atualizarResumo(); 
+    atualizarResumo();
     limparCampos();
 }
 
@@ -105,7 +104,7 @@ function excluirTransacao(index) {
 
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
     carregarTransacoes();
-    atualizarResumo(); 
+    atualizarResumo();
 }
 
 function filtrarHistorico() {
@@ -120,7 +119,7 @@ function filtrarHistorico() {
         const tipoValido = tipoFiltro ? transacao.tipo === tipoFiltro : true;
         const categoriaValida = categoriaFiltro ? transacao.categoria === categoriaFiltro : true;
         const dataValida = (!dataInicioFiltro || transacao.data >= dataInicioFiltro) &&
-                           (!dataFimFiltro || transacao.data <= dataFimFiltro);
+            (!dataFimFiltro || transacao.data <= dataFimFiltro);
         return tipoValido && categoriaValida && dataValida;
     });
 
@@ -132,20 +131,20 @@ function filtrarHistorico() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = `
+        div.innerHTML = ``
             <div class="transacao-cabecalho">
                 <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
             </div>
             <div class="transacao-detalhes">
                 <p><strong>Data:</strong> ${transacao.data}</p>
                 <p><strong>Descrição:</strong> ${transacao.descricao}</p>
-                ${transacao.tipo === "Despesa" ? `<p><strong>Categoria:</strong> ${transacao.categoria}</p>` : ""}
+                ${transacao.tipo === "Despesa" ? <p><strong>Categoria:</strong> ${transacao.categoria}</p> : ""}
                 <div class="acoes">
                     <button onclick="editarTransacao(${index}); event.stopPropagation();">Editar</button>
                     <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
                 </div>
             </div>
-        `;
+            ;
         container.appendChild(div);
     });
 }
@@ -175,8 +174,8 @@ function atualizarResumo() {
         }
     });
 
-    document.getElementById("totalReceitas").textContent = `R$ ${totalReceitas.toFixed(2)}`;
-    document.getElementById("totalDespesas").textContent = `R$ ${totalDespesas.toFixed(2)}`;
+    document.getElementById("totalReceitas").textContent = R$ ${ totalReceitas.toFixed(2) };
+    document.getElementById("totalDespesas").textContent = R$ ${ totalDespesas.toFixed(2) };
 }
 
 
@@ -202,7 +201,7 @@ document.getElementById('btnLimpar').addEventListener('click', () => {
     document.getElementById('filtroCategoria').value = '';
     document.getElementById('filtroDataInicio').value = '';
     document.getElementById('filtroDataFim').value = '';
-    carregarTransacoes(); // Mostra tudo novamente
+    carregarTransacoes();
     atualizarResumo(); 
 });
 
@@ -218,7 +217,7 @@ function carregarTransacoes() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = `
+        div.innerHTML = 
         <div class="transacao-cabecalho">
     <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
         </div>
@@ -230,7 +229,7 @@ function carregarTransacoes() {
             <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
     </div>
         </div>
-    `;
+            ;
         container.appendChild(div);
     });
 }
@@ -245,7 +244,4 @@ function excluirTransacao(index) {
 }
 
 // Inicializa na primeira carga
-window.onload = () => {
-    carregarTransacoes();
-    atualizarResumo(); // só se quiser forçar na primeira carga
-};
+window.onload = carregarTransacoes;

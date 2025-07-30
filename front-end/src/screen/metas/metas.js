@@ -1,8 +1,6 @@
-function obterValor(id){
-  return document.getElementById(id);
-}
-    const formMeta = obterValor('form-meta');
-    const listaMetas = obterValor('listaMetas');
+
+    const formMeta = document.getElementById('form-meta');
+    const listaMetas = document.getElementById('listaMetas');
     let metas = [];
 
     function atualizarLista() {

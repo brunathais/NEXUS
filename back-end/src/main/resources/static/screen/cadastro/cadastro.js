@@ -50,7 +50,7 @@ document.getElementById("cadastroForm").addEventListener("submit", async functio
         exibirMensagem("Cadastro realizado com sucesso!", "sucesso");
 
         setTimeout(() => {
-            window.location.href = "../login/login.html";
+            window.location.href = "../screen/login/login.html";
         }, 2000);
 
     } catch (error) {

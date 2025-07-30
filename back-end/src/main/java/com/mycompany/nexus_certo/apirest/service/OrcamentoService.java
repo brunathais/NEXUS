@@ -9,19 +9,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrcamentoService {
-    
     @Autowired
+    
     private OrcamentoRepository repo;
     
-    public OrcamentoModel salvar(OrcamentoModel orcamento){
-        return repo.save(orcamento);
+    public OrcamentoModel criar (OrcamentoModel orcamento){
+        return repo.save (orcamento);
     }
+    
     public List<OrcamentoModel> listar(){
         return repo.findAll();
-    }
+    } 
+    
     public Optional<OrcamentoModel> buscarPorId(int id){
         return repo.findById(id);
     }
+    
     public void deletar(int id){
         repo.deleteById(id);
     }

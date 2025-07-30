@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UsuarioController {
-
+/*
     @Autowired
     private UsuarioService service;
 
@@ -34,5 +34,5 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
-
+*/
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,10 +9,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="orcamento.js" defer></script>
 </head>
+
 <body>
   <main>
+    <button onclick="history.back()">Voltar</button>
+
     <h1>Definir Orçamento</h1>
     <form id="formOrcamento" aria-label="Formulário para definir orçamento mensal">
+
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Digite o nome do Orçamento" required>
+
       <label for="essenciais">Essenciais:</label>
       <input type="text" id="essenciais" name="essenciais" placeholder="R$ 0,00" required />
 
@@ -35,4 +43,5 @@
     </section>
   </main>
 </body>
+
 </html>

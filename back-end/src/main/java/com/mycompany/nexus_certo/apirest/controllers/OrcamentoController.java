@@ -16,38 +16,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "*") // permite chamadas de qualquer origem
+
 @RestController
 @RequestMapping("/orcamentos")
-@CrossOrigin(origins = "*")
 
 public class OrcamentoController {
-
     @Autowired
+    
     private OrcamentoService service;
-
+    
     @PostMapping
-    public ResponseEntity<?> criar(@Valid @RequestBody OrcamentoModel orcamento) {
-        OrcamentoModel salva = service.salvar(orcamento);
+    
+    public ResponseEntity<?> criar(@Valid @RequestBody OrcamentoModel orcamento){
+        OrcamentoModel salva = service.criar(orcamento);
         return ResponseEntity.ok(salva);
     }
-
+      
     @GetMapping
-    public List<OrcamentoModel> listar() {
+    public List<OrcamentoModel> listar(){
         return service.listar();
     }
-
+    
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscar(@PathVariable int id) {
-        return service.buscarPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+            public ResponseEntity<?> buscar(@PathVariable int id) {//PathVariable?
+        return service.buscarPorId(id)
+            .map(ResponseEntity::ok) //map? ::
+            .orElse(ResponseEntity.notFound().build()); //oq faz?
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable int id, @Valid @RequestBody OrcamentoModel orcamento) {
-        if (!service.buscarPorId(id).isPresent()) {
+        if (!service.buscarPorId(id).isPresent()) { //isPresent
             return ResponseEntity.notFound().build();
         }
         orcamento.setId(id);
-        return ResponseEntity.ok(service.salvar(orcamento));
+        return ResponseEntity.ok(service.criar(orcamento));
     }
 
     @DeleteMapping("/{id}")
@@ -56,7 +60,7 @@ public class OrcamentoController {
             return ResponseEntity.notFound().build();
         }
         service.deletar(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); //noContent
     }
-
+    
 }

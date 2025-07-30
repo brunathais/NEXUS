@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="../../components/css/main.css" />
   <script src="./home.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
-<script>
-  (function () {
-    emailjs.init("SEU_USER_ID_AQUI"); // vem do EmailJS dashboard, para enviar emails
-  })();
-</script>
+  <script>
+    (function () {
+      emailjs.init("SEU_USER_ID_AQUI"); // vem do EmailJS dashboard, para enviar emails
+    })();
+  </script>
 
   <title>Home</title>
 </head>
@@ -28,34 +28,34 @@
     </div>
 
     <div class="header-right">
-      <div class="icone-usuario" role="button" tabindex="0" aria-label="Perfil do usuário"
-      onclick="usuario" onkeypress="if(event.key==='Enter'){alert('Perfil do usuário!');}">
+      <div class="icone-usuario" role="button" tabindex="0" aria-label="Perfil do usuário" onclick="usuario"
+        onkeypress="if(event.key==='Enter'){alert('Perfil do usuário!');}">
 
-      <i class="fa-solid fa-user"></i> <!--user icon-->
-      
+        <i class="fa-solid fa-user"></i> <!--user icon-->
 
-    </div>
 
-    <div class="user-notification-area">
-      <img src="../../resources/iconHome/white-notification-icon.png" alt="Notificações" width="30"
-        class="icone-notificacao" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false"
-        aria-controls="notificacao-menu" onclick="toggleNotificacoes()"
-        onkeypress="if(event.key==='Enter'){toggleNotificacoes();}" />
-    </div>
-
-    <!-- Menu de notificações (inicialmente oculto) -->
-    <div id="notificacao-menu" aria-live="polite" aria-hidden="true">
-      <div id="notificacoes">
-        <div class="notificacao-item">Nova transação registrada</div> <!--por enquanto fixo no codigo-->
-        <div class="notificacao-item">Dica do dia disponível</div>
-        <div class="notificacao-item">Atualização no histórico</div>
       </div>
+
+      <div class="user-notification-area">
+        <img src="../../resources/iconHome/white-notification-icon.png" alt="Notificações" width="30"
+          class="icone-notificacao" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false"
+          aria-controls="notificacao-menu" onclick="toggleNotificacoes()"
+          onkeypress="if(event.key==='Enter'){toggleNotificacoes();}" />
+      </div>
+
+      <!-- Menu de notificações (inicialmente oculto) -->
+      <div id="notificacao-menu" aria-live="polite" aria-hidden="true">
+        <div id="notificacoes">
+          <div class="notificacao-item">Nova transação registrada</div> <!--por enquanto fixo no codigo-->
+          <div class="notificacao-item">Dica do dia disponível</div>
+          <div class="notificacao-item">Atualização no histórico</div>
+        </div>
+      </div>
+
+      <button id="logout">Logout</button>
+
     </div>
-
-    <button id="logout">Logout</button>
-
-  </div>
-</div>
+    </div>
 
   </header>
 
@@ -78,7 +78,7 @@
       <li onclick="location.href='../metas/metas.html.html'" tabindex="0" role="link" aria-label="Ir para Gráficos"
         onkeypress="if(event.key==='Enter'){location.href='../metas/metas.html';}">Metas</li>
     </ul>
-  </aside> 
+  </aside>
 
   <main>
     <div class="central-area">

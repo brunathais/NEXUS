@@ -6,130 +6,58 @@
   <title>Gerenciador Rápido de Finanças</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="../graficos/graficos.css">
-  
+  <link rel="stylesheet" href="../../components/css/main.css">
 </head>
 <body>
-  <h1>Gerenciador Rápido de Finanças</h1>
+  <main>
+    <h1>Gerenciador Rápido de Finanças</h1>
 
-  <form id="finance-form">
-    <select id="type" required>
-      <option value="" disabled selected>Tipo</option>
-      <option value="receita">Receita</option>
-      <option value="despesa">Despesa</option>
-    </select>
-    <input type="text" id="desc" placeholder="Descrição" required />
-    <input type="number" id="amount" placeholder="Valor (R$)" min="0.01" step="0.01" required />
-    <button type="submit">Adicionar</button>
-  </form>
+    <section>
+      <form id="finance-form" aria-label="Formulário de lançamento financeiro">
+        <label for="type" class="visually-hidden">Tipo</label>
+        <select id="type" required aria-label="Tipo de lançamento">
+          <option value="" disabled selected>Tipo</option>
+          <option value="receita">Receita</option>
+          <option value="despesa">Despesa</option>
+        </select>
 
-  <div class="charts">
-    <canvas id="pieChart" width="300" height="300"></canvas>
-    <canvas id="barChart" width="300" height="300"></canvas>
-  </div>
+        <label for="desc" class="visually-hidden">Descrição</label>
+        <input
+          type="text"
+          id="desc"
+          placeholder="Descrição"
+          required
+          aria-label="Descrição do lançamento"
+        />
 
-  <script>
-    // Dados armazenados em arrays
-    const records = [];
+        <label for="amount" class="visually-hidden">Valor</label>
+        <input
+          type="text"
+          id="amount"
+          placeholder="Valor (R$)"
+          required
+          inputmode="decimal"
+          aria-label="Valor do lançamento"
+        />
 
-    // Referências para os gráficos
-    const pieCtx = document.getElementById('pieChart').getContext('2d');
-    const barCtx = document.getElementById('barChart').getContext('2d');
+        <button type="submit">Adicionar</button>
 
-    // Inicializa os gráficos vazios
-    let pieChart = new Chart(pieCtx, {
-      type: 'pie',
-      data: {
-        labels: ['Receitas', 'Despesas'],
-        datasets: [{
-          label: 'Proporção',
-          data: [0, 0],
-          backgroundColor: ['#4caf50', '#f44336'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          tooltip: { enabled: true }
-        }
-      }
-    });
 
-    let barChart = new Chart(barCtx, {
-      type: 'bar',
-      data: {
-        labels: [], // Meses/datas
-        datasets: [
-          {
-            label: 'Receitas',
-            backgroundColor: '#4caf50',
-            data: []
-          },
-          {
-            label: 'Despesas',
-            backgroundColor: '#f44336',
-            data: []
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
 
-    // Função para atualizar gráficos
-    function updateCharts() {
-      // Soma total de receitas e despesas
-      const totalReceitas = records
-        .filter(r => r.type === 'receita')
-        .reduce((acc, r) => acc + r.amount, 0);
-      const totalDespesas = records
-        .filter(r => r.type === 'despesa')
-        .reduce((acc, r) => acc + r.amount, 0);
+      </form>
 
-      // Atualiza o gráfico pizza
-      pieChart.data.datasets[0].data = [totalReceitas, totalDespesas];
-      pieChart.update();
+      <!-- Botão para abrir histórico -->
+      <button id="btn-historico" style="margin-top:10px; padding: 8px 16px; font-size: 1rem; cursor: pointer;">
+        Histórico de Finanças
+      </button>
+    </section>
 
-      // Atualiza gráfico de barras por mês (YYYY-MM)
-      // Como não há data no formulário, vamos organizar por ordem de entrada simples (registro 1, 2, 3)
-      // Ou você pode adaptar para usar data real se desejar.
-      // Para simplicidade, mostraremos as 10 últimas entradas
+    <section class="charts">
+      <canvas id="barChart" aria-label="Gráfico de barras" role="img"></canvas>
+    </section>
+  </main>
 
-      // Monta os dados para gráfico de barras: receitas e despesas ao longo dos lançamentos
-      const labels = records.map((_, i) => `Entrada ${i + 1}`);
-      const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
-      const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
-
-      barChart.data.labels = labels;
-      barChart.data.datasets[0].data = receitas;
-      barChart.data.datasets[1].data = despesas;
-      barChart.update();
-    }
-
-    // Captura o form e adiciona evento
-    document.getElementById('finance-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const type = document.getElementById('type').value;
-      const desc = document.getElementById('desc').value.trim();
-      const amount = parseFloat(document.getElementById('amount').value);
-
-      if (!type || !desc || isNaN(amount) || amount <= 0) {
-        alert('Preencha todos os campos corretamente.');
-        return;
-      }
-
-      // Adiciona novo registro
-      records.push({ type, desc, amount });
-
-      // Limpa campos
-      this.reset();
-
-      // Atualiza os gráficos
-      updateCharts();
-    });
-  </script>
+  <script src="../graficos/graficos.js"></script>
+  <script src="../graficos/historico-link.js"></script>
 </body>
 </html>
