@@ -25,10 +25,10 @@
     <!-- Formulário -->
     <form id="formConta">
       <label for="nomeConta">Nome da Conta / Boleto:</label>
-      <input type="text" id="nomeConta" placeholder="Ex: Luz, Água, Internet" required />
+      <input type="text" maxlength="20" id="nomeConta" placeholder="Ex: Luz, Água, Internet" required />
 
       <label for="codigoBoleto">Código de Barras do Boleto:</label>
-      <input type="text" id="codigoBoleto" placeholder="Cole o código aqui" />
+      <input type="text" maxlength="15" id="codigoBoleto" placeholder="Cole o código aqui" />
 
       <label for="valorConta">Valor (R$):</label>
       <input type="number" id="valorConta" step="0.01" min="0" placeholder="Ex: 150.75" required />

@@ -28,11 +28,10 @@
         </select>
 
         <label for="desc" class="visually-hidden">Descrição</label>
-        <input type="text" id="desc" placeholder="Descrição" required aria-label="Descrição do lançamento" />
+        <input type="text" maxlength="20" id="desc" placeholder="Descrição" required aria-label="Descrição do lançamento" />
 
         <label for="amount" class="visually-hidden">Valor</label>
-        <input type="text" id="amount" placeholder="Valor (R$)" required inputmode="decimal"
-          aria-label="Valor do lançamento" />
+        <input type="text"  maxlength="15" id="amount" placeholder="Valor (R$)">
 
         <button type="submit">Adicionar</button>
 
