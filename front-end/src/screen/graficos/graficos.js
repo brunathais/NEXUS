@@ -66,9 +66,8 @@ function updateCharts() {
   
 
 
-  const labels = records.map((r, i) =>
-    r.type === 'despesa' ? `Saída ${i + 1}` : `Entrada ${i + 1}`
-  );
+const labels = records.map(r => r.desc);
+
   const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
   const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
 
