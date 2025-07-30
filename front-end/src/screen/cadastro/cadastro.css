@@ -101,3 +101,22 @@ body {
     background-color: #d4edda;
     color: #155724;
 }
+.campo-senha {
+    position: relative;
+}
+
+.campo-senha input {
+    width: 100%;
+    padding-right: 35px; /* Espaço para o ícone */
+    box-sizing: border-box;
+}
+
+.olho {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+}

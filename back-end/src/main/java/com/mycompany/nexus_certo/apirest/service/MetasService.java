@@ -1,6 +1,7 @@
 package com.mycompany.nexus_certo.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,11 @@ public class MetasService {
     }
 
     public void deletar(int id) {
-        return repo.deleteById(id);
+        repo.deleteById(id);
     }
 
     public Optional<MetasModel> buscarPorId(int id) {
         return repo.findById(id);
     }
+
 }

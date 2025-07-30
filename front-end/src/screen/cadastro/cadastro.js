@@ -108,4 +108,13 @@ function validarEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
+function toggleSenha(idCampo, icone) {
+    const campo = document.getElementById(idCampo);
+    const mostrando = campo.type === "text";
+
+    campo.type = mostrando ? "password" : "text";
+    icone.textContent = mostrando ? "🙈" : "👁️";
+}
+
+
 

@@ -73,6 +73,14 @@ function efetuarLogin() {
     } else {
         alert("Usuário ou senha incorretos.");
     }
+    
+}
+function toggleSenha(idCampo, icone) {
+    const campo = document.getElementById(idCampo);
+    const mostrando = campo.type === "text";
+
+    campo.type = mostrando ? "password" : "text";
+    icone.textContent = mostrando ? "🙈" : "👁️";
 }
 
 

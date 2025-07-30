@@ -18,8 +18,11 @@
             <label for="usuario">Usuário:</label>
             <input type="text" id="usuario" placeholder="Digite seu nome de usuario" maxlength="50" required>
 
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" placeholder="Digite sua senha" maxlength="50" required>
+           <label for="senha">Senha:</label>
+            <div class="campo-senha">
+                <input type="password" id="senha" placeholder="Crie uma senha" maxlength="50" required>
+                <span class="olho" onclick="toggleSenha('senha', this)">🙈</span>
+            </div>
 
             <button type="submit">Entrar</button>
         </form>
