@@ -1,63 +1,40 @@
+formMeta.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const formMeta = document.getElementById('form-meta');
-    const listaMetas = document.getElementById('listaMetas');
-    let metas = [];
+  const nomeMeta = document.getElementById('nomeMeta').value.trim();
+  const valorTotal = parseFloat(document.getElementById('valorTotal').value);
+  const valorPoupado = parseFloat(document.getElementById('valorPoupado').value);
 
-    function atualizarLista() {
-      listaMetas.innerHTML = '';
+  if (nomeMeta && valorTotal > 0 && valorPoupado >= 0 && valorPoupado <= valorTotal) {
+    const novaMeta = {
+      nomeMeta,
+      valorTotal,
+      valorInicial: valorPoupado,
+      valorPoupado
+    };
 
-      metas.forEach((meta, index) => {
-        const porcentagem = Math.min((meta.valorPoupado / meta.valorTotal) * 100, 100).toFixed(2);
-
-        const divMeta = document.createElement('div');
-        divMeta.className = 'meta';
-
-        divMeta.innerHTML = `
-          <h3>${meta.nome}</h3>
-          <div class="progress-bar">
-            <div class="progress" style="width: ${porcentagem}%;"></div>
-          </div>
-          <div class="status">${porcentagem}% - R$${meta.valorPoupado.toFixed(2)} / R$${meta.valorTotal.toFixed(2)}</div>
-          <label>Adicionar valor poupado:</label>
-          <input type="number" min="0" step="0.01" id="inputPoupado${index}" placeholder="Valor" />
-          <button onclick="adicionarValor(${index})">Atualizar</button>
-        `;
-
-        listaMetas.appendChild(divMeta);
+    try {
+      const response = await fetch('http://localhost:8080/metas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(novaMeta)
       });
-    }
 
-    function adicionarValor(index) {
-      const input = document.getElementById(`inputPoupado${index}`);
-      const valor = parseFloat(input.value);
-
-      if (!isNaN(valor) && valor > 0) {
-        metas[index].valorPoupado += valor;
-        if (metas[index].valorPoupado >= metas[index].valorTotal) {
-          metas[index].valorPoupado = metas[index].valorTotal;
-
-          // Exibe mensagem de parabéns
-          alert(`Meta "${metas[index].nome}" atingida! Parabéns! 🎉`);
-        }
-        input.value = '';
+      if (response.ok) {
+        const metaSalva = await response.json();
+        metas.push(metaSalva);
         atualizarLista();
-      } else {
-        alert('Informe um valor válido maior que zero.');
-      }
-    }
-
-    formMeta.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nome = document.getElementById('nomeMeta').value.trim();
-      const valorTotal = parseFloat(document.getElementById('valorTotal').value);
-      const valorPoupado = parseFloat(document.getElementById('valorPoupado').value);
-
-      if (nome && valorTotal > 0 && valorPoupado >= 0 && valorPoupado <= valorTotal) {
-        metas.push({ nome, valorTotal, valorPoupado });
         formMeta.reset();
-        atualizarLista();
       } else {
-        alert('Por favor, preencha os dados corretamente. O valor poupado não pode ser maior que o valor total.');
+        alert('Erro ao salvar meta no servidor.');
       }
-    });
+    } catch (err) {
+      console.error(err);
+      alert('Erro de conexão com o servidor.');
+    }
+  } else {
+    alert('Preencha os dados corretamente. O valor poupado não pode ser maior que o valor total.');
+  }
+});
