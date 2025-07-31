@@ -12,7 +12,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 
@@ -34,7 +33,7 @@ public class CadastroController {
     }
     
     @PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody Map<String, String> credenciais) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credenciais) {
     String usuario = credenciais.get("usuario");
     String senha = credenciais.get("senha");
 

@@ -1,40 +1,10 @@
-// registros em memória
 const records = [];
+let rawValue = '';
 
-// tenta carregar do localStorage
-const savedRecords = localStorage.getItem('financeRecords');
-if (savedRecords) {
-  records = JSON.parse(savedRecords);
-  updateCharts();
-}
-
-// contextos dos gráficos
-
+const form = document.getElementById('finance-form');
+const amountInput = document.getElementById('amount');
 const barCtx = document.getElementById('barChart').getContext('2d');
 
-
-// // inicializa pieChart sem frestas
-// let pieChart = new Chart(pieCtx, {
-//   type: 'pie',
-//   data: {
-//     labels: ['Receitas', 'Despesas'],
-//     datasets: [{
-//       data: [0, 0],
-//       backgroundColor: ['#4caf50', '#f44336'],
-//       borderWidth: 0
-//     }]
-//   },
-//   options: {
-//     responsive: true,
-//     plugins: {
-//       tooltip: { enabled: true },
-//       legend: { position: 'top' }
-//     }
-//   }
-// });
-
-
-// inicializa barChart
 let barChart = new Chart(barCtx, {
   type: 'bar',
   data: {
@@ -52,42 +22,6 @@ let barChart = new Chart(barCtx, {
   }
 });
 
-
-// atualiza gráficos
-function updateCharts() {
-  const totalReceitas = records
-    .filter(r => r.type === 'receita')
-    .reduce((acc, r) => acc + r.amount, 0);
-  const totalDespesas = records
-    .filter(r => r.type === 'despesa')
-    .reduce((acc, r) => acc + r.amount, 0);
-
-
-  
-
-
-  const labels = records.map((r, i) =>
-    r.type === 'despesa' ? `Saída ${i + 1}` : `Entrada ${i + 1}`
-  );
-  const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
-  const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
-
-
-  barChart.data.labels = labels;
-  barChart.data.datasets[0].data = receitas;
-  barChart.data.datasets[1].data = despesas;
-  barChart.update();
-}
-
-
-// campo de valor com máscara monetária brasileira
-const form = document.getElementById('finance-form');
-const amountInput = document.getElementById('amount');
-
-
-let rawValue = '';
-
-
 function formatToBRL(value) {
   const cents = value.padStart(3, '0');
   const intPart = cents.slice(0, -2).replace(/^0+/, '') || '0';
@@ -96,57 +30,78 @@ function formatToBRL(value) {
   return `R$ ${formattedInt},${decimalPart}`;
 }
 
-
 amountInput.addEventListener('input', (e) => {
   const digits = e.target.value.replace(/\D/g, '');
   rawValue = digits;
   e.target.value = formatToBRL(digits);
 });
 
-
-form.addEventListener('submit', function (e) {
+form.addEventListener('submit', async function (e) {
   e.preventDefault();
   const type = document.getElementById('type').value;
   const desc = document.getElementById('desc').value.trim();
-
 
   if (!type || !desc || rawValue === '' || rawValue === '0') {
     alert('Preencha todos os campos corretamente.');
     return;
   }
 
-
   const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
-  records.push({ type, desc, amount });
 
-
-  // ... código anterior ...
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const type = document.getElementById('type').value;
-    const desc = document.getElementById('desc').value.trim();
-
-    if (!type || !desc || rawValue === '' || rawValue === '0') {
-      alert('Preencha todos os campos corretamente.');
-      return;
-    }
-
-    const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
-    records.push({ type, desc, amount });
-
-    // Salva no localStorage
-    localStorage.setItem('financeRecords', JSON.stringify(records));
+  try {
+    await fetch('http://localhost:8080/graficos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        tipo: type,
+        descricao: desc,
+        valor: amount
+      })
+    });
 
     this.reset();
     rawValue = '';
     amountInput.value = '';
-    updateCharts();
-  });
-
-
-  this.reset();
-  rawValue = '';
-  amountInput.value = '';
-  updateCharts();
+    loadRecords(); // atualiza os gráficos com dados do banco
+  } catch (error) {
+    alert('Erro ao salvar. Verifique a API.');
+    console.error(error);
+  }
 });
+
+async function loadRecords() {
+  try {
+    const res = await fetch('http://localhost:8080/graficos');
+    const data = await res.json();
+
+    records.length = 0; // limpa array local
+    data.forEach(item => {
+      records.push({
+        type: item.tipo,
+        desc: item.descricao,
+        amount: parseFloat(item.valor)
+      });
+    });
+
+    updateCharts();
+  } catch (error) {
+    console.error('Erro ao carregar registros:', error);
+  }
+}
+
+function updateCharts() {
+  const labels = records.map((r, i) =>
+    r.type === 'despesa' ? `Saída ${i + 1}` : `Entrada ${i + 1}`
+  );
+  const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
+  const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
+
+  barChart.data.labels = labels;
+  barChart.data.datasets[0].data = receitas;
+  barChart.data.datasets[1].data = despesas;
+  barChart.update();
+}
+
+document.addEventListener('DOMContentLoaded', loadRecords);
