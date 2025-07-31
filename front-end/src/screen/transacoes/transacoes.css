@@ -16,8 +16,8 @@
 }
 
 .form-container form label,
-/*.form-container form input[type="text"], 
-.form-container form input[type="date"], 
+/*.form-container form input[type="text"],
+.form-container form input[type="date"],
 .form-container form input[type="number"], */
 .form-container form :not(input[type="radio"]),
 .form-container form select,
@@ -283,10 +283,10 @@ button:hover {
     color: white;
 }
 
-.historico-container h2{
+.historico-container h2 {
     color: #222;
 }
 
-.back-button{
+.back-button {
     width: 20px;
 }

@@ -17,7 +17,6 @@
 
     <h1>Cadastro de Transações</h1>
     <div class="resumo-cards">
-
         <div class="resumo-card receita">
             <p>Total de Receitas</p>
             <span id="totalReceitas">R$ 0,00</span>
@@ -43,14 +42,14 @@
 
 
                 <label>Valor:</label>
-                <input type="number" maxlength="10" id="valor" placeholder="Valor" required>
-                <!--'required' garante que o usuário deve preencher este campo-->
+                <input type="number" id="valor" placeholder="Valor" required oninput="limitarCaracteres(this, 10)" />
+
 
                 <label>Data:</label>
-                <input type="date" id="data" maxlength="8" required>
+                <input type="date" id="data" required>
 
                 <label>Descrição:</label>
-                <input type="text" maxlength="15" id="descricao" placeholder="Descrição"  required>
+                <input type="text" id="descricao" placeholder="Descrição" maxlength="75" required />
 
                 <div id="categoria_div">
                     <label>Categoria:</label>
@@ -70,37 +69,36 @@
         <div class="historico-container">
             <h2>Histórico de Transações</h2>
 
-                <div class="filtro-select">
-                    <div class="filtro-container">
-                        <select id="filtroTipo" onchange="filtrarHistorico()">
-                            <option value="">Filtrar por Tipo</option>
-                            <option value="Receita">Receita</option>
-                            <option value="Despesa">Despesa</option>
-                        </select>
+            <div class="filtro-select">
+                <div class="filtro-container">
+                    <select id="filtroTipo" onchange="filtrarHistorico()">
+                        <option value="">Filtrar por Tipo</option>
+                        <option value="Receita">Receita</option>
+                        <option value="Despesa">Despesa</option>
+                    </select>
 
-                        <select id="filtroCategoria" onchange="filtrarHistorico()">
-                            <option value="">Filtrar por Categoria</option>
-                            <option value="Essenciais">Essenciais</option>
-                            <option value="Não Essenciais">Não Essenciais</option>
-                            <option value="Imprevistos">Imprevistos</option>
-                        </select>
-                    </div>
+                    <select id="filtroCategoria" onchange="filtrarHistorico()">
+                        <option value="">Filtrar por Categoria</option>
+                        <option value="Essenciais">Essenciais</option>
+                        <option value="Não Essenciais">Não Essenciais</option>
+                        <option value="Imprevistos">Imprevistos</option>
+                    </select>
+                </div>
 
-                    <div class="filtro-date">
-                        <label for="filtroDataInicio">De:</label>
-                        <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
+                <div class="filtro-date">
+                    <label for="filtroDataInicio">De:</label>
+                    <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
 
-                        <label for="filtroDataFim">Até:</label>
-                        <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
-                    </div>
+                    <label for="filtroDataFim">Até:</label>
+                    <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
+                </div>
 
-                    <div class="filtro-item botoes">
-                        <button id="btnFiltrar">🔍 Aplicar</button>
-                        <button id="btnLimpar" class="limpar">🧹 Limpar</button>
-                    </div>
+                <div class="filtro-item botoes">
+                    <button id="btnFiltrar">🔍 Aplicar</button>
+                    <button id="btnLimpar" class="limpar">🧹 Limpar</button>
+                </div>
             </div>
 
-            <div id="historico"></div>
             <div id="lista-transacoes"></div>
         </div>
     </div>
