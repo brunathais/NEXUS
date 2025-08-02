@@ -254,3 +254,9 @@ window.onload = () => {
     carregarTransacoes();
     atualizarResumo(); // só se quiser forçar na primeira carga
 };
+
+function rolarParaFormulario(){
+    document.getElementById("formCadastro").style.display = "block";
+    document.getElementById("formOverkay").style.display = "block";
+    limparCampos();
+}
