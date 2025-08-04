@@ -243,20 +243,8 @@ function excluirTransacao(index) {
     }
 }
 
-function limitarCaracteres(input, max) {
-    if (input.value.length > max) {
-        input.value = input.value.slice(0, max);
-    }
-}
-
 // Inicializa na primeira carga
 window.onload = () => {
     carregarTransacoes();
     atualizarResumo(); // só se quiser forçar na primeira carga
 };
-
-function rolarParaFormulario(){
-    document.getElementById("formCadastro").style.display = "block";
-    document.getElementById("formOverkay").style.display = "block";
-    limparCampos();
-}

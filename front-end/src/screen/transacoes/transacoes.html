@@ -28,48 +28,41 @@
     </div>
 
     <div class="container">
+        <div class="form-container">
+            <form onsubmit="event.preventDefault(); salvarTransacao();"> <!--
+  onsubmit: Quando o formulário for enviado, impede o comportamento padrão (recarregar a página)
+  e chama a função salvarTransacao() para processar os dados via JavaScript.
+-->
+                <label>Tipo de Transação:</label>
 
-        <div id="formOverlay" onclick="fecharFormulario()"></div>
-
-        <div id="formCadastro" class="form-container" style="display: none;">
-            <button type="button" onclick="fecharFormulario()" style="float: right;">X</button>
-            <form onsubmit="event.preventDefault(); salvarTransacao();">
-
-                <div id="formCadastro" class="form-container" style="display: none;">
-                    <form onsubmit="event.preventDefault(); salvarTransacao();">
-                        <label>Tipo de Transação:</label>
-
-                        <div class="radio-group">
-                            <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()">
-                            Receita
-                            <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
-                        </div>
-
-                        <label>Valor:</label>
-                        <input type="number" id="valor" placeholder="Valor" required
-                            oninput="limitarCaracteres(this, 10)" />
-
-                        <label>Data:</label>
-                        <input type="date" id="data" required>
-
-                        <label>Descrição:</label>
-                        <input type="text" id="descricao" placeholder="Descrição" maxlength="75" required />
-
-                        <div id="categoria_div">
-                            <label>Categoria:</label>
-                            <select id="categoria">
-                                <option value="Essenciais">Essenciais</option>
-                                <option value="Não Essenciais">Não Essenciais</option>
-                                <option value="Imprevistos">Imprevistos</option>
-                            </select>
-                        </div>
-
-                        <input type="hidden" id="editar_id"> <!--necessario?-->
-
-                        <button type="submit">Salvar Transação</button>
-                    </form>
+                <div class="radio-group">
+                    <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
+                    <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
                 </div>
 
+
+                <label>Valor:</label>
+                <input type="number" id="valor" placeholder="Valor" maxlength="10" required>
+                <!--'required' garante que o usuário deve preencher este campo-->
+
+                <label>Data:</label>
+                <input type="date" id="data" maxlength="8" required>
+
+                <label>Descrição:</label>
+                <input type="text" id="descricao" placeholder="Descrição" maxlength="50" required>
+
+                <div id="categoria_div">
+                    <label>Categoria:</label>
+                    <select id="categoria">
+                        <option value="Essenciais">Essenciais</option>
+                        <option value="Não Essenciais">Não Essenciais</option>
+                        <option value="Imprevistos">Imprevistos</option>
+                    </select>
+                </div>
+
+                <input type="hidden" id="editar_id"> <!--necessario?-->
+
+                <button type="submit">Salvar Transação</button>
             </form>
         </div>
 
