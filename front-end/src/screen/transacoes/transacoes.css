@@ -16,8 +16,8 @@
 }
 
 .form-container form label,
-/*.form-container form input[type="text"], 
-.form-container form input[type="date"], 
+/*.form-container form input[type="text"],
+.form-container form input[type="date"],
 .form-container form input[type="number"], */
 .form-container form :not(input[type="radio"]),
 .form-container form select,
@@ -283,10 +283,35 @@ button:hover {
     color: white;
 }
 
-.historico-container h2{
+.historico-container h2 {
     color: #222;
 }
 
-.back-button{
+.back-button {
     width: 20px;
+}
+
+#formCadastro {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    width: 90%;
+    max-width: 500px;
+}
+
+#formOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
 }

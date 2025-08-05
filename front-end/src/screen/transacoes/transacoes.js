@@ -131,20 +131,20 @@ function filtrarHistorico() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = ``
+        div.innerHTML = `
             <div class="transacao-cabecalho">
                 <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
             </div>
             <div class="transacao-detalhes">
                 <p><strong>Data:</strong> ${transacao.data}</p>
                 <p><strong>Descrição:</strong> ${transacao.descricao}</p>
-                ${transacao.tipo === "Despesa" ? <p><strong>Categoria:</strong> ${transacao.categoria}</p> : ""}
+                ${transacao.tipo === "Despesa" ? `<p><strong>Categoria:</strong> ${transacao.categoria}</p>` : ""}
                 <div class="acoes">
                     <button onclick="editarTransacao(${index}); event.stopPropagation();">Editar</button>
                     <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
                 </div>
             </div>
-            ;
+        `;
         container.appendChild(div);
     });
 }
@@ -174,8 +174,8 @@ function atualizarResumo() {
         }
     });
 
-    document.getElementById("totalReceitas").textContent = R$ ${ totalReceitas.toFixed(2) };
-    document.getElementById("totalDespesas").textContent = R$ ${ totalDespesas.toFixed(2) };
+    document.getElementById("totalReceitas").textContent = `R$ ${totalReceitas.toFixed(2)}`;
+    document.getElementById("totalDespesas").textContent = `R$ ${totalDespesas.toFixed(2)}`;
 }
 
 
@@ -201,8 +201,8 @@ document.getElementById('btnLimpar').addEventListener('click', () => {
     document.getElementById('filtroCategoria').value = '';
     document.getElementById('filtroDataInicio').value = '';
     document.getElementById('filtroDataFim').value = '';
-    carregarTransacoes();
-    atualizarResumo(); 
+    carregarTransacoes(); // Mostra tudo novamente
+    atualizarResumo();
 });
 
 
@@ -217,7 +217,7 @@ function carregarTransacoes() {
         div.className = "transacao";
         div.onclick = () => div.classList.toggle("ativa");
 
-        div.innerHTML = 
+        div.innerHTML = `
         <div class="transacao-cabecalho">
     <strong>${transacao.tipo}</strong> - R$ ${transacao.valor}
         </div>
@@ -229,7 +229,7 @@ function carregarTransacoes() {
             <button onclick="excluirTransacao(${index}); event.stopPropagation();">Excluir</button>
     </div>
         </div>
-            ;
+    `;
         container.appendChild(div);
     });
 }
@@ -244,4 +244,7 @@ function excluirTransacao(index) {
 }
 
 // Inicializa na primeira carga
-window.onload = carregarTransacoes;
+window.onload = () => {
+    carregarTransacoes();
+    atualizarResumo(); // só se quiser forçar na primeira carga
+};
