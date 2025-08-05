@@ -57,10 +57,10 @@ let barChart = new Chart(barCtx, {
 function updateCharts() {
   const totalReceitas = records
     .filter(r => r.type === 'receita')
-    .reduce((acc, r) => acc + r.amount, 0);
+    .reduce((acc, r) => acc + r.valor, 0);
   const totalDespesas = records
     .filter(r => r.type === 'despesa')
-    .reduce((acc, r) => acc + r.amount, 0);
+    .reduce((acc, r) => acc + r.valor, 0);
 
 
   
@@ -68,8 +68,8 @@ function updateCharts() {
 
 const labels = records.map(r => r.desc);
 
-  const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
-  const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
+  const receitas = records.map(r => r.type === 'receita' ? r.valor : 0);
+  const despesas = records.map(r => r.type === 'despesa' ? r.valor : 0);
 
 
   barChart.data.labels = labels;
@@ -81,7 +81,7 @@ const labels = records.map(r => r.desc);
 
 // campo de valor com máscara monetária brasileira
 const form = document.getElementById('finance-form');
-const amountInput = document.getElementById('amount');
+const valorInput = document.getElementById('valor');
 
 
 let rawValue = '';
@@ -96,7 +96,7 @@ function formatToBRL(value) {
 }
 
 
-amountInput.addEventListener('input', (e) => {
+valorInput.addEventListener('input', (e) => {
   const digits = e.target.value.replace(/\D/g, '');
   rawValue = digits;
   e.target.value = formatToBRL(digits);
@@ -115,8 +115,8 @@ form.addEventListener('submit', function (e) {
   }
 
 
-  const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
-  records.push({ type, desc, amount });
+  const valor = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
+  records.push({ type, desc, valor });
 
 
   // ... código anterior ...
@@ -131,21 +131,21 @@ form.addEventListener('submit', function (e) {
       return;
     }
 
-    const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
-    records.push({ type, desc, amount });
+    const valor = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
+    records.push({ type, desc, valor });
 
     // Salva no localStorage
     localStorage.setItem('financeRecords', JSON.stringify(records));
 
     this.reset();
     rawValue = '';
-    amountInput.value = '';
+    valorInput.value = '';
     updateCharts();
   });
 
 
   this.reset();
   rawValue = '';
-  amountInput.value = '';
+  valorInput.value = '';
   updateCharts();
 });

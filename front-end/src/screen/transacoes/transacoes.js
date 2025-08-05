@@ -248,3 +248,15 @@ window.onload = () => {
     carregarTransacoes();
     atualizarResumo(); // só se quiser forçar na primeira carga
 };
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("descricao");
+    const contador = document.getElementById("descricao-contador");
+    const max = input.maxLength;
+
+    const atualizarContador = () => {
+        contador.textContent = `${input.value.length}/${max}`;
+    };
+
+    input.addEventListener("input", atualizarContador);
+    atualizarContador();
+});

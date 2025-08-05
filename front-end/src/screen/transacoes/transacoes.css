@@ -315,3 +315,28 @@ button:hover {
     z-index: 998;
     display: none;
 }
+.contador {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    text-align: right;
+}
+.descricao-wrapper {
+    position: relative;
+}
+
+#descricao-contador {
+    position: absolute;
+    bottom: 0.25px;
+    right: 12px;
+    font-size: 0.75rem;
+    color: #888;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
