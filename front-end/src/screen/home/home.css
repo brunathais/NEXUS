@@ -218,3 +218,9 @@ footer {
   color: white;
   cursor: pointer;
 }
+footer{
+  background-color: #24005D;
+  color: white;              
+  padding: 20px;
+  text-align: center;
+}
