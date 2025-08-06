@@ -1,59 +1,43 @@
 # NEXUS
 
 Arquivo: https://docs.google.com/document/d/1NAaemBgOyIiWUH7luwcLQ_JInW6IVIwbHvuSsycqY6k/edit?usp=sharing
-Trello: https://trello.com/invite/b/681017d4e608255ea18e42d4/ATTIecb22cb15af7be54c27b32a5d6db2dda577211CD/nexus
+Trello: https://trello.com/invite/b/689136b67a0236c16d91085e/ATTIe3b64fa824a12cf63e826b4711e5dc14F222C944/nexus-nodejs-react-ts
 
 ## Gerenciador de Finanças Pessoais
 
-Esse projeto é um sistema de gerenciamento financeiro com funcionalidades como:
-- Cadastro de usuários com autenticação em dois fatores.
-- Cadastro de transações (receitas e despesas).
-- Visualização de relatórios financeiros.
-- Acompanhamento de metas e orçamentos.
+# Estrutura do Projeto (início):
 
-Estrutura do Projeto:
-
-NEXUS
+NEXUS/
 │
-├── .vscode
-├── back-end
-│   ├── src
-│   ├── .gitattributes
-│   ├── .gitignore
-│   ├── HELP.md
-│   ├── mvnw
-│   ├── mvnw.cmd
-│   ├── nb-configuration.xml
-│   └── pom.xml
+├── backend/                   # Backend da aplicação (Node.js/Express)
+│   ├── node_modules/
+│   └── src/
+│       ├── config/            # Arquivos de configuração (ex: conexão com banco)
+│       ├── controllers/       # Lógica dos controllers das rotas
+│       ├── models/            # Modelos de dados (ORM ou schemas)
+│       ├── routes/            # Definição das rotas da API
+│       └── index.js           # Arquivo principal do servidor
 │
-└── front-end
-    └── src
-        ├── components
-        │   ├── footer
-        │   │   ├── footer.css
-        │   │   └── footer.html
-        │   └── header
-        │       ├── header.css
-        │       └── header.html
-        ├── resources
-        ├── screen
-        │   ├── alertas
-        │   ├── cadastro
-        │   │   ├── cadastro.css
-        │   │   ├── cadastro.html
-        │   │   └── cadastro.js
-        │   ├── contas
-        │   ├── dicas
-        │   ├── exportacao
-        │   ├── filtros
-        │   ├── graficos
-        │   ├── home
-        │   │   ├── home.css
-        │   │   └── home.html
-        │   └── inicial
-        │       ├── inicial.css
-        │       ├── inicial.html
-        │       └── login
-        │           ├── css.css
-        │           └── index.html
-
+├── frontend/                  # Frontend da aplicação (React + Vite)
+│   ├── node_modules/
+│   ├── public/
+│   └── src/
+│       ├── assets/            # Imagens e outros recursos estáticos
+│       ├── App.tsx           # Componente principal da aplicação
+│       ├── App.css           # Estilos globais
+│       ├── index.css         # Estilos principais
+│       ├── main.tsx          # Ponto de entrada do React
+│       └── vite-env.d.ts     # Tipagens do Vite
+│
+├── .gitignore
+├── index.html
+├── package.json              # Dependências do projeto
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.js       # Configuração do Tailwind CSS
+├── tsconfig.app.json        # Configuração TS para o frontend
+├── tsconfig.json            # Configuração TS geral
+├── tsconfig.node.json       # Configuração TS para o backend
+├── vite.config.ts           # Configuração do Vite
+├── eslint.config.js         # Configuração do ESLint
+├── README.md
