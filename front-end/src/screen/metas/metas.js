@@ -61,3 +61,33 @@
         alert('Por favor, preencha os dados corretamente. O valor poupado não pode ser maior que o valor total.');
       }
     });
+
+
+function limitarCaracteres(input, max) {
+  const valor = input.value;
+
+  // Remove qualquer coisa que não seja número ou ponto (decimal)
+  const valorLimpo = valor.replace(/[^0-9.]/g, '');
+
+  // Se passar do limite, corta
+  if (valorLimpo.length > max) {
+    input.value = valorLimpo.slice(0, max);
+  } else {
+    input.value = valorLimpo;
+  }
+
+  // Atualiza o contador correspondente
+  const contadorId = 'contador' + input.id.charAt(0).toUpperCase() + input.id.slice(1);
+  const contadorSpan = document.getElementById(contadorId);
+  if (contadorSpan) {
+    contadorSpan.textContent = `${input.value.length}/${max}`;
+  }
+}
+function atualizarContadorTexto(input, max) {
+  const contador = document.getElementById('contador' + input.id.charAt(0).toUpperCase() + input.id.slice(1));
+  if (contador) {
+    contador.textContent = `${input.value.length}/${max}`;
+  }
+}
+
+  
