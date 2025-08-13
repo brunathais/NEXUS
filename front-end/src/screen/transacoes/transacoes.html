@@ -41,19 +41,22 @@
                 </div>
 
 
-                <label>Valor:</label>
-                <input type="number" id="valor" placeholder="Valor" maxlength="10" required>
-                <!--'required' garante que o usuário deve preencher este campo-->
+                <div class="valor-wrapper">
+                    <label>Valor:</label>
+                    <input type="text" id="valor" placeholder="Valor" required maxlength="10" inputmode="decimal"
+                        pattern="^\d{1,8}([.,]\d{0,2})?$">
+                    <small id="valor-contador" class="contador">0/10</small>
+                </div>
 
                 <label>Data:</label>
                 <input type="date" id="data" maxlength="8" required>
 
                 <div class="descricao-wrapper">
-                <label>Descrição:</label>
-                <input type="text" id="descricao" placeholder="Descrição" maxlength="50" required>
-                 <small id="descricao-contador" class="contador">0/20</small>
-                 </div>
-                
+                    <label>Descrição:</label>
+                    <input type="text" id="descricao" placeholder="Descrição" maxlength="50" required>
+                    <small id="descricao-contador" class="contador">0/20</small>
+                </div>
+
 
                 <div id="categoria_div">
                     <label>Categoria:</label>

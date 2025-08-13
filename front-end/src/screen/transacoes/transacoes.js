@@ -38,12 +38,26 @@ function salvarTransacao() {
         return;
     }
 
-    const dataHoje = new Date().toISOString().split("T")[0];
-    if (data > dataHoje) {
+    const dataObj = new Date(data);
+    const hoje = new Date();
+
+    // Se for inválida (NaN)
+    if (isNaN(dataObj.getTime())) {
+        alert("Data inválida.");
+        dataInput.focus();
+        return;
+    }
+
+    // Zera hora para comparação correta
+    dataObj.setHours(0, 0, 0, 0);
+    hoje.setHours(0, 0, 0, 0);
+
+    if (dataObj > hoje) {
         alert("A data não pode ser no futuro.");
         dataInput.focus();
         return;
     }
+
 
     // Valida descrição
     if (!descricao || descricao.length < 3) {
@@ -260,3 +274,29 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("input", atualizarContador);
     atualizarContador();
 });
+// contador + limpeza do Valor (máx 10 chars, 1 separador, 2 casas)
+(() => {
+    const input = document.getElementById('valor');
+    const contador = document.getElementById('valor-contador');
+    const max = input.maxLength || 10;
+
+    const sanitize = (v) => {
+        v = String(v).replace(/[^0-9.,]/g, '');     // só números e , .
+        const partes = v.split(/[.,]/);
+        if (partes.length > 1) {
+            // mantém só o primeiro separador e limita 2 casas
+            v = partes[0] + '.' + partes[1].slice(0, 2);
+        }
+        if (v.length > max) v = v.slice(0, max);    // limita tamanho total
+        return v;
+    };
+
+    const atualizar = () => {
+        const limpo = sanitize(input.value);
+        if (limpo !== input.value) input.value = limpo;
+        contador.textContent = `${input.value.length}/${max}`;
+    };
+
+    input.addEventListener('input', atualizar);
+    atualizar();
+})();
