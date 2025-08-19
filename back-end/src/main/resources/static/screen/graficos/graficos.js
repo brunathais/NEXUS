@@ -1,107 +1,59 @@
-const records = [];
-let rawValue = '';
+import { getJSON } from "../../services/api.js";
 
-const form = document.getElementById('finance-form');
-const amountInput = document.getElementById('amount');
-const barCtx = document.getElementById('barChart').getContext('2d');
+// URL base da API (pode sobrescrever no HTML: window.API_BASE_URL = "http://ip:porta")
+const API_BASE = (window.API_BASE_URL || "http://localhost:8080");
 
-let barChart = new Chart(barCtx, {
-  type: 'bar',
-  data: {
-    labels: [],
-    datasets: [
-      { label: 'Receitas', backgroundColor: '#4caf50', data: [] },
-      { label: 'Despesas', backgroundColor: '#f44336', data: [] }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: { y: { beginAtZero: true } },
-    plugins: { legend: { position: 'top' } }
-  }
-});
+// ===== Gráfico de barras =====
+let barChart;
 
-function formatToBRL(value) {
-  const cents = value.padStart(3, '0');
-  const intPart = cents.slice(0, -2).replace(/^0+/, '') || '0';
-  const decimalPart = cents.slice(-2);
-  const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  return `R$ ${formattedInt},${decimalPart}`;
-}
-
-amountInput.addEventListener('input', (e) => {
-  const digits = e.target.value.replace(/\D/g, '');
-  rawValue = digits;
-  e.target.value = formatToBRL(digits);
-});
-
-form.addEventListener('submit', async function (e) {
-  e.preventDefault();
-  const type = document.getElementById('type').value;
-  const desc = document.getElementById('desc').value.trim();
-
-  if (!type || !desc || rawValue === '' || rawValue === '0') {
-    alert('Preencha todos os campos corretamente.');
-    return;
-  }
-
-  const amount = parseFloat((parseInt(rawValue, 10) / 100).toFixed(2));
-
+async function carregarMensal(ano) {
   try {
-    await fetch('http://localhost:8080/graficos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        tipo: type,
-        descricao: desc,
-        valor: amount
-      })
-    });
+    const data = await getJSON(`${API_BASE}/graficos/mensal?ano=${ano}`);
+    const meses = data.meses || [];
 
-    this.reset();
-    rawValue = '';
-    amountInput.value = '';
-    loadRecords(); // atualiza os gráficos com dados do banco
-  } catch (error) {
-    alert('Erro ao salvar. Verifique a API.');
-    console.error(error);
-  }
-});
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    const receitas = meses.map(m => Number(m.receitas));
+    const despesas = meses.map(m => Number(m.despesas));
+    const essenciais = meses.map(m => Number(m.essenciais));
+    const naoEssenciais = meses.map(m => Number(m.nao_essenciais));
+    const imprevistos = meses.map(m => Number(m.imprevistos));
 
-async function loadRecords() {
-  try {
-    const res = await fetch('http://localhost:8080/graficos');
-    const data = await res.json();
-
-    records.length = 0; // limpa array local
-    data.forEach(item => {
-      records.push({
-        type: item.tipo,
-        desc: item.descricao,
-        amount: parseFloat(item.valor)
+    const ctx = document.getElementById('barChart').getContext('2d');
+    if (barChart) {
+      barChart.data.datasets[0].data = receitas;
+      barChart.data.datasets[1].data = despesas;
+      barChart.data.datasets[2].data = essenciais;
+      barChart.data.datasets[3].data = naoEssenciais;
+      barChart.data.datasets[4].data = imprevistos;
+      barChart.update();
+    } else {
+      barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [
+            { label: 'Receitas', backgroundColor: '#4caf50', data: receitas },
+            { label: 'Despesas Totais', backgroundColor: '#f44336', data: despesas },
+            { label: 'Essenciais', backgroundColor: '#e53935', data: essenciais },
+            { label: 'Não Essenciais', backgroundColor: '#fb8c00', data: naoEssenciais },
+            { label: 'Imprevistos', backgroundColor: '#8e24aa', data: imprevistos }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true } },
+          plugins: { legend: { position: 'top' } }
+        }
       });
-    });
-
-    updateCharts();
-  } catch (error) {
-    console.error('Erro ao carregar registros:', error);
+    }
+  } catch (err) {
+    console.error("Erro ao carregar dados do back-end:", err);
   }
 }
 
-function updateCharts() {
-  const labels = records.map((r, i) =>
-    r.type === 'despesa' ? `Saída ${i + 1}` : `Entrada ${i + 1}`
-  );
-  const receitas = records.map(r => r.type === 'receita' ? r.amount : 0);
-  const despesas = records.map(r => r.type === 'despesa' ? r.amount : 0);
-
-  barChart.data.labels = labels;
-  barChart.data.datasets[0].data = receitas;
-  barChart.data.datasets[1].data = despesas;
-  barChart.update();
-}
-
-document.addEventListener('DOMContentLoaded', loadRecords);
+// ===== Inicialização =====
+document.addEventListener("DOMContentLoaded", () => {
+  const anoAtual = new Date().getFullYear();
+  carregarMensal(anoAtual);
+});

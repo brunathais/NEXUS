@@ -1,4 +1,3 @@
-
 package com.mycompany.nexus_certo.apirest.model;
 
 import jakarta.persistence.Entity;
@@ -10,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-    @Entity
+@Entity
 public class TransacoesModel {
 
     @Id
@@ -24,50 +23,60 @@ public class TransacoesModel {
     private BigDecimal valor;
 
     @NotBlank(message = "Tipo é obrigatório")
-    private String tipo; // ex: "Entrada" ou "Saída"
+    private String tipo; // "receita" ou "despesa"
+
+    // Categoria só usada quando tipo = "despesa"
+    private String categoria; // "essencial", "nao-essencial", "imprevisto"
 
     @NotNull
     private LocalDate data;
 
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
 
-        public LocalDate getData() {
-            return data;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        public String getDescricao() {
-            return descricao;
-        }
+    public String getDescricao() {
+        return descricao;
+    }
 
-        public int getId() {
-            return id;
-        }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-        public String getTipo() {
-            return tipo;
-        }
+    public BigDecimal getValor() {
+        return valor;
+    }
 
-        public BigDecimal getValor() {
-            return valor;
-        }
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
 
-        public void setData(LocalDate data) {
-            this.data = data;
-        }
+    public String getTipo() {
+        return tipo;
+    }
 
-        public void setDescricao(String descricao) {
-            this.descricao = descricao;
-        }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public String getCategoria() {
+        return categoria;
+    }
 
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
-        }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
-        public void setValor(BigDecimal valor) {
-            this.valor = valor;
-        }
-    
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
 }

@@ -1,9 +1,7 @@
 export async function postJSON(url, data) {
     const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     });
 
@@ -12,5 +10,15 @@ export async function postJSON(url, data) {
         throw new Error(text || `Erro na requisição para ${url}`);
     }
 
-    return response.json().catch(() => ({})); // caso não tenha corpo JSON
+    return response.json().catch(() => ({}));
+}
+
+// Novo helper para requisições GET
+export async function getJSON(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || `Erro na requisição GET para ${url}`);
+    }
+    return response.json();
 }
