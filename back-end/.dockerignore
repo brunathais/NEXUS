@@ -1,7 +1,3 @@
-# Ignorar diretórios de build
-out
-build
-
 # Arquivos de configuração de IDE
 .vscode
 .idea
