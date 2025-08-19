@@ -13,23 +13,25 @@ import com.mycompany.nexus_certo.apirest.repository.MetasRepository;
 public class MetasService {
 
     @Autowired
-
     private MetasRepository repo;
 
-    public MetasModel salvar(MetasModel metas) {
-        return repo.save(metas);
+    public MetasModel salvar(MetasModel meta) {
+        // Regra simples: valorPoupado não pode ser maior que valorTotal
+        if (meta.getValorPoupado().compareTo(meta.getValorTotal()) > 0) {
+            throw new IllegalArgumentException("Valor poupado não pode ser maior que o valor total da meta.");
+        }
+        return repo.save(meta);
     }
 
     public List<MetasModel> listar() {
         return repo.findAll();
     }
 
-    public void deletar(int id) {
-        repo.deleteById(id);
-    }
-
-    public Optional<MetasModel> buscarPorId(int id) {
+    public Optional<MetasModel> buscarPorId(Integer id) {
         return repo.findById(id);
     }
 
+    public void deletar(Integer id) {
+        repo.deleteById(id);
+    }
 }
