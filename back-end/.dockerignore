@@ -1,5 +1,4 @@
 # Ignorar diretórios de build
-target
 out
 build
 
