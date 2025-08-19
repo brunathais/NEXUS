@@ -1,0 +1,32 @@
+# Ignorar diretórios de build
+target
+out
+build
+
+# Arquivos de configuração de IDE
+.vscode
+.idea
+*.iml
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de controle de versão
+.git
+.gitignore
+.gitattributes
+
+# Arquivos de CI/CD que não precisam ir pra imagem
+.github
+.gitlab-ci.yml
+
+# Configurações locais
+*.log
+*.swp
+*.tmp
+
+# Dependências baixadas localmente
+.mvn
+.mvnw
+mvnw.cmd

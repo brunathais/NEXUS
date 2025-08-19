@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApiRestApplication",
+            "request": "launch",
+            "mainClass": "com.mycompany.nexus_certo.apirest.ApiRestApplication",
+            "projectName": "NEXUS_certo"
+        },
+        {
+            "type": "java",
             "name": "NexusApplication",
             "request": "launch",
             "mainClass": "com.ska.NEXUS.NexusApplication",
