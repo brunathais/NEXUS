@@ -2,10 +2,10 @@
 FROM openjdk:17-jdk-slim
 
 # Define a pasta de trabalho no container
-WORKDIR /NEXUS  
+WORKDIR /app  
 
 # Copia o jar da aplicação para dentro do container
-COPY target/NEXUS.jar NEXUS.jar  
+COPY target/nexus.jar app.jar  
 
 # Comando para rodar a aplicação
-CMD ["java", "-jar", "NEXUS.jar"]
+CMD ["java", "-jar", "app.jar"]
