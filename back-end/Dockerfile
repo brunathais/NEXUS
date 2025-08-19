@@ -1,5 +1,5 @@
 # Imagem base com Java
-FROM openjdk: 17-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Define a pasta de trabalho no container
 WORKDIR /NEXUS  
