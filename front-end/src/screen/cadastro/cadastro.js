@@ -1,4 +1,4 @@
-document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+document.getElementById("cadastroForm").addEventListener("submit", function(event) { //envio
     event.preventDefault();
 
     const usuario = document.getElementById("usuario").value.trim();
