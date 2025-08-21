@@ -11,7 +11,22 @@
 </head>
 
 <body>
+    <div class="back-button">
+        <button onclick="history.back()">Voltar</button>
+    </div>
+
     <h1>Cadastro de Transações</h1>
+    <div class="resumo-cards">
+        <div class="resumo-card receita">
+            <p>Total de Receitas</p>
+            <span id="totalReceitas">R$ 0,00</span>
+        </div>
+        <div class="resumo-card despesa">
+            <p>Total de Despesas</p>
+            <span id="totalDespesas">R$ 0,00</span>
+        </div>
+    </div>
+
     <div class="container">
         <div class="form-container">
             <form onsubmit="event.preventDefault(); salvarTransacao();"> <!--
@@ -20,8 +35,11 @@
 -->
                 <label>Tipo de Transação:</label>
 
-                <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
-                <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+                <div class="radio-group">
+                    <input type="radio" name="tipo" value="Receita" checked onchange="mostrarCategoria()"> Receita
+                    <input type="radio" name="tipo" value="Despesa" onchange="mostrarCategoria()"> Despesa
+                </div>
+
 
                 <label>Valor:</label>
                 <input type="number" id="valor" placeholder="Valor" maxlength="10" required>
@@ -55,8 +73,8 @@
                 <div class="filtro-container">
                     <select id="filtroTipo" onchange="filtrarHistorico()">
                         <option value="">Filtrar por Tipo</option>
-                        <option value="Receita">Somente Receitas</option>
-                        <option value="Despesa">Somente Despesas</option>
+                        <option value="Receita">Receita</option>
+                        <option value="Despesa">Despesa</option>
                     </select>
 
                     <select id="filtroCategoria" onchange="filtrarHistorico()">
@@ -68,19 +86,26 @@
                 </div>
 
                 <div class="filtro-date">
-                <label for="filtroDataInicio">De:</label>
-                <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
+                    <label for="filtroDataInicio">De:</label>
+                    <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
 
-                <label for="filtroDataFim">Até:</label>
-                <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
+                    <label for="filtroDataFim">Até:</label>
+                    <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
                 </div>
 
-
+                <div class="filtro-item botoes">
+                    <button id="btnFiltrar">🔍 Aplicar</button>
+                    <button id="btnLimpar" class="limpar">🧹 Limpar</button>
+                </div>
             </div>
 
-            <div id="historico"></div>
+            <div id="lista-transacoes"></div>
         </div>
     </div>
+
+    <div id="toast" class="toast"></div>
+
+    <button class="botao-flutuante" onclick="rolarParaFormulario()">+</button>
 
 </body>
 

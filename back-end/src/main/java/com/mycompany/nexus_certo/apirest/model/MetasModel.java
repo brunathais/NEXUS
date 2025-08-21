@@ -39,7 +39,8 @@ public class MetasModel {
     @UpdateTimestamp
     private LocalDateTime atualizadoEm;
 
-    public MetasModel() {}
+    public MetasModel() {
+    }
 
     public Integer getId() {
         return id;

@@ -1,132 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Orçamentos</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Orçamentos</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="orcamento.css" />
+        <!-- CSS -->
+        <link rel="stylesheet" href="orcamento.css" />
 
-  <!-- jsPDF para exportação -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-    integrity="sha512-v9rU7q3kR+o6f2a4pJ2l6bH3v8p6r9l2zQeKqzqg4u3H0Y1r0lWc7s2lC4rN/3uXr1Xk+7l2Zl3uJgq8WJ5h9w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- jsPDF para exportação -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+                integrity="sha512-v9rU7q3kR+o6f2a4pJ2l6bH3v8p6r9l2zQeKqzqg4u3H0Y1r0lWc7s2lC4rN/3uXr1Xk+7l2Zl3uJgq8WJ5h9w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <!-- JS -->
-  <script src="orcamento.js" defer></script>
-</head>
+        <!-- JS -->
+        <script src="orcamento.js" defer></script>
+    </head>
 
-<body>
-  <main class="container">
-    <header class="topbar">
-      <button type="button" class="btn-ghost" onclick="history.back()" aria-label="Voltar">← Voltar</button>
-      <h1>Definir Orçamento</h1>
-    </header>
+    <body>
+        <main class="container">
+            <header class="topbar">
+                <button type="button" class="btn-ghost" onclick="history.back()" aria-label="Voltar">← Voltar</button>
+                <h1>Definir Orçamento</h1>
+            </header>
 
-    <section aria-labelledby="sec-form">
-      <h2 id="sec-form" class="visually-hidden">Formulário de orçamento</h2>
+            <section aria-labelledby="sec-form">
+                <h2 id="sec-form" class="visually-hidden">Formulário de orçamento</h2>
 
-      <form id="formOrcamento" aria-describedby="formHelp">
-        <div class="row month-row">
-          <label for="mesRef">Mês de referência</label>
-          <input type="month" id="mesRef" name="mesRef" required />
-        </div>
+                <form id="formOrcamento" aria-describedby="formHelp">
+                    <div class="row month-row">
+                        <label for="mesRef">Mês de referência</label>
+                        <input type="month" id="mesRef" name="mesRef" required />
+                    </div>
 
-        <div class="grid-2">
-          <div class="field">
-            <label for="nome">Nome do Orçamento</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite o nome do Orçamento" required>
-            <small id="hint-nome" class="hint">Importante para organização dos orçamentos da família</small>
-          </div>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label for="nome">Nome do Orçamento</label>
+                            <input type="text" id="nome" name="nome" placeholder="Digite o nome do Orçamento" required>
+                            <small id="hint-nome" class="hint">Importante para organização dos orçamentos da família</small>
+                        </div>
 
-          <div class="field">
-            <label for="essenciais">Essenciais</label>
-            <input type="text" id="essenciais" name="essenciais" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-essenciais" />
-            <small id="hint-essenciais" class="hint">Moradia, contas, alimentação, transporte.</small>
-          </div>
+                        <div class="field">
+                            <label for="essenciais">Essenciais</label>
+                            <input type="text" id="essenciais" name="essenciais" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-essenciais" />
+                            <small id="hint-essenciais" class="hint">Moradia, contas, alimentação, transporte.</small>
+                        </div>
 
-          <div class="field">
-            <label for="naoEssenciais">Não essenciais</label>
-            <input type="text" id="naoEssenciais" name="naoEssenciais" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-naoEssenciais" />
-            <small id="hint-naoEssenciais" class="hint">Lazer, assinaturas, compras pontuais.</small>
-          </div>
+                        <div class="field">
+                            <label for="naoEssenciais">Não essenciais</label>
+                            <input type="text" id="naoEssenciais" name="naoEssenciais" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-naoEssenciais" />
+                            <small id="hint-naoEssenciais" class="hint">Lazer, assinaturas, compras pontuais.</small>
+                        </div>
 
-          <div class="field">
-            <label for="imprevistos">Imprevistos</label>
-            <input type="text" id="imprevistos" name="imprevistos" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-imprevistos" />
-            <small id="hint-imprevistos" class="hint">Manutenção, saúde, emergências.</small>
-          </div>
+                        <div class="field">
+                            <label for="imprevistos">Imprevistos</label>
+                            <input type="text" id="imprevistos" name="imprevistos" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-imprevistos" />
+                            <small id="hint-imprevistos" class="hint">Manutenção, saúde, emergências.</small>
+                        </div>
 
-          <div class="field">
-            <label for="reservaEmergencia">Reserva de emergência</label>
-            <input type="text" id="reservaEmergencia" name="reservaEmergencia" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-reserva" />
-            <small id="hint-reserva" class="hint">Fundo de segurança (6–12 meses dos essenciais).</small>
-          </div>
-        </div>
+                        <div class="field">
+                            <label for="reservaEmergencia">Reserva de emergência</label>
+                            <input type="text" id="reservaEmergencia" name="reservaEmergencia" inputmode="decimal" placeholder="R$ 0,00" required aria-describedby="hint-reserva" />
+                            <small id="hint-reserva" class="hint">Fundo de segurança (6–12 meses dos essenciais).</small>
+                        </div>
+                    </div>
 
-        <div class="actions">
-          <button type="submit" class="btn-primary" id="btnSalvar">Salvar orçamento</button>
-          <button type="button" class="btn-outline" id="btnExportar">Exportar PDF</button>
-          <button type="button" class="btn-danger secret-btn" id="btnMassDelete">Deleção em massa</button>
-        </div>
-        <p id="formHelp" class="sr-note">Todos os valores devem ser maiores que zero.</p>
-      </form>
-    </section>
+                    <div class="actions">
+                        <button type="submit" class="btn-primary" id="btnSalvar">Salvar orçamento</button>
+                        <button type="button" class="btn-outline" id="btnExportar">Exportar PDF</button>
+                        <button type="button" class="btn-danger secret-btn" id="btnMassDelete">Deleção em massa</button>
+                    </div>
+                    <p id="formHelp" class="sr-note">Todos os valores devem ser maiores que zero.</p>
+                </form>
+            </section>
 
-    <!-- Resumo rápido (preenchido via JS) -->
-    <section aria-labelledby="sec-resumo" class="resumo">
-      <h2 id="sec-resumo">Resumo atual</h2>
-      <div class="chips" id="chipsResumo" aria-live="polite"></div>
+            <!-- Resumo rápido (preenchido via JS) -->
+            <section aria-labelledby="sec-resumo" class="resumo">
+                <h2 id="sec-resumo">Resumo atual</h2>
+                <div class="chips" id="chipsResumo" aria-live="polite"></div>
 
-      <div class="chart" id="graficoDistribuicao" role="img" aria-label="Gráfico de distribuição por categoria">
-        <canvas id="chartCanvas" width="420" height="220"></canvas>
-      </div>
-    </section>
+                <div class="chart" id="graficoDistribuicao" role="img" aria-label="Gráfico de distribuição por categoria">
+                    <canvas id="chartCanvas" width="420" height="220"></canvas>
+                </div>
+            </section>
 
-    <!-- Lista de orçamentos salvos -->
-    <section aria-labelledby="sec-salvos" class="salvos">
-      <div class="salvos-header">
-        <h2 id="sec-salvos">Orçamentos salvos</h2>
-        <button type="button" class="btn-outline" id="btnAtualizar">Atualizar</button>
-      </div>
+            <!-- Lista de orçamentos salvos -->
+            <section aria-labelledby="sec-salvos" class="salvos">
+                <div class="salvos-header">
+                    <h2 id="sec-salvos">Orçamentos salvos</h2>
+                    <button type="button" class="btn-outline" id="btnAtualizar">Atualizar</button>
+                </div>
 
-      <div class="table-wrap" role="region" aria-label="Tabela de orçamentos">
-        <table class="tabela" aria-describedby="salvosHelp">
-          <thead>
-            <tr>
-              <th scope="col">Mês</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Essenciais</th>
-              <th scope="col">Não essenciais</th>
-              <th scope="col">Imprevistos</th>
-              <th scope="col">Reserva</th>
-              <th scope="col">Total</th>
-              <th scope="col" class="col-acoes">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="listaOrcamentos"></tbody>
-        </table>
-        <p id="salvosHelp" class="sr-note">Use os botões editar ou excluir em cada orçamento</p>
-      </div>
-    </section>
+                <div class="table-wrap" role="region" aria-label="Tabela de orçamentos">
+                    <table class="tabela" aria-describedby="salvosHelp">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mês</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Essenciais</th>
+                                <th scope="col">Não essenciais</th>
+                                <th scope="col">Imprevistos</th>
+                                <th scope="col">Reserva</th>
+                                <th scope="col">Total</th>
+                                <th scope="col" class="col-acoes">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaOrcamentos"></tbody>
+                    </table>
+                    <p id="salvosHelp" class="sr-note">Use os botões editar ou excluir em cada orçamento</p>
+                </div>
+            </section>
 
-    <!-- Template de linha para JS clonar -->
-    <template id="tplLinha">
-      <tr>
-        <td data-col="mesRef"></td>
-        <td data-col="nome"></td>
-        <td data-col="essenciais"></td>
-        <td data-col="naoEssenciais"></td>
-        <td data-col="imprevistos"></td>
-        <td data-col="reservaEmergencia"></td>
-        <td data-col="total" class="strong"></td>
-        <td class="acoes">
-          <button type="button" class="btn-chip btn-editar" title="Editar orçamento">Editar</button>
-          <button type="button" class="btn-chip btn-excluir" title="Excluir orçamento">Excluir</button>
-        </td>
-      </tr>
-    </template>
-  </main>
-</body>
+            <!-- Template de linha para JS clonar -->
+            <template id="tplLinha">
+                <tr>
+                    <td data-col="mesRef"></td>
+                    <td data-col="nome"></td>
+                    <td data-col="essenciais"></td>
+                    <td data-col="naoEssenciais"></td>
+                    <td data-col="imprevistos"></td>
+                    <td data-col="reservaEmergencia"></td>
+                    <td data-col="total" class="strong"></td>
+                    <td class="acoes">
+                        <button type="button" class="btn-chip btn-editar" title="Editar orçamento">Editar</button>
+                        <button type="button" class="btn-chip btn-excluir" title="Excluir orçamento">Excluir</button>
+                    </td>
+                </tr>
+            </template>
+        </main>
+    </body>
 </html>

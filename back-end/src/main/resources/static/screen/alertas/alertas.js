@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const lista = document.getElementById('listaAlertas');
 const alertas = [
-  "Você já gastou 80% do orçamento em Alimentação.",
-  "Sua conta de Luz ultrapassou o previsto."
+    "Você já gastou 80% do orçamento em Alimentação.",
+    "Sua conta de Luz ultrapassou o previsto."
 ];
 
 alertas.forEach(alerta => {
-  const li = document.createElement('li');
-  li.textContent = alerta;
-  lista.appendChild(li);
+    const li = document.createElement('li');
+    li.textContent = alerta;
+    lista.appendChild(li);
 });

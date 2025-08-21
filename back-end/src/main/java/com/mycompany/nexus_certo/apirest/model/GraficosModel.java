@@ -1,4 +1,3 @@
-
 package com.mycompany.nexus_certo.apirest.model;
 
 import java.math.BigDecimal;
@@ -9,7 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 
 public class GraficosModel {
-    
+
     @Id
 
     private int id;
@@ -18,7 +17,6 @@ public class GraficosModel {
     private BigDecimal valor;
 
     // Getters
-    
     public int getId() {
         return id;
     }
@@ -26,7 +24,7 @@ public class GraficosModel {
     public String getTipo() {
         return tipo;
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
@@ -34,13 +32,12 @@ public class GraficosModel {
     public BigDecimal getValor() {
         return valor;
     }
-    
+
     // Setters
-    
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

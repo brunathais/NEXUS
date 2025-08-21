@@ -21,25 +21,26 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*") // permite chamadas de qualquer origem
 
 public class TransacoesController {
+
     @Autowired
     private TransacoesService service;
-    
+
     @PostMapping
-    public ResponseEntity<?>criar(@Valid @RequestBody TransacoesModel transacao){
+    public ResponseEntity<?> criar(@Valid @RequestBody TransacoesModel transacao) {
         TransacoesModel salva = service.salvar(transacao);
         return ResponseEntity.ok(salva);
     }
-    
+
     @GetMapping
-    public List<TransacoesModel> listar(){
+    public List<TransacoesModel> listar() {
         return service.listar();
     }
-    
+
     @GetMapping("/{id}")
-            public ResponseEntity<?> buscar(@PathVariable int id) {
+    public ResponseEntity<?> buscar(@PathVariable int id) {
         return service.buscarPorId(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
@@ -60,5 +61,3 @@ public class TransacoesController {
         return ResponseEntity.noContent().build();
     }
 }
-
-

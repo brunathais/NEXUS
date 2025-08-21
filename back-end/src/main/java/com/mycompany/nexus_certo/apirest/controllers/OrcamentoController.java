@@ -22,27 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/orcamentos")
 
 public class OrcamentoController {
+
     @Autowired
-    
+
     private OrcamentoService service;
-    
+
     @PostMapping
-    
-    public ResponseEntity<?> criar(@Valid @RequestBody OrcamentoModel orcamento){
+
+    public ResponseEntity<?> criar(@Valid @RequestBody OrcamentoModel orcamento) {
         OrcamentoModel salva = service.criar(orcamento);
         return ResponseEntity.ok(salva);
     }
-      
+
     @GetMapping
-    public List<OrcamentoModel> listar(){
+    public List<OrcamentoModel> listar() {
         return service.listar();
     }
-    
+
     @GetMapping("/{id}")
-            public ResponseEntity<?> buscar(@PathVariable int id) {//PathVariable?
+    public ResponseEntity<?> buscar(@PathVariable int id) {//PathVariable?
         return service.buscarPorId(id)
-            .map(ResponseEntity::ok) //map? ::
-            .orElse(ResponseEntity.notFound().build()); //oq faz?
+                .map(ResponseEntity::ok) //map? ::
+                .orElse(ResponseEntity.notFound().build()); //oq faz?
     }
 
     @PutMapping("/{id}")
@@ -62,5 +63,5 @@ public class OrcamentoController {
         service.deletar(id);
         return ResponseEntity.noContent().build(); //noContent
     }
-    
+
 }

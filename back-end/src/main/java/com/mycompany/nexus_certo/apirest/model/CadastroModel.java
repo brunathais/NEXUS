@@ -56,6 +56,4 @@ public class CadastroModel {
         this.usuario = usuario;
     }
 
-    
 }
-

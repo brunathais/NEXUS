@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gerenciador Rápido de Finanças</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="../graficos/graficos.css">
-  <link rel="stylesheet" href="../../components/css/main.css">
-</head>
-<body>
-  <main>
-    <h1>Gerenciador Rápido de Finanças</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Gerenciador Rápido de Finanças</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="../graficos/graficos.css">
+        <link rel="stylesheet" href="../../components/css/main.css">
+    </head>
+    <body>
+        <main>
+            <h1>Gerenciador Rápido de Finanças</h1>
 
-    <section>
-      <form id="finance-form" aria-label="Formulário de lançamento financeiro">
-        <label for="type" class="visually-hidden">Tipo</label>
-        <select id="type" required aria-label="Tipo de lançamento">
-          <option value="" disabled selected>Tipo</option>
-          <option value="receita">Receita</option>
-          <option value="despesa">Despesa</option>
-        </select>
+            <section>
+                <form id="finance-form" aria-label="Formulário de lançamento financeiro">
+                    <label for="type" class="visually-hidden">Tipo</label>
+                    <select id="type" required aria-label="Tipo de lançamento">
+                        <option value="" disabled selected>Tipo</option>
+                        <option value="receita">Receita</option>
+                        <option value="despesa">Despesa</option>
+                    </select>
 
-        <label for="desc" class="visually-hidden">Descrição</label>
-        <input
-          type="text"
-          id="desc"
-          placeholder="Descrição"
-          required
-          aria-label="Descrição do lançamento"
-        />
+                    <label for="desc" class="visually-hidden">Descrição</label>
+                    <input
+                        type="text"
+                        id="desc"
+                        placeholder="Descrição"
+                        required
+                        aria-label="Descrição do lançamento"
+                        />
 
-        <label for="amount" class="visually-hidden">Valor</label>
-        <input
-          type="text"
-          id="amount"
-          placeholder="Valor (R$)"
-          required
-          inputmode="decimal"
-          aria-label="Valor do lançamento"
-        />
+                    <label for="amount" class="visually-hidden">Valor</label>
+                    <input
+                        type="text"
+                        id="amount"
+                        placeholder="Valor (R$)"
+                        required
+                        inputmode="decimal"
+                        aria-label="Valor do lançamento"
+                        />
 
-        <button type="submit">Adicionar</button>
+                    <button type="submit">Adicionar</button>
 
 
 
-      </form>
+                </form>
 
-      <!-- Botão para abrir histórico -->
-      <button id="btn-historico" style="margin-top:10px; padding: 8px 16px; font-size: 1rem; cursor: pointer;">
-        Histórico de Finanças
-      </button>
-    </section>
+                <!-- Botão para abrir histórico -->
+                <button id="btn-historico" style="margin-top:10px; padding: 8px 16px; font-size: 1rem; cursor: pointer;">
+                    Histórico de Finanças
+                </button>
+            </section>
 
-    <section class="charts">
-      <canvas id="barChart" aria-label="Gráfico de barras" role="img"></canvas>
-    </section>
-  </main>
+            <section class="charts">
+                <canvas id="barChart" aria-label="Gráfico de barras" role="img"></canvas>
+            </section>
+        </main>
 
-  <script src="../graficos/graficos.js"></script>
-  <script src="../graficos/historico-link.js"></script>
-</body>
+        <script src="../graficos/graficos.js"></script>
+        <script src="../graficos/historico-link.js"></script>
+    </body>
 </html>

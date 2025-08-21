@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class UsuarioModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,7 +27,6 @@ public class UsuarioModel {
         return usuario;
     }
 
-
     public String getSenha() {
         return senha;
     }
@@ -34,7 +34,7 @@ public class UsuarioModel {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -43,12 +43,8 @@ public class UsuarioModel {
         this.usuario = usuario;
     }
 
-
-
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
-}
 
+}

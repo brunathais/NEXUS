@@ -1,57 +1,57 @@
 *
-  body {
+body {
     font-family: Arial, sans-serif;
     margin: 1rem;
     max-width: 600px;
-  }
-  h1 {
+}
+h1 {
     text-align: center;
     color: white;
-  }
-  h2{
+}
+h2{
     color: #ddd;
-  }
-  form {
+}
+form {
     background: #f4f4f4;
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1rem;
-  }
-  label {
+}
+label {
     display: block;
     margin-top: 0.5rem;
-  }
-  input, button {
+}
+input, button {
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.2rem;
     box-sizing: border-box;
-  }
-  button {
+}
+button {
     cursor: pointer;
-  }
-  table {
+}
+table {
     width: 100%;
     border-collapse: collapse;
-  }
-  th, td {
+}
+th, td {
     border-bottom: 1px solid #ddd;
     color: white;
     padding: 0.5rem;
     text-align: left;
-  }
+}
 #tabelaContas {
-  background-color: #cd7bfd;
+    background-color: #cd7bfd;
 }
 
-  .vencendo {
+.vencendo {
     background: #ffc400;
-  }
-  .vencido {
+}
+.vencido {
     background: #fd626f;
-  }
-  #reader {
+}
+#reader {
     width: 100%;
     margin-top: 1rem;
     display: none;
-  }
+}
