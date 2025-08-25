@@ -1,5 +1,5 @@
 import React from "react";
-import CadastroUsuarios from "@/screen/CadastroUsuarios";
+import CadastroUsuarios from "@/pages/CadastroUsuarios";
 
 export default function App() {
     return <CadastroUsuarios />;

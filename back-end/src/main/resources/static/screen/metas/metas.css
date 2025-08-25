@@ -1,54 +1,38 @@
-*
-body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0 15px;
+/* metas.css — reaproveita o tema de transações e só faz ajustes locais */
+
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 6px 18px #00000030;
 }
-h1 {
-    text-align: center;
-    color: #eee;
-}
-form {
-    margin-bottom: 20px;
+
+/* Barra de progresso usada na coluna “Progresso” */
+.meta-progress {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
 }
-label {
-    font-weight: bold;
-}
-input[type="text"], input[type="number"] {
-    padding: 8px;
-    font-size: 16px;
-}
-button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.meta {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-.meta h3 {
-    margin: 0 0 10px;
-}
-.progress-bar {
-    background-color: #eee;
-    border-radius: 6px;
+
+.meta-progress .progress-bar {
+    flex: 1;
+    background: #ffffff14;
+    border-radius: 999px;
+    height: 10px;
     overflow: hidden;
-    height: 20px;
-    margin-bottom: 5px;
+    outline: 1px solid #ffffff22;
 }
-.progress {
+
+.meta-progress .progress {
     height: 100%;
-    background-color: #4caf50;
     width: 0;
-    transition: width 0.4s ease;
+    transition: width .4s ease;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
-.status {
-    font-weight: bold;
+
+/* Opcional: reduzir largura do nome da meta em telas pequenas para usar ellipsis */
+@media (max-width: 768px) {
+    #tabelaMetas tbody td:first-child {
+        max-width: 220px;
+    }
 }

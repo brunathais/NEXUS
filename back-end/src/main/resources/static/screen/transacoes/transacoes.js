@@ -1,284 +1,378 @@
-const API_URL = "http://localhost:8080/transacoes";
+// === Config ===
+const API_URL = "http://localhost:8080/transacoes"; // ajuste se o backend estiver noutro host/porta
+const USE_CATEGORIA = false; // mude para true SE o backend tiver o campo 'categoria' no model/DB
 
-// --- utils ---
+// === Dados fixos (front) ===
 const CATEGORIAS = [
     { value: "essencial", label: "Essenciais" },
     { value: "nao-essencial", label: "Não essenciais" },
     { value: "imprevisto", label: "Imprevistos" },
 ];
 
-function fmtMoeda(n) {
-    const v = Number(n || 0);
-    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+// === Utils ===
+const BRL = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const qs = (s) => document.querySelector(s);
+const qsa = (s) => [...document.querySelectorAll(s)];
+
+function fmtBRL(n) { return BRL.format(Number(n || 0)); }
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+function norm(s) { return (s || "").normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase(); }
+
+// Backend usa "Entrada"/"Saída" (exemplo do seu model). Mapeamos com a UI "Receita"/"Despesa".
+function tipoUIFromBackend(t) {
+    const n = norm(t);
+    if (n.startsWith('e') || n === 'receita') return 'Receita';
+    return 'Despesa';
 }
-function capitalizeTipo(t) {
-    return (t || "").toLowerCase() === "receita" ? "Receita" : "Despesa";
+function tipoBackendFromUI(t) {
+    const n = norm(t);
+    return n === 'receita' ? 'Entrada' : 'Saída';
 }
-function lowerTipo(t) {
-    return (t || "").toLowerCase();
-}
+
 function showToast(msg) {
-    const toast = document.getElementById("toast");
+    const toast = qs('#toast');
     if (!toast) return;
     toast.textContent = msg;
-    toast.className = "toast show";
-    setTimeout(() => (toast.className = toast.className.replace("show", "")), 3000);
+    toast.className = 'toast show';
+    setTimeout(() => (toast.className = toast.className.replace('show', '')), 2500);
 }
 
-// --- categoria: mostrar/ocultar + preencher select ---
+// === Estado ===
+let state = [];          // array de transações vindas da API
+let activeFilter = null; // { type: 'c'|'t', value: string }
+let currentEdit = null;  // transação sendo editada
+
+// === Form: categoria (mostrar/ocultar + options) ===
 function carregarOpcoesCategoria() {
-    const sel = document.getElementById("categoria");
+    const sel = qs('#categoria');
     if (!sel) return;
-    sel.innerHTML = CATEGORIAS.map(c => `<option value="${c.value}">${c.label}</option>`).join("");
+    sel.innerHTML = CATEGORIAS.map(c => `<option value="${c.value}">${c.label}</option>`).join('');
 }
 function mostrarCategoria() {
-    const tipo = document.querySelector('input[name="tipo"]:checked')?.value || "Receita";
-    const categoriaDiv = document.getElementById("categoria_div");
+    const tipoUI = (document.querySelector('input[name="tipo"]:checked')?.value) || 'Receita';
+    const categoriaDiv = qs('#categoria_div');
     if (!categoriaDiv) return;
-    categoriaDiv.style.display = tipo === "Despesa" ? "block" : "none";
+    categoriaDiv.style.display = tipoUI === 'Despesa' ? 'block' : 'none';
 }
 
-// --- validações ---
-function validarFormulario({ tipo, valor, data, descricao, categoria }) {
-    const valorNum = parseFloat(valor);
-    if (isNaN(valorNum) || valorNum <= 0) {
-        alert("O valor deve ser um número maior que zero.");
-        document.getElementById("valor").focus();
+// === Validações do formulário ===
+function validarFormulario({ tipoUI, valor, data, descricao, categoria }) {
+    const valorNum = Number(valor);
+    if (!Number.isFinite(valorNum) || valorNum <= 0) {
+        alert('O valor deve ser maior que zero.');
+        qs('#valor')?.focus();
         return false;
     }
     if (!data) {
-        alert("A data é obrigatória.");
-        document.getElementById("data").focus();
+        alert('A data é obrigatória.');
+        qs('#data')?.focus();
         return false;
     }
-    const hoje = new Date().toISOString().split("T")[0];
+    const hoje = todayStr();
     if (data > hoje) {
-        alert("A data não pode ser no futuro.");
-        document.getElementById("data").focus();
+        alert('A data não pode ser no futuro.');
+        qs('#data')?.focus();
         return false;
     }
-    const desc = (descricao || "").trim();
-    if (!desc || desc.length < 3) {
-        alert("A descrição deve ter pelo menos 3 caracteres.");
-        document.getElementById("descricao").focus();
+    const desc = (descricao || '').trim();
+    if (desc.length < 3) {
+        alert('A descrição deve ter pelo menos 3 caracteres.');
+        qs('#descricao')?.focus();
         return false;
     }
-    if (tipo === "Despesa" && !categoria) {
-        alert("A categoria é obrigatória para despesas.");
-        document.getElementById("categoria").focus();
+    if (tipoUI === 'Despesa' && USE_CATEGORIA && !categoria) {
+        alert('Selecione uma categoria.');
+        qs('#categoria')?.focus();
         return false;
     }
     return true;
 }
 
-// --- CRUD ---
+// === CRUD (API) ===
 async function salvarTransacao() {
-    const tipoUI = document.querySelector('input[name="tipo"]:checked')?.value || "Receita";
-    const tipo = lowerTipo(tipoUI); // backend espera "receita"/"despesa"
-    const valor = parseFloat(document.getElementById("valor").value);
-    const data = document.getElementById("data").value; // yyyy-MM-dd (ok p/ LocalDate)
-    const descricao = document.getElementById("descricao").value.trim();
-    const idEdicao = document.getElementById("editar_id").value;
-    const categoriaSelect = document.getElementById("categoria");
-    const categoria = tipo === "despesa" ? (categoriaSelect?.value || "") : null;
+    const tipoUI = document.querySelector('input[name="tipo"]:checked')?.value || 'Receita';
+    const payload = {
+        descricao: (qs('#descricao')?.value || '').trim(),
+        valor: Number(qs('#valor')?.value),
+        data: qs('#data')?.value, // yyyy-MM-dd para LocalDate
+        tipo: tipoBackendFromUI(tipoUI),
+    };
+    const idEdicao = qs('#editar_id')?.value || '';
 
-    const payload = { tipo, valor, data, descricao };
-    if (tipo === "despesa") payload.categoria = categoria;
+    // Envie categoria apenas se o backend suportar o campo
+    if (USE_CATEGORIA && tipoUI === 'Despesa') {
+        payload.categoria = qs('#categoria')?.value || '';
+    }
 
-    if (!validarFormulario({ tipo: tipoUI, valor, data, descricao, categoria })) return;
+    if (!validarFormulario({
+        tipoUI,
+        valor: payload.valor,
+        data: payload.data,
+        descricao: payload.descricao,
+        categoria: payload.categoria,
+    })) return;
 
     try {
         const resp = await fetch(idEdicao ? `${API_URL}/${idEdicao}` : API_URL, {
-            method: idEdicao ? "PUT" : "POST",
-            headers: { "Content-Type": "application/json" },
+            method: idEdicao ? 'PUT' : 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
         });
         if (!resp.ok) {
             const txt = await resp.text();
-            throw new Error(`Erro HTTP ${resp.status}: ${txt}`);
+            throw new Error(`HTTP ${resp.status}: ${txt}`);
         }
         limparFormulario();
-        await listarTransacoes();
-        showToast(idEdicao ? "Transação atualizada!" : "Transação criada!");
+        await carregarLista();
+        showToast(idEdicao ? 'Transação atualizada!' : 'Transação criada!');
     } catch (e) {
         console.error(e);
-        alert("Erro ao salvar transação. Verifique os campos e tente novamente.");
+        alert('Erro ao salvar a transação. Verifique os campos/servidor.');
     }
 }
 
-async function listarTransacoes() {
+async function carregarLista() {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Falha ao listar");
-        const transacoes = await response.json();
-        exibirHistorico(transacoes);
-        atualizarResumo(transacoes);
-    } catch (error) {
-        console.error("Erro ao listar transações:", error);
+        const r = await fetch(API_URL);
+        if (!r.ok) throw new Error('Falha ao listar');
+        state = await r.json();
+        render();
+    } catch (e) {
+        console.error('Erro ao listar:', e);
     }
 }
 
-function exibirHistorico(transacoes) {
-    const container = document.getElementById("lista-transacoes");
-    if (!container) return;
-    container.innerHTML = "";
-
-    // aplica filtros antes de render
-    const tipoFiltro = document.getElementById("filtroTipo")?.value || "";
-    const categoriaFiltro = document.getElementById("filtroCategoria")?.value || "";
-    const dataIni = document.getElementById("filtroDataInicio")?.value || "";
-    const dataFim = document.getElementById("filtroDataFim")?.value || "";
-
-    const filtradas = transacoes.filter(t => {
-        const tipoOK = tipoFiltro ? lowerTipo(t.tipo) === lowerTipo(tipoFiltro) : true;
-        const catOK = categoriaFiltro ? (t.categoria || "") === categoriaFiltro : true;
-        const dataOK =
-            (!dataIni || t.data >= dataIni) &&
-            (!dataFim || t.data <= dataFim);
-        return tipoOK && catOK && dataOK;
-    });
-
-    filtradas.forEach(t => {
-        const div = document.createElement("div");
-        div.className = "transacao";
-        div.onclick = () => div.classList.toggle("ativa");
-
-        const cabecalho = `
-      <div class="transacao-cabecalho">
-        <strong>${capitalizeTipo(t.tipo)}</strong> - ${fmtMoeda(t.valor)}
-      </div>
-    `;
-
-        const detalhes = `
-      <div class="transacao-detalhes">
-        <p><strong>Data:</strong> ${t.data}</p>
-        <p><strong>Descrição:</strong> ${t.descricao}</p>
-        ${lowerTipo(t.tipo) === "despesa" && t.categoria ? `
-          <p><strong>Categoria:</strong> ${CATEGORIAS.find(c => c.value === t.categoria)?.label || t.categoria}</p>` : ""
-            }
-        <div class="acoes">
-          <button onclick="editarTransacao(${t.id}); event.stopPropagation();">Editar</button>
-          <button onclick="deletarTransacao(${t.id}); event.stopPropagation();">Excluir</button>
-        </div>
-      </div>
-    `;
-
-        div.innerHTML = cabecalho + detalhes;
-        container.appendChild(div);
-    });
-}
-
-async function editarTransacao(id) {
-    try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Não encontrado");
-        const t = await response.json();
-
-        document.querySelector(`input[name="tipo"][value="${capitalizeTipo(t.tipo)}"]`).checked = true;
-        document.getElementById("valor").value = t.valor;
-        document.getElementById("data").value = t.data;
-        document.getElementById("descricao").value = t.descricao;
-        document.getElementById("editar_id").value = t.id;
-
-        mostrarCategoria();
-        if (lowerTipo(t.tipo) === "despesa" && t.categoria) {
-            document.getElementById("categoria").value = t.categoria;
-        }
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch (error) {
-        console.error("Erro ao buscar transação:", error);
-        alert("Não foi possível carregar a transação para edição.");
-    }
+async function carregarPorId(id) {
+    const r = await fetch(`${API_URL}/${id}`);
+    if (!r.ok) throw new Error('Não encontrado');
+    return r.json();
 }
 
 async function deletarTransacao(id) {
-    if (!confirm("Deseja realmente excluir esta transação?")) return;
+    if (!confirm('Deseja realmente excluir esta transação?')) return;
     try {
-        const resp = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (resp.status === 204 || resp.ok) {
-            await listarTransacoes();
-            showToast("Transação excluída!");
-        } else {
-            const txt = await resp.text();
-            throw new Error(`Erro HTTP ${resp.status}: ${txt}`);
-        }
-    } catch (error) {
-        console.error("Erro ao deletar transação:", error);
-        alert("Erro ao excluir. Tente novamente.");
+        const r = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (!r.ok && r.status !== 204) throw new Error('Falha ao excluir');
+        await carregarLista();
+        showToast('Transação excluída!');
+    } catch (e) {
+        console.error(e);
+        alert('Erro ao excluir.');
     }
 }
 
-// --- filtros ---
-function filtrarHistorico() {
-    // Como exibirHistorico já lê os filtros, basta recarregar lista da API e re-renderizar:
-    listarTransacoes();
-}
-function limparFiltros() {
-    const el = id => document.getElementById(id);
-    el('filtroTipo') && (el('filtroTipo').value = '');
-    el('filtroCategoria') && (el('filtroCategoria').value = '');
-    el('filtroDataInicio') && (el('filtroDataInicio').value = '');
-    el('filtroDataFim') && (el('filtroDataFim').value = '');
-    listarTransacoes();
-}
-
-// --- cards de resumo ---
-function atualizarResumo(transacoes = []) {
-    let receitas = 0;
-    let despesas = 0;
-    transacoes.forEach(t => {
-        const v = Number(t.valor || 0);
-        if (lowerTipo(t.tipo) === "receita") receitas += v;
-        else if (lowerTipo(t.tipo) === "despesa") despesas += v;
-    });
-    const saldo = receitas - despesas;
-
-    const setText = (id, txt) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = txt;
-    };
-    setText("totalReceitas", fmtMoeda(receitas));
-    setText("totalDespesas", fmtMoeda(despesas));
-    setText("totalSaldo", fmtMoeda(saldo));
+// === Render ===
+function aplicaFiltro(rows) {
+    if (!activeFilter) return rows;
+    const f = activeFilter;
+    const now = new Date();
+    if (f.type === 't') {
+        if (f.value === 'mes') {
+            return rows.filter(t => {
+                const d = new Date(t.data);
+                return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+            });
+        }
+        if (f.value === '7d') {
+            const from = new Date(now);
+            from.setDate(now.getDate() - 6);
+            return rows.filter(t => new Date(t.data) >= from);
+        }
+    }
+    if (f.type === 'c') {
+        if (f.value === 'receita') return rows.filter(t => tipoUIFromBackend(t.tipo) === 'Receita');
+        if (!USE_CATEGORIA) return rows; // ignora filtros de categoria se backend não tiver esse campo
+        return rows.filter(t => {
+            const isDesp = tipoUIFromBackend(t.tipo) === 'Despesa';
+            return isDesp && (t.categoria === f.value);
+        });
+    }
+    return rows;
 }
 
-// --- reset/UX ---
+function render() {
+    // ordenar por data desc
+    const rows = aplicaFiltro([...state]).sort((a, b) => new Date(b.data) - new Date(a.data));
+
+    // tabela
+    const tbody = qs('#tbody');
+    if (tbody) {
+        if (!rows.length) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; opacity:.8">Sem transações.</td></tr>`;
+        } else {
+            tbody.innerHTML = rows.map(t => {
+                const tipoUI = tipoUIFromBackend(t.tipo);
+                const valorFmt = (tipoUI === 'Despesa' ? '-' : '') + fmtBRL(t.valor);
+                const badgeClass = tipoUI === 'Receita' ? 'receita' : ((t.categoria || 'essencial'));
+                const catLabel = tipoUI === 'Receita' ? 'receita' : (t.categoria || (USE_CATEGORIA ? 'essencial' : '-'));
+                return `<tr data-id="${t.id}">
+          <td><input type="checkbox" class="ck" aria-label="Selecionar transação"></td>
+          <td>${t.data}</td>
+          <td>${t.descricao}</td>
+          <td><span class="badge ${badgeClass}"><i></i>${catLabel}</span></td>
+          <td class="strong" style="text-align:right">${valorFmt}</td>
+          <td>
+            <button class="btn-outline btn-sm" data-act="edit">Editar</button>
+            <button class="btn-danger btn-sm" data-act="delete">Excluir</button>
+          </td>
+        </tr>`
+            }).join('');
+        }
+    }
+
+    // habilitar bulk delete
+    const anyChecked = qsa('.ck:checked').length > 0;
+    const btnBulk = qs('#btn-bulk-del');
+    if (btnBulk) btnBulk.disabled = !anyChecked;
+
+    // KPIs
+    const sum = rows.reduce((acc, t) => {
+        if (tipoUIFromBackend(t.tipo) === 'Receita') acc.rec += Number(t.valor || 0);
+        else acc.desp += Number(t.valor || 0);
+        if (USE_CATEGORIA && t.categoria === 'essencial') acc.ess += Number(t.valor || 0);
+        return acc;
+    }, { rec: 0, desp: 0, ess: 0 });
+    const saldo = sum.rec - sum.desp;
+    qs('#kpi-receitas') && (qs('#kpi-receitas').textContent = fmtBRL(sum.rec));
+    qs('#kpi-despesas') && (qs('#kpi-despesas').textContent = fmtBRL(sum.desp));
+    qs('#kpi-saldo') && (qs('#kpi-saldo').textContent = fmtBRL(saldo));
+    const pctEss = sum.desp ? Math.round((sum.ess / sum.desp) * 100) : 0;
+    qs('#kpi-essenciais') && (qs('#kpi-essenciais').textContent = (USE_CATEGORIA ? pctEss + '%' : '—'));
+}
+
+// === Reset/UX ===
 function limparFormulario() {
-    document.getElementById("valor").value = "";
-    document.getElementById("data").value = "";
-    document.getElementById("descricao").value = "";
-    document.getElementById("editar_id").value = "";
-    // padrão: Receita selecionada
-    const radioReceita = document.querySelector('input[name="tipo"][value="Receita"]');
-    if (radioReceita) radioReceita.checked = true;
-    // categoria reseta para a primeira opção
-    const sel = document.getElementById("categoria");
+    qs('#valor') && (qs('#valor').value = '');
+    qs('#data') && (qs('#data').value = '');
+    qs('#descricao') && (qs('#descricao').value = '');
+    qs('#editar_id') && (qs('#editar_id').value = '');
+    const radioRec = document.querySelector('input[name="tipo"][value="Receita"]');
+    if (radioRec) radioRec.checked = true;
+    const sel = qs('#categoria');
     if (sel && sel.options.length) sel.value = sel.options[0].value;
     mostrarCategoria();
 }
 
-// --- event listeners ---
-document.addEventListener("DOMContentLoaded", async () => {
+// === Edit modal ===
+function openEditDialog(t) {
+    currentEdit = t;
+    qs('#ed-data') && (qs('#ed-data').value = t.data || '');
+    qs('#ed-desc') && (qs('#ed-desc').value = t.descricao || '');
+    // Se for receita, ed-cat = 'receita', senão categoria
+    qs('#ed-cat') && (qs('#ed-cat').value = (tipoUIFromBackend(t.tipo) === 'Receita') ? 'receita' : (t.categoria || 'essencial'));
+    qs('#ed-valor') && (qs('#ed-valor').value = Number(t.valor || 0));
+    qs('#dlg-edit')?.setAttribute('open', '');
+}
+
+async function salvarEdicao() {
+    if (!currentEdit) return;
+    const data = qs('#ed-data')?.value || currentEdit.data;
+    const desc = qs('#ed-desc')?.value?.trim() || currentEdit.descricao;
+    const catIn = (qs('#ed-cat')?.value || '').toLowerCase();
+    const valor = Math.max(0, Number(qs('#ed-valor')?.value) || Number(currentEdit.valor || 0));
+
+    // Inferir tipo/categoria a partir do campo ed-cat
+    const isReceita = catIn === 'receita';
+    const payload = {
+        descricao: desc,
+        valor,
+        data,
+        tipo: isReceita ? 'Entrada' : 'Saída',
+    };
+    if (USE_CATEGORIA && !isReceita) payload.categoria = ['essencial', 'nao-essencial', 'imprevisto'].includes(catIn) ? catIn : 'essencial';
+
+    try {
+        const r = await fetch(`${API_URL}/${currentEdit.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        if (!r.ok) throw new Error('Falha ao atualizar');
+        currentEdit = null;
+        qs('#dlg-edit')?.removeAttribute('open');
+        await carregarLista();
+        showToast('Transação atualizada!');
+    } catch (e) {
+        console.error(e);
+        alert('Não foi possível salvar a edição.');
+    }
+}
+
+function fecharDialogo() { currentEdit = null; qs('#dlg-edit')?.removeAttribute('open'); }
+
+// === Eventos globais ===
+document.addEventListener('DOMContentLoaded', async () => {
     carregarOpcoesCategoria();
     mostrarCategoria();
-    await listarTransacoes();
+    await carregarLista();
 
-    // change de radios para exibir/ocultar categoria
-    document.querySelectorAll('input[name="tipo"]').forEach(r =>
-        r.addEventListener("change", mostrarCategoria)
-    );
+    // Radios tipo -> mostrar/ocultar categoria
+    qsa('input[name="tipo"]').forEach(r => r.addEventListener('change', mostrarCategoria));
 
-    // botões de filtros
-    const btnFiltrar = document.getElementById('btnFiltrar');
-    const btnLimpar = document.getElementById('btnLimpar');
-    if (btnFiltrar) btnFiltrar.addEventListener('click', filtrarHistorico);
-    if (btnLimpar) btnLimpar.addEventListener('click', limparFiltros);
+    // Chips de filtro
+    qsa('.btn-chip').forEach(btn => btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        if (!f || f === 'clear') activeFilter = null; else {
+            const [type, value] = f.split(':');
+            activeFilter = { type, value };
+        }
+        render();
+    }));
+
+    // Seleção em massa
+    qs('#ck-all')?.addEventListener('change', (e) => {
+        qsa('.ck').forEach(ck => { ck.checked = e.target.checked; });
+        const btn = qs('#btn-bulk-del');
+        if (btn) btn.disabled = !e.target.checked;
+    });
+    document.addEventListener('change', (e) => {
+        if (e.target.classList?.contains('ck')) {
+            const btn = qs('#btn-bulk-del');
+            if (btn) btn.disabled = !qsa('.ck:checked').length;
+        }
+    });
+    qs('#btn-bulk-del')?.addEventListener('click', async () => {
+        const ids = qsa('.ck:checked').map(ck => ck.closest('tr')?.dataset.id).filter(Boolean);
+        if (!ids.length) return;
+        if (!confirm(`Excluir ${ids.length} item(ns)?`)) return;
+        for (const id of ids) { await fetch(`${API_URL}/${id}`, { method: 'DELETE' }); }
+        await carregarLista();
+        showToast('Itens excluídos');
+    });
+
+    // Ações por linha (editar/deletar)
+    document.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const act = btn.dataset.act;
+        if (!act) return;
+        const tr = btn.closest('tr');
+        if (!tr) return;
+        const id = tr.dataset.id;
+        if (act === 'delete') { await deletarTransacao(id); }
+        if (act === 'edit') {
+            try {
+                const t = await carregarPorId(id);
+                openEditDialog(t);
+            } catch (err) {
+                console.error(err);
+                alert('Não foi possível carregar a transação para edição.');
+            }
+        }
+    });
+
+    // Dialog
+    qs('#dlg-close')?.addEventListener('click', fecharDialogo);
+    qs('#ed-save')?.addEventListener('click', salvarEdicao);
+
+    // Botão "Adicionar" -> foco no formulário
+    qs('#btn-add')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        qs('#descricao')?.focus();
+    });
 });
 
-// Exponha no escopo global se precisa chamar pelos onclick do HTML
+// Expor funções chamadas inline no HTML
 window.salvarTransacao = salvarTransacao;
-window.editarTransacao = editarTransacao;
-window.deletarTransacao = deletarTransacao;
-window.filtrarHistorico = filtrarHistorico;
 window.mostrarCategoria = mostrarCategoria;
-
+window.deletarTransacao = (id) => deletarTransacao(id);

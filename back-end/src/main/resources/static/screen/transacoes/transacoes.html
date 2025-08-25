@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Transações</title>
+    <title>Transações</title>
     <link rel="stylesheet" href="transacoes.css">
     <link rel="stylesheet" href="../../components/css/main.css">
     <script src="../transacoes/transacoes.js" defer></script>
@@ -16,16 +16,6 @@
     </div>
 
     <h1>Cadastro de Transações</h1>
-    <div class="resumo-cards">
-        <div class="resumo-card receita">
-            <p>Total de Receitas</p>
-            <span id="totalReceitas">R$ 0,00</span>
-        </div>
-        <div class="resumo-card despesa">
-            <p>Total de Despesas</p>
-            <span id="totalDespesas">R$ 0,00</span>
-        </div>
-    </div>
 
     <div class="container">
         <div class="form-container">
@@ -61,7 +51,7 @@
                 </div>
 
                 <input type="hidden" id="editar_id"> <!--necessario?-->
-
+                <br><br>
                 <button type="submit">Salvar Transação</button>
             </form>
         </div>
@@ -69,43 +59,113 @@
         <div class="historico-container">
             <h2>Histórico de Transações</h2>
 
-            <div class="filtro-select">
-                <div class="filtro-container">
-                    <select id="filtroTipo" onchange="filtrarHistorico()">
-                        <option value="">Filtrar por Tipo</option>
-                        <option value="Receita">Receita</option>
-                        <option value="Despesa">Despesa</option>
-                    </select>
-
-                    <select id="filtroCategoria" onchange="filtrarHistorico()">
-                        <option value="">Filtrar por Categoria</option>
-                        <option value="Essenciais">Essenciais</option>
-                        <option value="Não Essenciais">Não Essenciais</option>
-                        <option value="Imprevistos">Imprevistos</option>
-                    </select>
-                </div>
-
-                <div class="filtro-date">
-                    <label for="filtroDataInicio">De:</label>
-                    <input type="date" id="filtroDataInicio" onchange="filtrarHistorico()">
-
-                    <label for="filtroDataFim">Até:</label>
-                    <input type="date" id="filtroDataFim" onchange="filtrarHistorico()">
-                </div>
-
-                <div class="filtro-item botoes">
-                    <button id="btnFiltrar">🔍 Aplicar</button>
-                    <button id="btnLimpar" class="limpar">🧹 Limpar</button>
-                </div>
-            </div>
-
             <div id="lista-transacoes"></div>
         </div>
     </div>
 
     <div id="toast" class="toast"></div>
 
-    <button class="botao-flutuante" onclick="rolarParaFormulario()">+</button>
+    <a class="skip-link" href="#conteudo">Pular para conteúdo</a>
+    <div class="container" id="conteudo">
+
+        <!-- Captura rápida (zero clique) -->
+        <section aria-labelledby="h-captura">
+            <div class="actions">
+                <button class="btn-primary" id="btn-add">Adicionar</button>
+                <button class="btn-outline" id="btn-recorrente">Marcar como recorrente se padrão</button>
+                <span class="sr-note" aria-live="polite" id="live"></span>
+            </div>
+        </section>
+
+        <!-- KPIs de uma olhada -->
+        <section class="kpis" aria-label="Resumo do mês">
+            <div class="kpi pos">
+                <div class="label">Receitas</div>
+                <div class="value" id="kpi-receitas">R$ 0,00</div>
+            </div>
+            <div class="kpi neg">
+                <div class="label">Despesas</div>
+                <div class="value" id="kpi-despesas">R$ 0,00</div>
+            </div>
+            <div class="kpi">
+                <div class="label">Saldo</div>
+                <div class="value" id="kpi-saldo">R$ 0,00</div>
+            </div>
+            <div class="kpi">
+                <div class="label">Essenciais %</div>
+                <div class="value" id="kpi-essenciais">0%</div>
+            </div>
+        </section>
+
+        <!-- Filtros em chips -->
+        <section class="resumo" aria-labelledby="h-filtros">
+            <h2 id="h-filtros" class="visually-hidden">Filtros rápidos</h2>
+            <div class="chips" role="toolbar" aria-label="Filtros rápidos">
+                <button class="btn-chip" data-filter="t:mes">Este mês</button>
+                <button class="btn-chip" data-filter="t:7d">Últimos 7 dias</button>
+                <button class="btn-chip" data-filter="c:receita">Receitas</button>
+                <button class="btn-chip" data-filter="c:essencial">Essenciais</button>
+                <button class="btn-chip" data-filter="c:nao-essencial">Não essenciais</button>
+                <button class="btn-chip" data-filter="c:imprevisto">Imprevistos</button>
+                <button class="btn-chip" data-filter="clear">Limpar</button>
+            </div>
+        </section>
+
+        <!-- Tabela -->
+        <section class="salvos" aria-labelledby="h-lista">
+            <div class="salvos-header">
+                <h2 id="h-lista">Transações salvas</h2>
+                <div>
+                    <button id="btn-bulk-del" class="btn-danger" disabled>Excluir selecionadas</button>
+                </div>
+            </div>
+            <div class="table-wrap" role="region" aria-label="Tabela de transações" tabindex="0">
+                <table class="tabela" aria-describedby="tabela-hint">
+                    <thead>
+                        <tr>
+                            <th scope="col"><input type="checkbox" id="ck-all" aria-label="Selecionar todas" /></th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col" class="col-acoes">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+                <p id="tabela-hint" class="visually-hidden">Use Tab para navegar entre células. Pressione Enter para
+                    editar um campo e Escape para cancelar.</p>
+            </div>
+        </section>
+
+        <!-- Modal de edição acessível -->
+        <dialog class="modal" id="dlg-edit" aria-modal="true" aria-labelledby="dlg-title">
+            <div class="sheet">
+                <header>
+                    <h3 id="dlg-title">Editar transação</h3>
+                    <button class="btn-outline" id="dlg-close" aria-label="Fechar">✕</button>
+                </header>
+                <div class="grid-2">
+                    <div class="field"><label for="ed-data">Data</label><input id="ed-data" type="date"></div>
+                    <div class="field"><label for="ed-desc">Descrição</label><input id="ed-desc" type="text"></div>
+                    <div class="field"><label for="ed-cat">Categoria</label><input id="ed-cat" list="dl-cat"
+                            placeholder="#receita #essencial ..."></div>
+                    <div class="field"><label for="ed-valor">Valor (R$)</label><input id="ed-valor" type="number"
+                            step="0.01" inputmode="decimal"></div>
+                </div>
+                <datalist id="dl-cat">
+                    <option value="receita"></option>
+                    <option value="essencial"></option>
+                    <option value="nao-essencial"></option>
+                    <option value="imprevisto"></option>
+                </datalist>
+                <footer>
+                    <button class="btn-danger" id="ed-del">Excluir</button>
+                    <button class="btn-primary" id="ed-save">Salvar</button>
+                </footer>
+            </div>
+        </dialog>
+    </div>
 
 </body>
 
